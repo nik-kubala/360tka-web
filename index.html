@@ -3,60 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dátová žurnalistika – Portfólio</title>
+  <title>360° Data Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Dátová žurnalistika</h1>
-      <p class="subtitle">Vizualizácia politických a ekonomických dát pre slovenské médiá</p>
+  <div class="page-glow page-glow-left" aria-hidden="true"></div>
+  <div class="page-glow page-glow-right" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-topline">
+          <span class="live-pill"><span class="live-pill__dot"></span>vizuál inšpirovaný 360°</span>
+          <span class="hero-meta">moderný newsroom layout</span>
+        </div>
+
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">
+            <span>360</span>
+            <i></i>
+          </div>
+
+          <div class="brand-copy">
+            <p class="eyebrow">DÁTOVÁ ŽURNALISTIKA</p>
+            <h1>Politické dáta v ostrom, tmavom vizuále pre web aj sociálne siete.</h1>
+          </div>
+        </div>
+
+        <p class="subtitle">
+          Celú stránku som preladil do čierno-modrej identity s veľkými oblými tvarmi,
+          žiarivým akcentom a typografiou, ktorá pôsobí viac ako redakčný cover než klasické demo portfólio.
+        </p>
+
+        <div class="hero-actions">
+          <a class="hero-button" href="#obsah">Pozrieť prehľady</a>
+          <div class="hero-chip-row">
+            <span class="hero-chip">blue accent</span>
+            <span class="hero-chip">circle graphics</span>
+            <span class="hero-chip">editorial cards</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <span class="panel-tag">hosťami debaty budú tentoraz</span>
+        <h2>Tri dátové formáty pripravené tak, aby vedľa vašich social vizuálov nepôsobili cudzo.</h2>
+        <div class="panel-list">
+          <article class="panel-item">
+            <span class="panel-item__number">01</span>
+            <div>
+              <h3>Voľby vs. ekonomika</h3>
+              <p>line chart s jemným glow efektom a kontrastnými osami</p>
+            </div>
+          </article>
+          <article class="panel-item">
+            <span class="panel-item__number">02</span>
+            <div>
+              <h3>Sociálne siete</h3>
+              <p>prehľad v newsroom karte s výraznými štítkami a legendou</p>
+            </div>
+          </article>
+          <article class="panel-item">
+            <span class="panel-item__number">03</span>
+            <div>
+              <h3>Parlamentný radar</h3>
+              <p>tmavé analytické zobrazenie s jasnou farebnou hierarchiou</p>
+            </div>
+          </article>
+        </div>
+      </aside>
     </div>
   </header>
 
-  <nav>
-    <div class="container">
-      <button class="tab-btn active" data-target="volby">Voľby vs. Nezamestnanosť</button>
-      <button class="tab-btn" data-target="socialne">Sila politikov na sieťach</button>
-      <button class="tab-btn" data-target="parlament">Aktivita v parlamente</button>
-    </div>
-  </nav>
+  <main id="obsah" class="container main-content">
+    <section class="story-strip" aria-label="Prehľad formátov">
+      <article class="story-card">
+        <span class="story-card__tag">AKTUÁLNE</span>
+        <h2>Vizuál pre správy, analýzy aj krátke sociálne formáty.</h2>
+        <p>Každý blok má tmavý podklad, svetelnú modrú vrstvu a obsah rozdelený ako titulka + analytický detail.</p>
+      </article>
+      <article class="story-card story-card--accent">
+        <span class="story-card__tag">REPORTÁŽ</span>
+        <h2>Rovnaká značka, ale viac priestoru pre dáta a grafy.</h2>
+        <p>Farebná paleta vychádza z dodaných vizuálov: čierna, hlboká modrá, elektrický akcent a biely kontrast.</p>
+      </article>
+      <article class="story-card">
+        <span class="story-card__tag">360°</span>
+        <h2>Responzívne karty s oblými tvarmi a jemným pohybom.</h2>
+        <p>Na mobile zostáva výrazná identita, ale obsah sa skladá do jednej zrozumiteľnej kolóny.</p>
+      </article>
+    </section>
 
-  <main class="container">
+    <nav class="section-nav" aria-label="Sekcie dát">
+      <button class="tab-btn active" data-target="volby">Voľby a ekonomika</button>
+      <button class="tab-btn" data-target="socialne">Sociálne siete</button>
+      <button class="tab-btn" data-target="parlament">Parlamentný radar</button>
+    </nav>
 
     <section id="volby" class="tab-section active">
-      <h2>Voľby vs. Nezamestnanosť (2006–2023)</h2>
-      <p>Korelácia medzi výsledkami strany SMER-SD vo voľbách a mierou nezamestnanosti na Slovensku. Dáta ukazujú, ako ekonomická situácia ovplyvňuje voličské preferencie — v rokoch s vysokou nezamestnanosťou strana tradične získavala silnejší mandát.</p>
+      <div class="section-shell">
+        <div class="section-copy">
+          <span class="section-tag">REPORTÁŽ</span>
+          <h2>Voľby vs. Nezamestnanosť</h2>
+          <p>
+            Korelácia medzi výsledkami strany SMER-SD vo voľbách a mierou nezamestnanosti na Slovensku.
+            Dáta ukazujú, ako ekonomická situácia ovplyvňuje voličské preferencie v čase.
+          </p>
+          <div class="section-facts">
+            <div class="fact-pill">
+              <strong>2006–2023</strong>
+              <span>pokrytie rokov</span>
+            </div>
+            <div class="fact-pill">
+              <strong>2 osi</strong>
+              <span>voľby a ekonomika</span>
+            </div>
+          </div>
+        </div>
+        <aside class="section-note-card">
+          <span class="section-note-card__label">editorial note</span>
+          <p>Layout sekcie kombinuje titulkový tón sociálnych grafík s analytickou čitateľnosťou pre desktopové grafy.</p>
+        </aside>
+      </div>
+
       <div class="chart-wrapper">
         <canvas id="chartVolby"></canvas>
       </div>
-      <button class="btn-report" data-section="Voľby vs. Nezamestnanosť">Stiahnuť report</button>
+
+      <div class="section-footer">
+        <button class="btn-report" data-section="Voľby vs. Nezamestnanosť">Stiahnuť report</button>
+        <p class="section-footnote">Mock dáta pre demonštračné účely.</p>
+      </div>
     </section>
 
     <section id="socialne" class="tab-section">
-      <h2>Sila politikov na sociálnych sieťach</h2>
-      <p>Porovnanie dosahu najvýraznejších slovenských politikov na platformách Facebook, Instagram a Twitter/X. Počet sledovateľov odráža schopnosť komunikovať priamo s voličmi a obchádzať tradičné médiá — kľúčová metrika modernej politickej kampane.</p>
+      <div class="section-shell">
+        <div class="section-copy">
+          <span class="section-tag">AKTUÁLNE</span>
+          <h2>Sila politikov na sociálnych sieťach</h2>
+          <p>
+            Porovnanie dosahu najvýraznejších slovenských politikov na platformách Facebook, Instagram a Twitter/X.
+            Graf je zasadený do tmavej karty, aby prirodzene nadväzoval na vizuály pre stories a reels.
+          </p>
+          <div class="section-facts">
+            <div class="fact-pill">
+              <strong>6 mien</strong>
+              <span>najvýraznejší reach</span>
+            </div>
+            <div class="fact-pill">
+              <strong>3 siete</strong>
+              <span>priame porovnanie</span>
+            </div>
+          </div>
+        </div>
+        <aside class="section-note-card">
+          <span class="section-note-card__label">social format</span>
+          <p>Zachoval som silný kontrast a modré akcenty, aby sa stránka správala ako predĺženie vašej značky, nie oddelený microsite štýl.</p>
+        </aside>
+      </div>
+
       <div class="chart-wrapper">
         <canvas id="chartSocialne"></canvas>
       </div>
-      <button class="btn-report" data-section="Sila politikov na sieťach">Stiahnuť report</button>
+
+      <div class="section-footer">
+        <button class="btn-report" data-section="Sila politikov na sieťach">Stiahnuť report</button>
+        <p class="section-footnote">Mock dáta pre demonštračné účely.</p>
+      </div>
     </section>
 
     <section id="parlament" class="tab-section">
-      <h2>Aktivita poslaneckých klubov v parlamente</h2>
-      <p>Radarová analýza parlamentnej aktivity troch najväčších poslaneckých klubov podľa piatich kľúčových metrík: dochádzka na hlasovaniach, participácia v hlasovaniach, interpelácie, legislatívne návrhy a zapojenie do výborov. Dáta za aktuálne volebné obdobie.</p>
+      <div class="section-shell">
+        <div class="section-copy">
+          <span class="section-tag">360° ANALÝZA</span>
+          <h2>Aktivita poslaneckých klubov v parlamente</h2>
+          <p>
+            Radarová analýza parlamentnej aktivity troch najväčších poslaneckých klubov podľa piatich kľúčových metrík:
+            dochádzka, hlasovanie, interpelácie, legislatíva a výbory.
+          </p>
+          <div class="section-facts">
+            <div class="fact-pill">
+              <strong>5 metrík</strong>
+              <span>jedno porovnanie</span>
+            </div>
+            <div class="fact-pill">
+              <strong>3 kluby</strong>
+              <span>aktuálne obdobie</span>
+            </div>
+          </div>
+        </div>
+        <aside class="section-note-card">
+          <span class="section-note-card__label">data desk</span>
+          <p>V tejto časti je najviac priestoru pre analytiku, preto som nechal viac dýchať legendu, popisy a radarové vrstvy.</p>
+        </aside>
+      </div>
+
       <div class="chart-wrapper">
         <canvas id="chartParlament"></canvas>
       </div>
-      <button class="btn-report" data-section="Aktivita v parlamente">Stiahnuť report</button>
-    </section>
 
+      <div class="section-footer">
+        <button class="btn-report" data-section="Aktivita v parlamente">Stiahnuť report</button>
+        <p class="section-footnote">Mock dáta pre demonštračné účely.</p>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>Portfólio – dátová žurnalistika &nbsp;|&nbsp; Mock dáta pre demonštračné účely</p>
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>360° Data Desk</p>
+      <p>Vizuálny smer odvodený z dodaných sociálnych grafík.</p>
     </div>
   </footer>
 

@@ -1,62 +1,116 @@
 'use strict';
 
-// ── Tab switching ──────────────────────────────────────────────────────────────
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabSections = document.querySelectorAll('.tab-section');
 
-const tabBtns = document.querySelectorAll('.tab-btn');
-const sections = document.querySelectorAll('.tab-section');
+tabButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const targetId = button.dataset.target;
 
-tabBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.dataset.target;
+    tabButtons.forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
 
-    tabBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    sections.forEach(sec => {
-      if (sec.id === target) {
-        sec.classList.add('active');
-      } else {
-        sec.classList.remove('active');
-      }
+    tabSections.forEach(section => {
+      section.classList.toggle('active', section.id === targetId);
     });
   });
 });
 
-// ── Report buttons ─────────────────────────────────────────────────────────────
-
-document.querySelectorAll('.btn-report').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const section = btn.dataset.section;
-    alert(`Report pre sekciu „${section}" bude čoskoro dostupný.`);
+document.querySelectorAll('.btn-report').forEach(button => {
+  button.addEventListener('click', () => {
+    const sectionName = button.dataset.section;
+    alert(`Report pre sekciu „${sectionName}“ bude čoskoro dostupný.`);
   });
 });
 
-// ── Chart defaults ─────────────────────────────────────────────────────────────
+Chart.defaults.font.family = "'Manrope', 'Segoe UI', sans-serif";
+Chart.defaults.color = '#d7e2ff';
+Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
 
-Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
-Chart.defaults.color = '#5a6a8a';
+const COLORS = {
+  accent: '#3e8cff',
+  accentStrong: '#1f6cff',
+  accentSoft: 'rgba(62, 140, 255, 0.2)',
+  electric: '#71b7ff',
+  mist: '#d7e2ff',
+  muted: '#95a8d6',
+  grid: 'rgba(255, 255, 255, 0.08)',
+  glass: 'rgba(255, 255, 255, 0.05)',
+  whiteSoft: 'rgba(255, 255, 255, 0.72)',
+};
 
-const ACCENT   = '#e8242b';
-const PRIMARY  = '#0d1b3e';
-const BLUE     = '#1a3a6e';
-const BLUE2    = '#2e6db4';
-const BLUE3    = '#4a9fd4';
-const GREY     = '#c0cce0';
+function createLineGradient(context, fromColor, toColor) {
+  const gradient = context.createLinearGradient(0, 0, 0, 360);
+  gradient.addColorStop(0, fromColor);
+  gradient.addColorStop(1, toColor);
+  return gradient;
+}
 
-// ── 1. Voľby vs. Nezamestnanosť – Line chart (dual-axis) ──────────────────────
+function basePluginConfig() {
+  return {
+    legend: {
+      position: 'top',
+      labels: {
+        color: COLORS.mist,
+        usePointStyle: true,
+        pointStyle: 'circle',
+        padding: 18,
+        boxWidth: 10,
+        boxHeight: 10,
+        font: {
+          size: 12,
+          weight: '700',
+        },
+      },
+    },
+    tooltip: {
+      backgroundColor: 'rgba(4, 9, 20, 0.96)',
+      titleColor: '#ffffff',
+      bodyColor: COLORS.mist,
+      borderColor: 'rgba(62, 140, 255, 0.36)',
+      borderWidth: 1,
+      padding: 12,
+      cornerRadius: 14,
+      displayColors: true,
+    },
+  };
+}
 
-(function initVolbyChart() {
+function commonScale(title) {
+  return {
+    title: {
+      display: Boolean(title),
+      text: title,
+      color: COLORS.muted,
+      font: {
+        size: 12,
+        weight: '700',
+      },
+    },
+    ticks: {
+      color: COLORS.muted,
+      padding: 8,
+      font: {
+        size: 11,
+      },
+    },
+    grid: {
+      color: COLORS.grid,
+      drawBorder: false,
+    },
+  };
+}
+
+(function initElectionChart() {
   const years = [2006, 2008, 2010, 2012, 2016, 2020, 2023];
-
-  // % hlasov SMER-SD vo voľbách (mock)
   const smerVotes = [29.1, null, 34.8, 44.4, 28.3, 18.3, 23.0];
-
-  // Priemerná miera nezamestnanosti v danom roku (mock, %)
   const unemployment = [13.4, 9.6, 14.5, 14.0, 9.7, 6.7, 5.8];
 
-  const ctx = document.getElementById('chartVolby').getContext('2d');
+  const context = document.getElementById('chartVolby').getContext('2d');
+  const votesFill = createLineGradient(context, 'rgba(62, 140, 255, 0.34)', 'rgba(62, 140, 255, 0.02)');
+  const unemploymentFill = createLineGradient(context, 'rgba(113, 183, 255, 0.22)', 'rgba(113, 183, 255, 0.02)');
 
-  new Chart(ctx, {
+  new Chart(context, {
     type: 'line',
     data: {
       labels: years,
@@ -65,69 +119,80 @@ const GREY     = '#c0cce0';
           label: 'SMER-SD – % hlasov',
           data: smerVotes,
           yAxisID: 'yVotes',
-          borderColor: ACCENT,
-          backgroundColor: ACCENT + '22',
-          pointBackgroundColor: ACCENT,
+          borderColor: COLORS.accent,
+          backgroundColor: votesFill,
+          pointBackgroundColor: COLORS.accent,
+          pointBorderColor: '#081124',
+          pointHoverBackgroundColor: '#ffffff',
           pointRadius: 5,
-          tension: 0.35,
+          pointHoverRadius: 6,
+          borderWidth: 3,
+          tension: 0.38,
           fill: true,
           spanGaps: true,
         },
         {
-          label: 'Miera nezamestnanosti (%)',
+          label: 'Nezamestnanosť (%)',
           data: unemployment,
           yAxisID: 'yUnemployment',
-          borderColor: BLUE2,
-          backgroundColor: BLUE2 + '22',
-          pointBackgroundColor: BLUE2,
-          pointRadius: 5,
-          tension: 0.35,
+          borderColor: COLORS.electric,
+          backgroundColor: unemploymentFill,
+          pointBackgroundColor: COLORS.electric,
+          pointBorderColor: '#081124',
+          pointRadius: 4,
+          borderWidth: 2,
+          tension: 0.38,
+          borderDash: [6, 4],
           fill: true,
-          borderDash: [5, 3],
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       plugins: {
-        legend: { position: 'top' },
+        ...basePluginConfig(),
         tooltip: {
+          ...basePluginConfig().tooltip,
           callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y !== null ? ctx.parsed.y + ' %' : 'N/A'}`,
+            label: tooltipItem => {
+              const value = tooltipItem.parsed.y;
+              return `${tooltipItem.dataset.label}: ${value !== null ? `${value} %` : 'N/A'}`;
+            },
           },
         },
       },
       scales: {
+        x: commonScale('Rok'),
         yVotes: {
+          ...commonScale('Hlasy (%)'),
           type: 'linear',
           position: 'left',
-          title: { display: true, text: 'Hlasy (%)' },
           min: 0,
           max: 55,
-          grid: { color: '#e8ecf4' },
         },
         yUnemployment: {
+          ...commonScale('Nezamestnanosť (%)'),
           type: 'linear',
           position: 'right',
-          title: { display: true, text: 'Nezamestnanosť (%)' },
           min: 0,
           max: 25,
-          grid: { drawOnChartArea: false },
-        },
-        x: {
-          title: { display: true, text: 'Rok' },
-          grid: { color: '#e8ecf4' },
+          grid: {
+            drawOnChartArea: false,
+            color: COLORS.grid,
+            drawBorder: false,
+          },
         },
       },
     },
   });
 })();
 
-// ── 2. Sila politikov na sieťach – Horizontal Bar chart ───────────────────────
-
-(function initSocialneChart() {
+(function initSocialChart() {
   const politicians = [
     'Robert Fico',
     'Peter Pellegrini',
@@ -137,21 +202,38 @@ const GREY     = '#c0cce0';
     'Richard Sulík',
   ];
 
-  // Počet sledovateľov (tisíce) – Facebook / Instagram / Twitter (mock)
-  const facebook  = [310, 185, 420, 95,  280, 150];
-  const instagram = [42,  68,  95,  110, 195, 38 ];
-  const twitter   = [28,  22,  85,  55,  120, 45 ];
+  const facebook = [310, 185, 420, 95, 280, 150];
+  const instagram = [42, 68, 95, 110, 195, 38];
+  const twitter = [28, 22, 85, 55, 120, 45];
 
-  const ctx = document.getElementById('chartSocialne').getContext('2d');
+  const context = document.getElementById('chartSocialne').getContext('2d');
 
-  new Chart(ctx, {
+  new Chart(context, {
     type: 'bar',
     data: {
       labels: politicians,
       datasets: [
-        { label: 'Facebook (tis.)', data: facebook,  backgroundColor: '#1877f2cc' },
-        { label: 'Instagram (tis.)', data: instagram, backgroundColor: '#e1306ccc' },
-        { label: 'Twitter/X (tis.)', data: twitter,   backgroundColor: '#1da1f2cc' },
+        {
+          label: 'Facebook (tis.)',
+          data: facebook,
+          backgroundColor: 'rgba(62, 140, 255, 0.82)',
+          borderRadius: 999,
+          borderSkipped: false,
+        },
+        {
+          label: 'Instagram (tis.)',
+          data: instagram,
+          backgroundColor: 'rgba(113, 183, 255, 0.64)',
+          borderRadius: 999,
+          borderSkipped: false,
+        },
+        {
+          label: 'Twitter/X (tis.)',
+          data: twitter,
+          backgroundColor: 'rgba(255, 255, 255, 0.42)',
+          borderRadius: 999,
+          borderSkipped: false,
+        },
       ],
     },
     options: {
@@ -159,30 +241,32 @@ const GREY     = '#c0cce0';
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'top' },
+        ...basePluginConfig(),
         tooltip: {
+          ...basePluginConfig().tooltip,
           callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x} tis.`,
+            label: tooltipItem => `${tooltipItem.dataset.label}: ${tooltipItem.parsed.x} tis.`,
           },
         },
       },
       scales: {
         x: {
-          stacked: false,
-          title: { display: true, text: 'Sledovatelia (tisíce)' },
-          grid: { color: '#e8ecf4' },
+          ...commonScale('Sledovatelia (tisíce)'),
+          suggestedMax: 450,
         },
         y: {
-          grid: { display: false },
+          ...commonScale(''),
+          grid: {
+            display: false,
+            drawBorder: false,
+          },
         },
       },
     },
   });
 })();
 
-// ── 3. Aktivita v parlamente – Radar chart ────────────────────────────────────
-
-(function initParlamentChart() {
+(function initParliamentChart() {
   const metrics = [
     'Dochádzka',
     'Hlasovanie',
@@ -191,16 +275,15 @@ const GREY     = '#c0cce0';
     'Výbory',
   ];
 
-  // Skóre 0–100 pre každý poslanecký klub (mock)
   const data = {
-    'SMER-SD':  [72, 68, 85, 60, 70],
-    'PS':       [88, 91, 78, 82, 85],
-    'OĽaNO':   [65, 62, 92, 75, 60],
+    'SMER-SD': [72, 68, 85, 60, 70],
+    PS: [88, 91, 78, 82, 85],
+    'OĽaNO': [65, 62, 92, 75, 60],
   };
 
-  const ctx = document.getElementById('chartParlament').getContext('2d');
+  const context = document.getElementById('chartParlament').getContext('2d');
 
-  new Chart(ctx, {
+  new Chart(context, {
     type: 'radar',
     data: {
       labels: metrics,
@@ -208,43 +291,65 @@ const GREY     = '#c0cce0';
         {
           label: 'SMER-SD',
           data: data['SMER-SD'],
-          borderColor: ACCENT,
-          backgroundColor: ACCENT + '33',
-          pointBackgroundColor: ACCENT,
+          borderColor: COLORS.accent,
+          backgroundColor: 'rgba(62, 140, 255, 0.18)',
+          pointBackgroundColor: COLORS.accent,
+          pointBorderColor: '#081124',
           pointRadius: 4,
+          borderWidth: 2.5,
         },
         {
           label: 'PS',
-          data: data['PS'],
-          borderColor: BLUE2,
-          backgroundColor: BLUE2 + '33',
-          pointBackgroundColor: BLUE2,
+          data: data.PS,
+          borderColor: COLORS.electric,
+          backgroundColor: 'rgba(113, 183, 255, 0.15)',
+          pointBackgroundColor: COLORS.electric,
+          pointBorderColor: '#081124',
           pointRadius: 4,
+          borderWidth: 2.5,
         },
         {
           label: 'OĽaNO',
           data: data['OĽaNO'],
-          borderColor: BLUE3,
-          backgroundColor: BLUE3 + '33',
-          pointBackgroundColor: BLUE3,
+          borderColor: '#ffffff',
+          backgroundColor: 'rgba(255, 255, 255, 0.08)',
+          pointBackgroundColor: '#ffffff',
+          pointBorderColor: '#081124',
           pointRadius: 4,
+          borderWidth: 2,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'top' },
-      },
+      plugins: basePluginConfig(),
       scales: {
         r: {
           min: 0,
           max: 100,
-          ticks: { stepSize: 20, backdropColor: 'transparent' },
-          grid: { color: '#e0e6f0' },
-          angleLines: { color: '#d0d8ea' },
-          pointLabels: { font: { size: 13, weight: '600' } },
+          ticks: {
+            stepSize: 20,
+            color: COLORS.muted,
+            showLabelBackdrop: false,
+            backdropColor: 'transparent',
+            font: {
+              size: 11,
+            },
+          },
+          grid: {
+            color: COLORS.grid,
+          },
+          angleLines: {
+            color: COLORS.grid,
+          },
+          pointLabels: {
+            color: COLORS.mist,
+            font: {
+              size: 12,
+              weight: '700',
+            },
+          },
         },
       },
     },
