@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dátová žurnalistika – Portfólio</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Dátová žurnalistika</h1>
+      <p class="subtitle">Vizualizácia politických a ekonomických dát pre slovenské médiá</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <button class="tab-btn active" data-target="volby">Voľby vs. Nezamestnanosť</button>
+      <button class="tab-btn" data-target="socialne">Sila politikov na sieťach</button>
+      <button class="tab-btn" data-target="parlament">Aktivita v parlamente</button>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <section id="volby" class="tab-section active">
+      <h2>Voľby vs. Nezamestnanosť (2006–2023)</h2>
+      <p>Korelácia medzi výsledkami strany SMER-SD vo voľbách a mierou nezamestnanosti na Slovensku. Dáta ukazujú, ako ekonomická situácia ovplyvňuje voličské preferencie — v rokoch s vysokou nezamestnanosťou strana tradične získavala silnejší mandát.</p>
+      <div class="chart-wrapper">
+        <canvas id="chartVolby"></canvas>
+      </div>
+      <button class="btn-report" data-section="Voľby vs. Nezamestnanosť">Stiahnuť report</button>
+    </section>
+
+    <section id="socialne" class="tab-section">
+      <h2>Sila politikov na sociálnych sieťach</h2>
+      <p>Porovnanie dosahu najvýraznejších slovenských politikov na platformách Facebook, Instagram a Twitter/X. Počet sledovateľov odráža schopnosť komunikovať priamo s voličmi a obchádzať tradičné médiá — kľúčová metrika modernej politickej kampane.</p>
+      <div class="chart-wrapper">
+        <canvas id="chartSocialne"></canvas>
+      </div>
+      <button class="btn-report" data-section="Sila politikov na sieťach">Stiahnuť report</button>
+    </section>
+
+    <section id="parlament" class="tab-section">
+      <h2>Aktivita poslaneckých klubov v parlamente</h2>
+      <p>Radarová analýza parlamentnej aktivity troch najväčších poslaneckých klubov podľa piatich kľúčových metrík: dochádzka na hlasovaniach, participácia v hlasovaniach, interpelácie, legislatívne návrhy a zapojenie do výborov. Dáta za aktuálne volebné obdobie.</p>
+      <div class="chart-wrapper">
+        <canvas id="chartParlament"></canvas>
+      </div>
+      <button class="btn-report" data-section="Aktivita v parlamente">Stiahnuť report</button>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Portfólio – dátová žurnalistika &nbsp;|&nbsp; Mock dáta pre demonštračné účely</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

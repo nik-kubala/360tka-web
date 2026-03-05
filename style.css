@@ -1,0 +1,245 @@
+:root {
+  --color-primary: #0d1b3e;
+  --color-secondary: #1a3a6e;
+  --color-accent: #e8242b;
+  --color-accent-hover: #c01d23;
+  --color-bg: #f4f6fa;
+  --color-white: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #5a6a8a;
+  --color-border: #d0d8ea;
+  --color-nav-bg: #0d1b3e;
+  --radius: 8px;
+  --shadow: 0 2px 12px rgba(13, 27, 62, 0.10);
+  --transition: 0.22s ease;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* Header */
+header {
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 36px 0 28px;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+header .subtitle {
+  margin-top: 6px;
+  color: #a8bcd8;
+  font-size: 1rem;
+}
+
+/* Nav */
+nav {
+  background: var(--color-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+nav .container {
+  display: flex;
+  gap: 4px;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+nav .container::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  background: transparent;
+  color: #a8bcd8;
+  border: none;
+  padding: 16px 22px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: color var(--transition);
+  border-bottom: 3px solid transparent;
+  flex-shrink: 0;
+}
+
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.tab-btn:hover {
+  color: var(--color-white);
+}
+
+.tab-btn:hover::after {
+  transform: scaleX(0.6);
+}
+
+.tab-btn.active {
+  color: var(--color-white);
+  border-bottom-color: var(--color-accent);
+}
+
+.tab-btn.active::after {
+  transform: scaleX(1);
+}
+
+/* Main */
+main {
+  flex: 1;
+  padding: 40px 20px;
+}
+
+/* Sections */
+.tab-section {
+  display: none;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.tab-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tab-section h2 {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.tab-section p {
+  color: var(--color-text-muted);
+  font-size: 0.97rem;
+  line-height: 1.65;
+  max-width: 720px;
+  margin-bottom: 28px;
+}
+
+/* Chart wrapper */
+.chart-wrapper {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  position: relative;
+  height: 380px;
+}
+
+.chart-wrapper canvas {
+  max-height: 100%;
+}
+
+/* Report button */
+.btn-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius);
+  padding: 11px 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: 0 2px 8px rgba(232, 36, 43, 0.25);
+}
+
+.btn-report::before {
+  content: '↓';
+  font-size: 1rem;
+}
+
+.btn-report:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(232, 36, 43, 0.35);
+}
+
+.btn-report:active {
+  transform: translateY(0);
+}
+
+/* Footer */
+footer {
+  background: var(--color-primary);
+  color: #6a82a8;
+  text-align: center;
+  padding: 18px 20px;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header .subtitle {
+    font-size: 0.88rem;
+  }
+
+  .tab-btn {
+    padding: 14px 14px;
+    font-size: 0.83rem;
+  }
+
+  .tab-section h2 {
+    font-size: 1.15rem;
+  }
+
+  .chart-wrapper {
+    height: 280px;
+    padding: 16px 12px;
+  }
+
+  main {
+    padding: 24px 0;
+  }
+}
