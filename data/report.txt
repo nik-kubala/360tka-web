@@ -1,0 +1,116 @@
+================================================================================
+REPORT: Zlúčenie volebných dát a nezamestnanosti po okresoch SR
+Vygenerované: 2026-03-05
+================================================================================
+
+
+1. VSTUPNÉ SÚBORY
+─────────────────
+
+A) volby_okresy.xlsx
+   Sheet:           NRSR2023_SK_tab03d
+   Pôvod:           Štatistický úrad SR – výsledky volieb do Národnej rady SR 2023
+   Formát:          Dlhý formát (jeden riadok = jeden okres × jedna strana)
+   Header:          Riadok 2 v súbore (header=1 pri načítaní, potom iloc[0] ako názvy)
+   Celkový počet riadkov (bez hlavičky): 1998
+   Počet unikátnych strán: 25
+   Počet unikátnych okresov: 80 (vrátane "cudzina")
+
+B) nezamestnanost_okresy.xlsx
+   Sheet:           Tab2
+   Pôvod:           ÚPSVaR – Mesačná štatistika o počte a štruktúre uchádzačov o zamestnanie
+   Obdobie:         September 2023 (dátum v bunke: 2023-09-01)
+   Použité stĺpce:  stĺpec 0 = poradie, stĺpec 1 = názov územia, stĺpec 2 = PDU (%)
+   Dáta začínajú:   Riadok 8 (index) — prvých 7 riadkov sú hlavičky a popis
+   Metrika:         "Ku koncu sledovaného mesiaca v %" = disponibilná miera nezamestnanosti (PDU)
+
+
+2. VÝBER STRÁN Z VOLEBNÉHO SÚBORU
+──────────────────────────────────
+
+Skratka   Presný názov strany v súbore
+────────  ────────────────────────────────────────────────────────────────────────────────────────
+SMER      SMER - sociálna demokracia
+PS        Progresívne Slovensko
+HLAS      HLAS - sociálna demokracia
+OLaNO     OĽANO A PRIATELIA: OBYČAJNÍ ĽUDIA (OĽANO), NEZÁVISLÍ KANDIDÁTI (NEKA), NOVA,
+          SLOBODNÍ A ZODPOVEDNÍ, PAČIVALE ROMA, MAGYAR SZÍVEK a Kresťanská únia a ZA ĽUDÍ
+KDH       Kresťanskodemokratické hnutie
+SaS       Sloboda a Solidarita
+SNS       Slovenská národná strana
+REPUBLIKA REPUBLIKA
+SZÖVETSÉG SZÖVETSÉG - Magyarok. Nemzetiségek. Regiók. | ALIANCIA - Maďari. Národnosti. Regióny
+
+Použitý stĺpec: "Podiel platných hlasov v %" (nie absolútny počet hlasov)
+
+
+3. FILTROVANIE NEZAMESTNANOSTI
+───────────────────────────────
+
+Z Tab2 boli ponechané IBA riadky, kde stĺpec "poradie" obsahuje číslo (1–79).
+Vyradené boli agregátne riadky bez čísla v stĺpci poradie:
+
+  - Prešovský kraj
+  - Banskobystrický kraj
+  - Košický kraj
+  - Žilinský kraj
+  - Trenčiansky kraj
+  - Nitriansky kraj
+  - Trnavský kraj
+  - Bratislavský kraj
+  - Slovensko (celonárodný priemer)
+
+Výsledok: 79 okresov.
+
+
+4. ZLÚČENIE (MERGE)
+────────────────────
+
+Kľúč:  názov okresu (case-insensitive, po strip() bielych znakov)
+Typ:   inner join (oba súbory musia obsahovať rovnaký okres)
+
+Z volebného súboru bol vyradený 1 záznam bez zhody v nezamestnanosti:
+  - "cudzina" (hlasy zo zahraničia — v ÚPSVaR dátach logicky neexistuje)
+
+Výsledok po merge: 79 okresov × 10 premenných.
+
+
+5. KONTROLNÉ ŠTATISTIKY
+─────────────────────────
+
+Nezamestnanosť (PDU, september 2023):
+  Min:    2,05 % — Nitra
+  Max:    9,92 % — Kežmarok
+  Priemer: 4,25 %
+
+Volebné výsledky — podiel platných hlasov (%):
+  Strana     Min      Max      Priemer
+  ─────────  ───────  ───────  ────────
+  SMER        6,10 %  38,92 %   23,91 %
+  PS          5,31 %  61,70 %   16,11 %
+  HLAS        2,46 %  24,17 %   15,67 %
+  OLaNO       3,81 %  26,80 %    9,08 %
+  KDH         0,90 %  30,35 %    7,16 %
+  SNS         1,35 %  11,07 %    5,99 %
+  SaS         2,31 %  15,14 %    5,70 %
+  REPUBLIKA   1,64 %   7,49 %    5,01 %
+  SZÖVETSÉG   0,00 %  48,78 %    3,65 %
+
+Poznámka k SZÖVETSÉG: nulový zisk v niektorých okresoch je reálny (strana má koncentrovanú
+podporu v južných, maďarsky hovoriacich oblastiach — Dunajská Streda, Komárno a okolie).
+
+
+6. VÝSTUPNÝ SÚBOR
+──────────────────
+
+Súbor:   data/volby_nezamestnanost_okresy.json
+Štruktúra:
+  {
+    "meta": { popis zdrojov, stĺpcov, rok volieb, mesiac nezamestnanosti },
+    "data": [ { "okres": "...", "nezam_pct": X.XX, "SMER": X.XX, ... }, ... ]
+  }
+
+Záznamy sú zoradené abecedne podľa názvu okresu.
+Všetky číselné hodnoty sú zaokrúhlené na 2 desatinné miesta.
+
+================================================================================

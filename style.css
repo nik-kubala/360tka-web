@@ -617,6 +617,128 @@ body::before {
   height: 100%;
 }
 
+.chart-toolbar,
+.chart-toolbar__copy,
+.party-switcher {
+  display: flex;
+}
+
+.chart-toolbar {
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.chart-toolbar__copy {
+  flex: 1 1 280px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-toolbar__label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.chart-toolbar__text {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+
+.party-switcher {
+  flex: 1 1 380px;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.party-switcher__btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted-strong);
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
+}
+
+.party-switcher__btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(62, 140, 255, 0.26);
+  background: rgba(62, 140, 255, 0.12);
+}
+
+.party-switcher__btn.active {
+  border-color: transparent;
+  background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+  color: #03111f;
+  box-shadow: 0 14px 30px rgba(31, 108, 255, 0.28);
+}
+
+.chart-insights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.insight-card {
+  position: relative;
+  padding: 22px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top right, rgba(62, 140, 255, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.insight-card::before {
+  content: '';
+  position: absolute;
+  inset: auto -24px -60px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62, 140, 255, 0.22), transparent 68%);
+  pointer-events: none;
+}
+
+.insight-card span {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.insight-card strong {
+  display: block;
+  margin: 14px 0 10px;
+  font-family: 'Space Grotesk', 'Manrope', sans-serif;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.insight-card p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.6;
+}
+
 .section-footer {
   align-items: center;
   justify-content: space-between;
@@ -662,6 +784,14 @@ body::before {
 
   .section-note-card {
     flex-basis: auto;
+  }
+
+  .chart-insights {
+    grid-template-columns: 1fr;
+  }
+
+  .party-switcher {
+    justify-content: flex-start;
   }
 }
 

@@ -108,35 +108,62 @@
       <div class="section-shell">
         <div class="section-copy">
           <span class="section-tag">REPORTÁŽ</span>
-          <h2>Voľby vs. Nezamestnanosť</h2>
-          <p>
-            Korelácia medzi výsledkami strany SMER-SD vo voľbách a mierou nezamestnanosti na Slovensku.
-            Dáta ukazujú, ako ekonomická situácia ovplyvňuje voličské preferencie v čase.
+          <h2 id="volbyRegionTitle">Voľby vs. nezamestnanosť v okresoch SR</h2>
+          <p id="volbyRegionDescription">
+            Načítavam celoslovenské okresné dáta z JSON súboru a pripravujem korelačný pohľad pre všetky okresy SR.
           </p>
           <div class="section-facts">
             <div class="fact-pill">
-              <strong>2006–2023</strong>
-              <span>pokrytie rokov</span>
+              <strong id="volbyRegionFact">Okresy SR</strong>
+              <span>úroveň analýzy</span>
             </div>
             <div class="fact-pill">
-              <strong>2 osi</strong>
-              <span>voľby a ekonomika</span>
+              <strong id="volbyDistrictFact">0 okresov</strong>
+              <span>body v korelačnom grafe</span>
             </div>
           </div>
         </div>
         <aside class="section-note-card">
           <span class="section-note-card__label">editorial note</span>
-          <p>Layout sekcie kombinuje titulkový tón sociálnych grafík s analytickou čitateľnosťou pre desktopové grafy.</p>
+          <p id="volbyRegionNote">Graf doplním o trendovú čiaru, výpočet Pearsonovej korelácie a slovné zhodnotenie sily vzťahu.</p>
         </aside>
+      </div>
+
+      <div class="chart-toolbar">
+        <div class="chart-toolbar__copy">
+          <span class="chart-toolbar__label">Vyber stranu</span>
+          <p class="chart-toolbar__text" id="volbyToolbarText">
+            Prepínaj medzi stranami. Graf vždy zobrazuje všetky okresy Slovenska a mení sa len os Y.
+          </p>
+        </div>
+        <div class="party-switcher" id="partySwitcher" aria-label="Prepínanie medzi stranami"></div>
       </div>
 
       <div class="chart-wrapper">
         <canvas id="chartVolby"></canvas>
       </div>
 
+      <div class="chart-insights" aria-label="Zhrnutie korelácie">
+        <article class="insight-card">
+          <span>Koeficient</span>
+          <strong id="volbyCorrelationValue">r = --</strong>
+          <p id="volbyCorrelationText">Načítavam výpočet korelácie.</p>
+        </article>
+        <article class="insight-card">
+          <span>Trendová čiara</span>
+          <strong id="volbyTrendValue">--</strong>
+          <p id="volbyTrendText">Po načítaní doplním sklon trendovej čiary.</p>
+        </article>
+        <article class="insight-card">
+          <span>Zhodnotenie</span>
+          <strong id="volbyAssessmentValue">--</strong>
+          <p id="volbyAssessmentText">Po načítaní doplním aj slovné vyhodnotenie korelácie.</p>
+        </article>
+      </div>
+
       <div class="section-footer">
         <button class="btn-report" data-section="Voľby vs. Nezamestnanosť">Stiahnuť report</button>
-        <p class="section-footnote">Mock dáta pre demonštračné účely.</p>
+        <p class="section-footnote" id="volbyFootnote">Načítavam zdroje a metodiku z dátového súboru.</p>
       </div>
     </section>
 
