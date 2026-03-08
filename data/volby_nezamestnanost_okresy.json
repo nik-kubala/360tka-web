@@ -20,7 +20,8 @@
     },
     "num_districts": 79,
     "election_year": 2023,
-    "unemployment_month": "2023-09"
+    "unemployment_month": "2023-09",
+    "poznamka": "Každý riadok predstavuje jeden okres SR. Hodnoty volieb sú percentá platných hlasov (zo všetkých odovzdaných platných hlasov v danom okrese). Nezamestnanosť je miera v % podľa ÚPSVaR za september 2023. Zdroj volieb: Štatistický úrad SR. Zdroj nezamestnanosti: ÚPSVaR."
   },
   "data": [
     {

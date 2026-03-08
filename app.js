@@ -1,29 +1,29 @@
-'use strict';
+"use strict";
 
-const topicTabs = document.querySelectorAll('.topic-tab');
-const topicPanels = document.querySelectorAll('.topic-panel');
+const topicTabs = document.querySelectorAll(".topic-tab");
+const topicPanels = document.querySelectorAll(".topic-panel");
 
 function setActivePanel(targetId) {
-  topicTabs.forEach(button => {
+  topicTabs.forEach((button) => {
     const isActive = button.dataset.target === targetId;
-    button.classList.toggle('active', isActive);
-    button.setAttribute('aria-selected', String(isActive));
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-selected", String(isActive));
   });
 
-  topicPanels.forEach(panel => {
+  topicPanels.forEach((panel) => {
     const isActive = panel.id === targetId;
-    panel.classList.toggle('active', isActive);
+    panel.classList.toggle("active", isActive);
     panel.hidden = !isActive;
   });
 
   requestAnimationFrame(() => {
-    window.dispatchEvent(new Event('resize'));
+    window.dispatchEvent(new Event("resize"));
     syncPanelCharts(targetId);
   });
 }
 
-topicTabs.forEach(button => {
-  button.addEventListener('click', () => {
+topicTabs.forEach((button) => {
+  button.addEventListener("click", () => {
     setActivePanel(button.dataset.target);
   });
 });
@@ -31,17 +31,17 @@ topicTabs.forEach(button => {
 const styles = getComputedStyle(document.documentElement);
 
 const COLORS = {
-  accent: styles.getPropertyValue('--accent').trim(),
-  accentStrong: styles.getPropertyValue('--accent-strong').trim(),
-  accentSoft: styles.getPropertyValue('--accent-soft').trim(),
-  text: styles.getPropertyValue('--text').trim(),
-  muted: styles.getPropertyValue('--muted').trim(),
-  mutedStrong: styles.getPropertyValue('--muted-strong').trim(),
-  line: styles.getPropertyValue('--line-strong').trim(),
-  electric: '#71b7ff',
-  softBlue: '#95a8d6',
-  whiteSoft: 'rgba(255, 255, 255, 0.42)',
-  paper: '#ffffff',
+  accent: styles.getPropertyValue("--accent").trim(),
+  accentStrong: styles.getPropertyValue("--accent-strong").trim(),
+  accentSoft: styles.getPropertyValue("--accent-soft").trim(),
+  text: styles.getPropertyValue("--text").trim(),
+  muted: styles.getPropertyValue("--muted").trim(),
+  mutedStrong: styles.getPropertyValue("--muted-strong").trim(),
+  line: styles.getPropertyValue("--line-strong").trim(),
+  electric: "#71b7ff",
+  softBlue: "#95a8d6",
+  whiteSoft: "rgba(255, 255, 255, 0.42)",
+  paper: "#ffffff",
 };
 
 Chart.defaults.font.family = "'Manrope', 'Segoe UI', sans-serif";
@@ -51,25 +51,25 @@ Chart.defaults.borderColor = COLORS.line;
 function basePluginConfig() {
   return {
     legend: {
-      position: 'top',
+      position: "top",
       labels: {
         color: COLORS.mutedStrong,
         usePointStyle: true,
-        pointStyle: 'circle',
+        pointStyle: "circle",
         padding: 16,
         boxWidth: 10,
         boxHeight: 10,
         font: {
           size: 12,
-          weight: '700',
+          weight: "700",
         },
       },
     },
     tooltip: {
-      backgroundColor: 'rgba(4, 9, 20, 0.96)',
-      titleColor: '#ffffff',
-      bodyColor: '#f5f7ff',
-      borderColor: 'rgba(62, 140, 255, 0.36)',
+      backgroundColor: "rgba(4, 9, 20, 0.96)",
+      titleColor: "#ffffff",
+      bodyColor: "#f5f7ff",
+      borderColor: "rgba(62, 140, 255, 0.36)",
       borderWidth: 1,
       padding: 12,
       cornerRadius: 14,
@@ -86,7 +86,7 @@ function commonScale(title) {
       color: COLORS.muted,
       font: {
         size: 12,
-        weight: '700',
+        weight: "700",
       },
     },
     ticks: {
@@ -103,140 +103,147 @@ function commonScale(title) {
   };
 }
 
-const NUMBER_FORMATTER = new Intl.NumberFormat('sk-SK', {
+const NUMBER_FORMATTER = new Intl.NumberFormat("sk-SK", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
 });
 
-const INTEGER_FORMATTER = new Intl.NumberFormat('sk-SK', {
+const INTEGER_FORMATTER = new Intl.NumberFormat("sk-SK", {
   maximumFractionDigits: 0,
 });
 
-const ONE_DECIMAL_FORMATTER = new Intl.NumberFormat('sk-SK', {
+const ONE_DECIMAL_FORMATTER = new Intl.NumberFormat("sk-SK", {
   minimumFractionDigits: 0,
   maximumFractionDigits: 1,
 });
 
-const DEFAULT_PARTY_KEY = 'SMER';
-const ELECTION_SCOPE_LABEL = 'okresy SR';
+const DEFAULT_PARTY_KEY = "SMER";
+const ELECTION_SCOPE_LABEL = "okresy SR";
 
 const PARTY_VISUALS = {
   HLAS: {
-    label: 'HLAS-SD',
-    buttonLabel: 'HLAS',
-    accent: '#ff173e',
-    accentStrong: '#78106e',
-    trendColor: '#7e1f93',
-    logoSrc: 'obrazky/hlas.png',
-    logoBackground: '#ffffff',
+    label: "HLAS-SD",
+    buttonLabel: "HLAS",
+    accent: "#ff0f7b",
+    accentStrong: "#870841",
+    trendColor: "#870841",
+    logoSrc: "obrazky/hlas.png",
+    logoBackground: "#ffffff",
   },
   KDH: {
-    label: 'KDH',
-    buttonLabel: 'KDH',
-    accent: '#234887',
-    accentStrong: '#ff2a31',
-    trendColor: '#ff2a31',
-    logoSrc: 'obrazky/kdh.png',
-    logoBackground: '#ffffff',
+    label: "KDH",
+    buttonLabel: "KDH",
+    accent: "#234887",
+    accentStrong: "#ff2a31",
+    trendColor: "#ff2a31",
+    logoSrc: "obrazky/kdh.png",
+    logoBackground: "#ffffff",
   },
   OLaNO: {
-    label: 'SLOVENSKO',
-    buttonLabel: 'SLOVENSKO',
-    accent: '#eef1f4',
-    accentStrong: '#6b7280',
-    trendColor: '#9aa3af',
-    logoSrc: 'obrazky/slovensko.png',
-    logoBackground: '#ffffff',
+    label: "SLOVENSKO",
+    buttonLabel: "SLOVENSKO",
+    accent: "#eef1f4",
+    accentStrong: "#6b7280",
+    trendColor: "#9aa3af",
+    logoSrc: "obrazky/slovensko.png",
+    logoBackground: "#ffffff",
     logoScale: 1.2,
   },
   PS: {
-    label: 'PS',
-    buttonLabel: 'PS',
-    accent: '#1fb9f3',
-    accentStrong: '#0f8fdd',
-    trendColor: '#0f8fdd',
-    logoSrc: 'obrazky/ps.png',
-    logoBackground: '#ffffff',
+    label: "PS",
+    buttonLabel: "PS",
+    accent: "#1fb9f3",
+    accentStrong: "#0f8fdd",
+    trendColor: "#0f8fdd",
+    logoSrc: "obrazky/ps.png",
+    logoBackground: "#ffffff",
     logoScale: 1.4,
   },
   REPUBLIKA: {
-    label: 'REPUBLIKA',
-    buttonLabel: 'REPUBLIKA',
-    accent: '#de2630',
-    accentStrong: '#1f4aa4',
-    trendColor: '#1f4aa4',
-    logoSrc: 'obrazky/republika.png',
-    logoBackground: '#ffffff',
+    label: "REPUBLIKA",
+    buttonLabel: "REPUBLIKA",
+    accent: "#de2630",
+    accentStrong: "#1f4aa4",
+    trendColor: "#1f4aa4",
+    logoSrc: "obrazky/republika.png",
+    logoBackground: "#ffffff",
   },
   SMER: {
-    label: 'SMER-SD',
-    buttonLabel: 'SMER',
-    accent: '#e0262d',
-    accentStrong: '#30204e',
-    trendColor: '#30204e',
-    logoSrc: 'obrazky/smer.png',
-    logoBackground: '#ffffff',
+    label: "SMER-SD",
+    buttonLabel: "SMER",
+    accent: "#e61919",
+    accentStrong: "#630000",
+    trendColor: "#630000",
+    logoSrc: "obrazky/smer.png",
+    logoBackground: "#ffffff",
   },
   SaS: {
-    label: 'SaS',
-    buttonLabel: 'SaS',
-    accent: '#a6ca16',
-    accentStrong: '#0b3d6f',
-    trendColor: '#0b3d6f',
-    logoSrc: 'obrazky/sas.png',
-    logoBackground: '#ffffff',
+    label: "SaS",
+    buttonLabel: "SaS",
+    accent: "#a6ca16",
+    accentStrong: "#0b3d6f",
+    trendColor: "#0b3d6f",
+    logoSrc: "obrazky/sas.png",
+    logoBackground: "#ffffff",
   },
   SNS: {
-    label: 'SNS',
-    buttonLabel: 'SNS',
-    accent: '#11376a',
-    accentStrong: '#2f6fc2',
-    trendColor: '#2f6fc2',
-    logoSrc: 'obrazky/sns.jpg',
-    logoBackground: '#ffffff',
+    label: "SNS",
+    buttonLabel: "SNS",
+    accent: "#11376a",
+    accentStrong: "#2f6fc2",
+    trendColor: "#2f6fc2",
+    logoSrc: "obrazky/sns.jpg",
+    logoBackground: "#ffffff",
   },
   SZÖVETSÉG: {
-    label: 'SZÖVETSÉG',
-    buttonLabel: 'SZÖVETSÉG',
-    accent: '#73b72d',
-    accentStrong: '#f39b16',
-    trendColor: '#f39b16',
-    logoSrc: 'obrazky/szovesteg.png',
-    logoBackground: '#ffffff',
+    label: "SZÖVETSÉG",
+    buttonLabel: "SZÖVETSÉG",
+    accent: "#73b72d",
+    accentStrong: "#f39b16",
+    trendColor: "#f39b16",
+    logoSrc: "obrazky/szovesteg.png",
+    logoBackground: "#ffffff",
     logoScale: 1.32,
   },
 };
 
 const PARTY_LABELS = Object.fromEntries(
-  Object.entries(PARTY_VISUALS).map(([key, config]) => [key, config.label])
+  Object.entries(PARTY_VISUALS).map(([key, config]) => [key, config.label]),
 );
 
 const PARTY_BUTTON_LABELS = Object.fromEntries(
-  Object.entries(PARTY_VISUALS).map(([key, config]) => [key, config.buttonLabel])
+  Object.entries(PARTY_VISUALS).map(([key, config]) => [
+    key,
+    config.buttonLabel,
+  ]),
+);
+
+const PARTY_VISUALS_BY_LABEL = Object.fromEntries(
+  Object.values(PARTY_VISUALS).map((config) => [config.label, config]),
 );
 
 const electionSection = {
-  title: document.getElementById('volbyRegionTitle'),
-  description: document.getElementById('volbyRegionDescription'),
-  note: document.getElementById('volbyRegionNote'),
-  toolbarText: document.getElementById('volbyToolbarText'),
-  partySwitcher: document.getElementById('partySwitcher'),
-  districtSearch: document.getElementById('districtSearch'),
-  districtSearchToggle: document.getElementById('districtSearchToggle'),
-  districtSearchPanel: document.getElementById('districtSearchPanel'),
-  districtSearchValue: document.getElementById('districtSearchValue'),
-  districtSearchHint: document.getElementById('districtSearchHint'),
-  districtSearchInput: document.getElementById('districtSearchInput'),
-  districtSearchResults: document.getElementById('districtSearchResults'),
-  correlationValue: document.getElementById('volbyCorrelationValue'),
-  correlationText: document.getElementById('volbyCorrelationText'),
-  trendValue: document.getElementById('volbyTrendValue'),
-  trendText: document.getElementById('volbyTrendText'),
-  assessmentValue: document.getElementById('volbyAssessmentValue'),
-  assessmentText: document.getElementById('volbyAssessmentText'),
-  footnote: document.getElementById('volbyFootnote'),
-  card: document.querySelector('.visual-card--election'),
-  chartFrame: document.querySelector('.chart-frame--election'),
+  title: document.getElementById("volbyRegionTitle"),
+  description: document.getElementById("volbyRegionDescription"),
+  note: document.getElementById("volbyRegionNote"),
+  toolbarText: document.getElementById("volbyToolbarText"),
+  partySwitcher: document.getElementById("partySwitcher"),
+  districtSearch: document.getElementById("districtSearch"),
+  districtSearchToggle: document.getElementById("districtSearchToggle"),
+  districtSearchPanel: document.getElementById("districtSearchPanel"),
+  districtSearchValue: document.getElementById("districtSearchValue"),
+  districtSearchHint: document.getElementById("districtSearchHint"),
+  districtSearchInput: document.getElementById("districtSearchInput"),
+  districtSearchResults: document.getElementById("districtSearchResults"),
+  correlationValue: document.getElementById("volbyCorrelationValue"),
+  correlationText: document.getElementById("volbyCorrelationText"),
+  trendValue: document.getElementById("volbyTrendValue"),
+  trendText: document.getElementById("volbyTrendText"),
+  assessmentValue: document.getElementById("volbyAssessmentValue"),
+  assessmentText: document.getElementById("volbyAssessmentText"),
+  footnote: document.getElementById("volbyFootnote"),
+  card: document.querySelector(".visual-card--election"),
+  chartFrame: document.querySelector(".chart-frame--election"),
 };
 
 const electionState = {
@@ -245,143 +252,151 @@ const electionState = {
   payload: null,
   partyOptions: [],
   selectedPartyKey: DEFAULT_PARTY_KEY,
-  selectedDistrictLabel: '',
-  districtQuery: '',
+  selectedDistrictLabel: "",
+  districtQuery: "",
   districtSearchReady: false,
 };
 
 const SOCIAL_TYPE_LABELS = {
-  reels: 'Reels',
-  post: 'Príspevok',
-  event: 'Udalosť',
+  reels: "Reels",
+  post: "Príspevok",
+  event: "Udalosť",
 };
 
-const SOCIAL_TYPE_ORDER = ['reels', 'post', 'event'];
+const SOCIAL_TYPE_ORDER = ["reels", "post", "event"];
 
 const SOCIAL_TYPE_COLORS = {
-  reels: '#59bbff',
-  post: '#9fafd9',
-  event: '#e5a047',
+  reels: "#59bbff",
+  post: "#9fafd9",
+  event: "#e5a047",
 };
 
 const SOCIAL_PROFILES = [
   {
-    key: 'fico',
-    label: 'Robert Fico',
-    shortLabel: 'Fico',
-    color: '#d5464e',
-    highlight: '#ff9fa4',
+    key: "fico",
+    label: "Robert Fico",
+    shortLabel: "Fico",
+    color: "#d5464e",
+    highlight: "#ff9fa4",
     rawPosts: [
-      '7k 850 1,1k 120k',
-      '2,6k 298 161 52k',
-      '2,8k 582 109 -',
-      '4,8k 652 423 128k',
-      '34k 2228 3,2k 714k',
-      '4,7k 1k 157 115k',
-      '29k 1,9k 3,2k 702k',
-      '3,3k 361 140 82k',
-      '2,6k 258 99 -',
-      '3,3k 312 125 -',
-      '7,5k 2332 149 -',
-      '5,1k 655 324 190k',
-      '17k 1,6k 1,7k 425k',
-      '6,6k 698 344 163k',
+      "7k 850 1,1k 120k",
+      "2,6k 298 161 52k",
+      "2,8k 582 109 -",
+      "4,8k 652 423 128k",
+      "34k 2228 3,2k 714k",
+      "4,7k 1k 157 115k",
+      "29k 1,9k 3,2k 702k",
+      "3,3k 361 140 82k",
+      "2,6k 258 99 -",
+      "3,3k 312 125 -",
+      "7,5k 2332 149 -",
+      "5,1k 655 324 190k",
+      "17k 1,6k 1,7k 425k",
+      "6,6k 698 344 163k",
     ],
   },
   {
-    key: 'simecka',
-    label: 'Michal Šimečka',
-    shortLabel: 'Šimečka',
-    color: '#66c9ff',
-    highlight: '#b7ebff',
+    key: "simecka",
+    label: "Michal Šimečka",
+    shortLabel: "Šimečka",
+    color: "#66c9ff",
+    highlight: "#b7ebff",
     rawPosts: [
-      '2,3k 86 70 50k',
-      '2,3k 97 97 -',
-      '2k 26 33 -',
-      '665 63 23 -',
-      '330 22 34 -',
-      '1,3k 59 34 24k',
-      '2,5k 89 74 -',
-      '305 35 3 6,3k',
-      '1,5k 45 44 -',
-      '957 58 69 -',
-      '2,4k 85 105 35k',
-      '118 23 - -',
-      '3,6k 138 177 47k',
-      '665 92 21 16k',
-      '1,3k 124 41 -',
-      '800 49 13 43',
-      '7,6k 454 146 -',
-      '174 43 - -',
-      '2k 71 24 -',
-      '432 23 1 9,7k',
-      '298 29 6 7,8k',
-      '1,9k 96 80 59k',
-      '2,9k 141 113 48k',
-      '7,7k 1,5k 333 -',
-      '294 20 11 -',
-      '668 140 17 17k',
+      "2,3k 86 70 50k",
+      "2,3k 97 97 -",
+      "2k 26 33 -",
+      "665 63 23 -",
+      "330 22 34 -",
+      "1,3k 59 34 24k",
+      "2,5k 89 74 -",
+      "305 35 3 6,3k",
+      "1,5k 45 44 -",
+      "957 58 69 -",
+      "2,4k 85 105 35k",
+      "118 23 - -",
+      "3,6k 138 177 47k",
+      "665 92 21 16k",
+      "1,3k 124 41 -",
+      "800 49 13 43",
+      "7,6k 454 146 -",
+      "174 43 - -",
+      "2k 71 24 -",
+      "432 23 1 9,7k",
+      "298 29 6 7,8k",
+      "1,9k 96 80 59k",
+      "2,9k 141 113 48k",
+      "7,7k 1,5k 333 -",
+      "294 20 11 -",
+      "668 140 17 17k",
     ],
   },
   {
-    key: 'uhrik',
-    label: 'Milan Uhrík',
-    shortLabel: 'Uhrík',
-    color: '#2c6f57',
-    highlight: '#79b39b',
+    key: "uhrik",
+    label: "Milan Uhrík",
+    shortLabel: "Uhrík",
+    color: "#2c6f57",
+    highlight: "#79b39b",
     rawPosts: [
-      '1,8k 259 163 -',
-      '2,7k 130 184 43k',
-      '710 19 115 -',
-      '22k 681 5k 502k',
+      "1,8k 259 163 -",
+      "2,7k 130 184 43k",
+      "710 19 115 -",
+      "22k 681 5k 502k",
     ],
   },
   {
-    key: 'matovic',
-    label: 'Igor Matovič',
-    shortLabel: 'Matovič',
-    color: '#79b445',
-    highlight: '#c4ec82',
+    key: "matovic",
+    label: "Igor Matovič",
+    shortLabel: "Matovič",
+    color: "#79b445",
+    highlight: "#c4ec82",
     rawPosts: [
-      '1k 276 45 -',
-      '1,3k 325 486 39k',
-      '562 220 56 -',
-      '493 179 42 -',
-      '1,1k 278 308 33k',
-      '2k 498 383 70k',
-      '2,1k 455 378 -',
-      '2,3k 454 183 96k',
-      '461 252 26 -',
-      '2,2k 497 436 102k',
-      '459 135 36 -',
-      '2,5k 101 235 150k',
-      '2,3k 1,4k 476 80k',
-      '756 463 79 -',
-      '1,1k 262 201 42k',
-      '3,7k 996 231 224k',
-      '2,2k 655 274 104k',
+      "1k 276 45 -",
+      "1,3k 325 486 39k",
+      "562 220 56 -",
+      "493 179 42 -",
+      "1,1k 278 308 33k",
+      "2k 498 383 70k",
+      "2,1k 455 378 -",
+      "2,3k 454 183 96k",
+      "461 252 26 -",
+      "2,2k 497 436 102k",
+      "459 135 36 -",
+      "2,5k 101 235 150k",
+      "2,3k 1,4k 476 80k",
+      "756 463 79 -",
+      "1,1k 262 201 42k",
+      "3,7k 996 231 224k",
+      "2,2k 655 274 104k",
     ],
   },
 ];
 
 const socialSection = {
-  leadNarrative: document.getElementById('socialLeadNarrative'),
-  volumeNarrative: document.getElementById('socialVolumeNarrative'),
-  formatNarrative: document.getElementById('socialFormatNarrative'),
-  profilesCount: document.getElementById('socialProfilesCount'),
-  postsCount: document.getElementById('socialPostsCount'),
-  interactionsCount: document.getElementById('socialInteractionsCount'),
-  reelsCount: document.getElementById('socialReelsCount'),
+  leadNarrative: document.getElementById("socialLeadNarrative"),
+  volumeNarrative: document.getElementById("socialVolumeNarrative"),
+  formatNarrative: document.getElementById("socialFormatNarrative"),
+  profilesCount: document.getElementById("socialProfilesCount"),
+  postsCount: document.getElementById("socialPostsCount"),
+  interactionsCount: document.getElementById("socialInteractionsCount"),
+  reelsCount: document.getElementById("socialReelsCount"),
 };
 
 const socialState = {
   impactChart: null,
   strategyChart: null,
+  totalChart: null,
+  formatsChart: null,
   profiles: [],
 };
 
-const transparentState = {
-  chart: null,
+const activityState = {
+  topActiveChart: null,
+  topInactiveChart: null,
+  partyChart: null,
+  speechesChart: null,
+  lawsChart: null,
+  payload: null,
+  loadingPromise: null,
 };
 
 function formatNumber(value) {
@@ -401,9 +416,14 @@ function formatOneDecimal(value) {
 }
 
 function formatCompactMetric(value) {
+  if (Math.abs(value) >= 1000000) {
+    return `${formatOneDecimal(value / 1000000)} mil.`;
+  }
+
   if (Math.abs(value) >= 1000) {
     const thousands = value / 1000;
-    const formattedThousands = value >= 100000 ? formatInteger(thousands) : formatOneDecimal(thousands);
+    const formattedThousands =
+      value >= 100000 ? formatInteger(thousands) : formatOneDecimal(thousands);
 
     return `${formattedThousands} tis.`;
   }
@@ -415,18 +435,117 @@ function formatShortPercent(value) {
   return `${formatOneDecimal(value)} %`;
 }
 
+function compactPersonName(name) {
+  const primaryName = name.split(",")[0].trim();
+  const parts = primaryName.split(/\s+/).filter(Boolean);
+
+  if (parts.length <= 2) {
+    return primaryName;
+  }
+
+  return parts.slice(-2).join(" ");
+}
+
+function wrapLabel(label, maxLineLength = 16) {
+  const words = label.split(/\s+/).filter(Boolean);
+  const lines = [];
+  let currentLine = "";
+
+  words.forEach((word) => {
+    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+
+    if (nextLine.length <= maxLineLength || !currentLine) {
+      currentLine = nextLine;
+      return;
+    }
+
+    lines.push(currentLine);
+    currentLine = word;
+  });
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  return lines;
+}
+
+function formatAxisTick(value) {
+  return Number.isInteger(value)
+    ? formatInteger(value)
+    : formatOneDecimal(value);
+}
+
+function getAxisLabelHoverIndex(chart, event) {
+  const yScale = chart.scales.y;
+
+  if (
+    !yScale ||
+    event.x == null ||
+    event.y == null ||
+    !Array.isArray(chart.data.labels) ||
+    !chart.data.labels.length
+  ) {
+    return null;
+  }
+
+  const { x, y } = event;
+
+  if (x < yScale.left || x > yScale.right || y < yScale.top || y > yScale.bottom) {
+    return null;
+  }
+
+  const tickPositions = chart.data.labels.map((_, index) =>
+    yScale.getPixelForTick(index),
+  );
+  const spacing =
+    tickPositions.length > 1
+      ? Math.min(
+          ...tickPositions
+            .slice(1)
+            .map((position, index) => Math.abs(position - tickPositions[index])),
+        )
+      : 28;
+  const threshold = Math.max(12, spacing * 0.45);
+
+  let nearestIndex = null;
+  let nearestDistance = Number.POSITIVE_INFINITY;
+
+  tickPositions.forEach((position, index) => {
+    const distance = Math.abs(y - position);
+
+    if (distance < nearestDistance) {
+      nearestDistance = distance;
+      nearestIndex = index;
+    }
+  });
+
+  return nearestDistance <= threshold ? nearestIndex : null;
+}
+
+function clearAxisLabelTooltip(chart) {
+  if (!chart.$axisLabelTooltipActive) {
+    return;
+  }
+
+  chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+  chart.$axisLabelTooltipActive = false;
+  chart.$axisLabelTooltipIndex = -1;
+  chart.update("none");
+}
+
 function average(values) {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
 function pearsonCorrelation(points) {
-  const meanX = average(points.map(point => point.x));
-  const meanY = average(points.map(point => point.y));
+  const meanX = average(points.map((point) => point.x));
+  const meanY = average(points.map((point) => point.y));
   let numerator = 0;
   let denominatorX = 0;
   let denominatorY = 0;
 
-  points.forEach(point => {
+  points.forEach((point) => {
     const deltaX = point.x - meanX;
     const deltaY = point.y - meanY;
 
@@ -443,12 +562,12 @@ function pearsonCorrelation(points) {
 }
 
 function linearRegression(points) {
-  const meanX = average(points.map(point => point.x));
-  const meanY = average(points.map(point => point.y));
+  const meanX = average(points.map((point) => point.x));
+  const meanY = average(points.map((point) => point.y));
   let covariance = 0;
   let varianceX = 0;
 
-  points.forEach(point => {
+  points.forEach((point) => {
     const deltaX = point.x - meanX;
     covariance += deltaX * (point.y - meanY);
     varianceX += deltaX * deltaX;
@@ -461,7 +580,7 @@ function linearRegression(points) {
 }
 
 function regressionLine(points, regression) {
-  const xValues = points.map(point => point.x);
+  const xValues = points.map((point) => point.x);
   const minX = Math.min(...xValues);
   const maxX = Math.max(...xValues);
   const sampleCount = 56;
@@ -470,8 +589,8 @@ function regressionLine(points, regression) {
     const y = regression.intercept + regression.slope * minX;
 
     return [
-      { label: 'Trendová čiara', x: minX, y },
-      { label: 'Trendová čiara', x: maxX, y },
+      { label: "Trendová čiara", x: minX, y },
+      { label: "Trendová čiara", x: maxX, y },
     ];
   }
 
@@ -480,7 +599,7 @@ function regressionLine(points, regression) {
     const x = minX + (maxX - minX) * progress;
 
     return {
-      label: 'Trendová čiara',
+      label: "Trendová čiara",
       x,
       y: regression.intercept + regression.slope * x,
     };
@@ -499,7 +618,10 @@ function chartBounds(values, minimumPadding, floor = 0) {
   };
 }
 
-function nicePercentAxis(values, { floor = 0, step = 1, minimumMax = step } = {}) {
+function nicePercentAxis(
+  values,
+  { floor = 0, step = 1, minimumMax = step } = {},
+) {
   const maxValue = Math.max(...values);
 
   return {
@@ -510,12 +632,12 @@ function nicePercentAxis(values, { floor = 0, step = 1, minimumMax = step } = {}
 
 function describeCorrelation(correlation) {
   const absoluteCorrelation = Math.abs(correlation);
-  let strength = 'nízka';
+  let strength = "nízka";
 
   if (absoluteCorrelation >= 0.6) {
-    strength = 'vysoká';
+    strength = "vysoká";
   } else if (absoluteCorrelation >= 0.3) {
-    strength = 'stredná';
+    strength = "stredná";
   }
 
   if (correlation > 0.05) {
@@ -526,15 +648,15 @@ function describeCorrelation(correlation) {
     return `${strength} negatívna`;
   }
 
-  return strength === 'nízka' ? 'veľmi nízka' : strength;
+  return strength === "nízka" ? "veľmi nízka" : strength;
 }
 
 function describeTrend(slope) {
   if (Math.abs(slope) < 0.5) {
-    return 'Takmer plochý trend';
+    return "Takmer plochý trend";
   }
 
-  return slope > 0 ? 'Rastúci trend' : 'Klesajúci trend';
+  return slope > 0 ? "Rastúci trend" : "Klesajúci trend";
 }
 
 function capitalize(text) {
@@ -542,39 +664,43 @@ function capitalize(text) {
 }
 
 function formatMonth(monthValue) {
-  const [year, month] = monthValue.split('-');
+  const [year, month] = monthValue.split("-");
   const monthNames = [
-    'január',
-    'február',
-    'marec',
-    'apríl',
-    'máj',
-    'jún',
-    'júl',
-    'august',
-    'september',
-    'október',
-    'november',
-    'december',
+    "január",
+    "február",
+    "marec",
+    "apríl",
+    "máj",
+    "jún",
+    "júl",
+    "august",
+    "september",
+    "október",
+    "november",
+    "december",
   ];
 
   return `${monthNames[Number(month) - 1]} ${year}`;
 }
 
 function cleanPartyLabel(label) {
-  return label.replace(/\s*\(%\)\s*$/, '');
+  return label.replace(/\s*\(%\)\s*$/, "");
 }
 
 function normalizeSearchText(value) {
-  return String(value ?? '').trim().toLocaleLowerCase('sk-SK');
+  return String(value ?? "")
+    .trim()
+    .toLocaleLowerCase("sk-SK");
 }
 
 function getPartyDefinition(key) {
-  return electionState.partyOptions.find(party => party.key === key);
+  return electionState.partyOptions.find((party) => party.key === key);
 }
 
 function getDistrictRow(label) {
-  return electionState.payload?.data?.find(row => row.okres === label) ?? null;
+  return (
+    electionState.payload?.data?.find((row) => row.okres === label) ?? null
+  );
 }
 
 function getSortedDistrictRows() {
@@ -582,28 +708,33 @@ function getSortedDistrictRows() {
     return [];
   }
 
-  return [...electionState.payload.data].sort((left, right) => left.okres.localeCompare(right.okres, 'sk-SK'));
+  return [...electionState.payload.data].sort((left, right) =>
+    left.okres.localeCompare(right.okres, "sk-SK"),
+  );
 }
 
 function buildPartyOptions(meta) {
   return Object.entries(meta.columns)
-    .filter(([key]) => !['okres', 'nezam_pct'].includes(key))
+    .filter(([key]) => !["okres", "nezam_pct"].includes(key))
     .map(([key, label]) => ({
       key,
       label: PARTY_LABELS[key] ?? cleanPartyLabel(label),
       buttonLabel: PARTY_BUTTON_LABELS[key] ?? cleanPartyLabel(label),
       accent: PARTY_VISUALS[key]?.accent ?? COLORS.accent,
       accentStrong: PARTY_VISUALS[key]?.accentStrong ?? COLORS.accentStrong,
-      trendColor: PARTY_VISUALS[key]?.trendColor ?? PARTY_VISUALS[key]?.accentStrong ?? COLORS.electric,
-      logoSrc: PARTY_VISUALS[key]?.logoSrc ?? '',
-      logoBackground: PARTY_VISUALS[key]?.logoBackground ?? '#ffffff',
+      trendColor:
+        PARTY_VISUALS[key]?.trendColor ??
+        PARTY_VISUALS[key]?.accentStrong ??
+        COLORS.electric,
+      logoSrc: PARTY_VISUALS[key]?.logoSrc ?? "",
+      logoBackground: PARTY_VISUALS[key]?.logoBackground ?? "#ffffff",
       logoScale: PARTY_VISUALS[key]?.logoScale ?? 1,
     }));
 }
 
 function getScatterData(partyKey) {
   return electionState.payload.data
-    .map(row => ({
+    .map((row) => ({
       label: row.okres,
       x: row.nezam_pct,
       y: row[partyKey],
@@ -612,22 +743,22 @@ function getScatterData(partyKey) {
 }
 
 function createPartyLogoShell(party, shellClassName, imageClassName) {
-  const shell = document.createElement('span');
+  const shell = document.createElement("span");
   shell.className = shellClassName;
-  shell.style.setProperty('--party-logo-bg', party.logoBackground ?? '#ffffff');
-  shell.style.setProperty('--party-logo-scale', String(party.logoScale ?? 1));
+  shell.style.setProperty("--party-logo-bg", party.logoBackground ?? "#ffffff");
+  shell.style.setProperty("--party-logo-scale", String(party.logoScale ?? 1));
 
   if (!party.logoSrc) {
     shell.textContent = party.buttonLabel;
     return shell;
   }
 
-  const image = document.createElement('img');
+  const image = document.createElement("img");
   image.className = imageClassName;
   image.src = party.logoSrc;
-  image.alt = '';
-  image.decoding = 'async';
-  image.loading = 'lazy';
+  image.alt = "";
+  image.decoding = "async";
+  image.loading = "lazy";
   shell.append(image);
 
   return shell;
@@ -638,15 +769,17 @@ function sumValues(values) {
 }
 
 function parseCompactNumber(token) {
-  const normalizedToken = String(token ?? '').trim().toLowerCase();
+  const normalizedToken = String(token ?? "")
+    .trim()
+    .toLowerCase();
 
-  if (!normalizedToken || normalizedToken === '-') {
+  if (!normalizedToken || normalizedToken === "-") {
     return null;
   }
 
-  const normalizedNumber = normalizedToken.replace(',', '.');
+  const normalizedNumber = normalizedToken.replace(",", ".");
 
-  if (normalizedNumber.endsWith('k')) {
+  if (normalizedNumber.endsWith("k")) {
     return Math.round(Number.parseFloat(normalizedNumber.slice(0, -1)) * 1000);
   }
 
@@ -654,12 +787,18 @@ function parseCompactNumber(token) {
 }
 
 function parseSocialPostRow(row) {
-  const [likesToken = '', commentsToken = '', sharesToken = '-', viewsToken = '-'] = row.trim().split(/\s+/);
+  const [
+    likesToken = "",
+    commentsToken = "",
+    sharesToken = "-",
+    viewsToken = "-",
+  ] = row.trim().split(/\s+/);
   const likes = parseCompactNumber(likesToken) ?? 0;
   const comments = parseCompactNumber(commentsToken) ?? 0;
   const shareValue = parseCompactNumber(sharesToken);
   const viewValue = parseCompactNumber(viewsToken);
-  const type = viewValue !== null ? 'reels' : shareValue === null ? 'event' : 'post';
+  const type =
+    viewValue !== null ? "reels" : shareValue === null ? "event" : "post";
 
   return {
     likes,
@@ -671,15 +810,30 @@ function parseSocialPostRow(row) {
   };
 }
 
-function prepareSocialProfiles() {
-  return SOCIAL_PROFILES.map(profile => {
-    const posts = profile.rawPosts.map(parseSocialPostRow);
-    const typeCounts = posts.reduce((summary, post) => {
-      summary[post.type] += 1;
-      return summary;
-    }, { reels: 0, post: 0, event: 0 });
+function perThousand(value, total) {
+  return total ? (value / total) * 1000 : 0;
+}
 
-    const totalInteractions = sumValues(posts.map(post => post.interactions));
+function prepareSocialProfiles() {
+  return SOCIAL_PROFILES.map((profile) => {
+    const posts = profile.rawPosts.map(parseSocialPostRow);
+    const typeCounts = posts.reduce(
+      (summary, post) => {
+        summary[post.type] += 1;
+        return summary;
+      },
+      { reels: 0, post: 0, event: 0 },
+    );
+
+    const totalInteractions = sumValues(posts.map((post) => post.interactions));
+    const reelsPosts = posts.filter((post) => post.type === "reels");
+    const reelsViews = sumValues(reelsPosts.map((post) => post.views));
+    const reelsLikes = sumValues(reelsPosts.map((post) => post.likes));
+    const reelsStrongInteractions = sumValues(
+      reelsPosts.map((post) => post.comments + post.shares),
+    );
+    const reelsInteractions = reelsLikes + reelsStrongInteractions;
+    const reelsEngagementRate = reelsViews ? reelsInteractions / reelsViews : 0;
 
     return {
       ...profile,
@@ -688,15 +842,30 @@ function prepareSocialProfiles() {
       totalPosts: posts.length,
       totalInteractions,
       averageInteractions: totalInteractions / posts.length,
+      reelsViews,
+      reelsLikes,
+      reelsStrongInteractions,
+      reelsInteractions,
+      reelsPassiveViews: Math.max(reelsViews - reelsInteractions, 0),
+      reelsEngagementRate,
+      reelsPassiveShare: reelsViews
+        ? Math.max((reelsViews - reelsInteractions) / reelsViews, 0)
+        : 0,
+      likesPerThousandViews: perThousand(reelsLikes, reelsViews),
+      strongPerThousandViews: perThousand(reelsStrongInteractions, reelsViews),
     };
   });
 }
 
 function hexToRgb(color) {
-  const normalized = color.replace('#', '');
-  const hex = normalized.length === 3
-    ? normalized.split('').map(character => `${character}${character}`).join('')
-    : normalized;
+  const normalized = color.replace("#", "");
+  const hex =
+    normalized.length === 3
+      ? normalized
+          .split("")
+          .map((character) => `${character}${character}`)
+          .join("")
+      : normalized;
   const numericValue = Number.parseInt(hex, 16);
 
   return {
@@ -707,13 +876,28 @@ function hexToRgb(color) {
 }
 
 function withOpacity(color, opacity) {
-  if (!color.startsWith('#')) {
+  if (!color.startsWith("#")) {
     return color;
   }
 
   const { r, g, b } = hexToRgb(color);
 
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}
+
+function getPartyVisualByLabel(label) {
+  const normalizedLabel = label
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return (
+    PARTY_VISUALS_BY_LABEL[label] ??
+    PARTY_VISUALS_BY_LABEL[normalizedLabel] ??
+    PARTY_VISUALS[label] ??
+    PARTY_VISUALS[normalizedLabel] ??
+    null
+  );
 }
 
 function createVerticalGradient(chart, startColor, endColor) {
@@ -723,7 +907,12 @@ function createVerticalGradient(chart, startColor, endColor) {
     return startColor;
   }
 
-  const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+  const gradient = ctx.createLinearGradient(
+    0,
+    chartArea.bottom,
+    0,
+    chartArea.top,
+  );
   gradient.addColorStop(0, startColor);
   gradient.addColorStop(1, endColor);
 
@@ -735,17 +924,26 @@ function uniqueFormatCount(profile) {
 }
 
 function renderSocialNarratives(profiles) {
-  const rankedByImpact = [...profiles].sort((left, right) => right.totalInteractions - left.totalInteractions);
-  const rankedByVolume = [...profiles].sort((left, right) => right.totalPosts - left.totalPosts);
-  const [leader, runnerUp] = rankedByImpact;
-  const volumeLeader = rankedByVolume[0];
-  const diverseLeader = [...profiles].sort((left, right) => uniqueFormatCount(right) - uniqueFormatCount(left) || right.totalPosts - left.totalPosts)[0];
-  const totalInteractions = sumValues(profiles.map(profile => profile.totalInteractions));
-  const totalPosts = sumValues(profiles.map(profile => profile.totalPosts));
-  const totalReels = sumValues(profiles.map(profile => profile.typeCounts.reels));
-  const leaderShare = totalInteractions ? (leader.totalInteractions / totalInteractions) * 100 : 0;
-  const gapToRunnerUp = runnerUp ? leader.totalInteractions - runnerUp.totalInteractions : 0;
-  const eventProfiles = profiles.filter(profile => profile.typeCounts.event > 0);
+  const rankedByReach = [...profiles].sort(
+    (left, right) => right.reelsViews - left.reelsViews,
+  );
+  const rankedByActivity = [...profiles].sort(
+    (left, right) => right.reelsEngagementRate - left.reelsEngagementRate,
+  );
+  const rankedByStrongReactions = [...profiles].sort(
+    (left, right) => right.strongPerThousandViews - left.strongPerThousandViews,
+  );
+  const totalInteractions = sumValues(
+    profiles.map((profile) => profile.totalInteractions),
+  );
+  const totalPosts = sumValues(profiles.map((profile) => profile.totalPosts));
+  const totalReels = sumValues(
+    profiles.map((profile) => profile.typeCounts.reels),
+  );
+  const [reachLeader] = rankedByReach;
+  const [activityLeader] = rankedByActivity;
+  const [strongLeader] = rankedByStrongReactions;
+  const mostPassive = rankedByActivity[rankedByActivity.length - 1];
 
   if (socialSection.profilesCount) {
     socialSection.profilesCount.textContent = formatInteger(profiles.length);
@@ -756,7 +954,8 @@ function renderSocialNarratives(profiles) {
   }
 
   if (socialSection.interactionsCount) {
-    socialSection.interactionsCount.textContent = formatCompactMetric(totalInteractions);
+    socialSection.interactionsCount.textContent =
+      formatCompactMetric(totalInteractions);
   }
 
   if (socialSection.reelsCount) {
@@ -764,28 +963,20 @@ function renderSocialNarratives(profiles) {
   }
 
   if (socialSection.leadNarrative) {
-    socialSection.leadNarrative.textContent = `${leader.label} nazbieral ${formatInteger(leader.totalInteractions)} interakcií, teda ${formatShortPercent(leaderShare)} všetkých reakcií v sledovanom balíku. Pred druhým miestom má náskok ${formatCompactMetric(gapToRunnerUp)}.`;
+    socialSection.leadNarrative.textContent = `${activityLeader.label} má najaktívnejšie Reels publikum: na 1 000 videní pripadá ${formatOneDecimal(activityLeader.likesPerThousandViews + activityLeader.strongPerThousandViews)} interakcií, teda engagement rate ${formatShortPercent(activityLeader.reelsEngagementRate * 100)}.`;
   }
 
   if (socialSection.volumeNarrative) {
-    if (leader.key === volumeLeader.key) {
-      socialSection.volumeNarrative.textContent = `${leader.label} bol zároveň najaktívnejší aj najvýkonnejší: zverejnil ${formatInteger(leader.totalPosts)} príspevkov a na jeden post priemerne získal ${formatCompactMetric(leader.averageInteractions)} interakcií.`;
-    } else {
-      socialSection.volumeNarrative.textContent = `${volumeLeader.label} tlačil na objem a zverejnil ${formatInteger(volumeLeader.totalPosts)} príspevkov, najviac zo všetkých. ${leader.label} však aj pri ${formatInteger(leader.totalPosts)} príspevkoch doručil takmer ${formatOneDecimal(leader.totalInteractions / runnerUp.totalInteractions)}-násobok interakcií oproti druhému miestu.`;
-    }
+    socialSection.volumeNarrative.textContent = `${strongLeader.label} má najsilnejšie „hlbšie“ zapojenie publika: ${formatOneDecimal(strongLeader.strongPerThousandViews)} komentárov a zdieľaní na 1 000 videní. ${mostPassive.label} má naopak najslabšiu mieru zapojenia, iba ${formatShortPercent(mostPassive.reelsEngagementRate * 100)}.`;
   }
 
   if (socialSection.formatNarrative) {
-    const eventClause = eventProfiles.length
-      ? ` ${eventProfiles.map(profile => profile.label).join(', ')} ${eventProfiles.length === 1 ? 'bol jediný, kto' : 'boli jediní, ktorí'} pracoval${eventProfiles.length === 1 ? '' : 'i'} aj s udalosťami.`
-      : '';
-
-    socialSection.formatNarrative.textContent = `Reels tvorili ${formatShortPercent((totalReels / totalPosts) * 100)} všetkého obsahu (${formatInteger(totalReels)} z ${formatInteger(totalPosts)} príspevkov). Najpestrejší mix formátov mal ${diverseLeader.label}.${eventClause}`;
+    socialSection.formatNarrative.textContent = `${reachLeader.label} má najväčší Reels zásah, spolu ${formatCompactMetric(reachLeader.reelsViews)} videní. Preto grafy nižšie oddeľujú čistý reach od publika, ktoré iba pozerá, a publika, ktoré aj reaguje.`;
   }
 }
 
 function getVisibleSocialTypes(profile) {
-  return SOCIAL_TYPE_ORDER.filter(type => profile.typeCounts[type] > 0);
+  return SOCIAL_TYPE_ORDER.filter((type) => profile.typeCounts[type] > 0);
 }
 
 function getSocialStackRadius(type, profile) {
@@ -818,29 +1009,218 @@ function hydrateSocialSection() {
 }
 
 function createSocialImpactChart(canvas, profiles) {
-  return new Chart(canvas.getContext('2d'), {
-    type: 'bar',
+  return new Chart(canvas.getContext("2d"), {
+    type: "bar",
     data: {
-      labels: profiles.map(profile => profile.shortLabel),
+      labels: profiles.map((profile) => profile.shortLabel),
       datasets: [
         {
-          label: 'Interakcie',
-          data: profiles.map(profile => profile.totalInteractions),
-          backgroundColor: context => {
-            const profile = profiles[context.dataIndex];
-
-            return createVerticalGradient(context.chart, withOpacity(profile.color, 0.72), profile.highlight);
-          },
-          borderColor: context => profiles[context.dataIndex].color,
+          label: "Lajky",
+          data: profiles.map((profile) => profile.likesPerThousandViews),
+          backgroundColor: withOpacity("#63c7ff", 0.84),
+          borderColor: "#8ad8ff",
           borderWidth: 1.5,
-          borderRadius: 18,
+          borderRadius: 8,
           borderSkipped: false,
-          maxBarThickness: 66,
-          hoverBackgroundColor: context => {
+          maxBarThickness: 46,
+        },
+        {
+          label: "Komentáre + zdieľania",
+          data: profiles.map((profile) => profile.strongPerThousandViews),
+          backgroundColor: withOpacity("#f3a64a", 0.86),
+          borderColor: "#ffcf82",
+          borderWidth: 1.5,
+          borderRadius: 8,
+          borderSkipped: false,
+          maxBarThickness: 46,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        ...basePluginConfig(),
+        legend: {
+          ...basePluginConfig().legend,
+          display: true,
+          position: "top",
+          align: "center",
+        },
+        tooltip: {
+          ...basePluginConfig().tooltip,
+          callbacks: {
+            label: (tooltipItem) =>
+              `${tooltipItem.dataset.label}: ${formatOneDecimal(tooltipItem.parsed.y)} na 1 000 videní`,
+            afterLabel: (tooltipItem) => {
+              const profile = profiles[tooltipItem.dataIndex];
+
+              return [
+                `Reels videnia: ${formatCompactMetric(profile.reelsViews)}`,
+                `Celkový engagement: ${formatShortPercent(profile.reelsEngagementRate * 100)}`,
+              ];
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ...commonScale("Líder politickej strany"),
+          grid: {
+            display: false,
+            drawBorder: false,
+          },
+        },
+        y: {
+          ...commonScale("Interakcie na 1 000 videní"),
+          beginAtZero: true,
+          suggestedMax:
+            Math.max(
+              ...profiles.map(
+                (profile) =>
+                  profile.likesPerThousandViews +
+                  profile.strongPerThousandViews,
+              ),
+            ) * 1.15,
+          ticks: {
+            ...commonScale("").ticks,
+            callback: (value) => formatInteger(Number(value)),
+          },
+        },
+      },
+    },
+  });
+}
+
+function createSocialStrategyChart(canvas, profiles) {
+  return new Chart(canvas.getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: profiles.map((profile) => profile.shortLabel),
+      datasets: [
+        {
+          label: "Aktívni",
+          data: profiles.map((profile) => profile.reelsEngagementRate * 100),
+          backgroundColor: withOpacity("#61c5ff", 0.9),
+          borderColor: withOpacity("#61c5ff", 0.9),
+          borderWidth: 0,
+          borderRadius: {
+            topLeft: 10,
+            topRight: 0,
+            bottomLeft: 10,
+            bottomRight: 0,
+          },
+          borderSkipped: false,
+          stack: "audience",
+          maxBarThickness: 34,
+          barPercentage: 0.84,
+          categoryPercentage: 0.68,
+        },
+        {
+          label: "Len pozerajúci",
+          data: profiles.map((profile) => profile.reelsPassiveShare * 100),
+          backgroundColor: withOpacity("#586888", 0.88),
+          borderColor: withOpacity("#586888", 0.88),
+          borderWidth: 0,
+          borderRadius: {
+            topLeft: 0,
+            topRight: 10,
+            bottomLeft: 0,
+            bottomRight: 10,
+          },
+          borderSkipped: false,
+          stack: "audience",
+          maxBarThickness: 34,
+          barPercentage: 0.84,
+          categoryPercentage: 0.68,
+        },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: {
+        mode: "index",
+        axis: "y",
+        intersect: false,
+      },
+      plugins: {
+        ...basePluginConfig(),
+        legend: {
+          ...basePluginConfig().legend,
+          display: true,
+          position: "top",
+          align: "center",
+        },
+        tooltip: {
+          ...basePluginConfig().tooltip,
+          callbacks: {
+            label: (tooltipItem) =>
+              `${tooltipItem.dataset.label}: ${formatShortPercent(
+                tooltipItem.parsed.x,
+              )}`,
+            afterBody: (tooltipItems) => {
+              const profile = profiles[tooltipItems[0].dataIndex];
+
+              return [
+                `Reels videnia: ${formatCompactMetric(profile.reelsViews)}`,
+                `Reels interakcie: ${formatCompactMetric(profile.reelsInteractions)}`,
+              ];
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ...commonScale("Podiel Reels publika"),
+          stacked: true,
+          beginAtZero: true,
+          max: 100,
+          grid: {
+            drawBorder: false,
+          },
+          ticks: {
+            ...commonScale("").ticks,
+            callback: (value) => `${formatInteger(Number(value))} %`,
+          },
+        },
+        y: {
+          ...commonScale("Líder politickej strany"),
+          stacked: true,
+          grid: {
+            display: false,
+            drawBorder: false,
+          },
+        },
+      },
+    },
+  });
+}
+
+function createSocialTotalChart(canvas, profiles) {
+  return new Chart(canvas.getContext("2d"), {
+    type: "bar",
+    data: {
+      labels: profiles.map((profile) => profile.shortLabel),
+      datasets: [
+        {
+          label: "Interakcie",
+          data: profiles.map((profile) => profile.totalInteractions),
+          backgroundColor: (context) => {
             const profile = profiles[context.dataIndex];
 
-            return createVerticalGradient(context.chart, profile.color, profile.highlight);
+            return createVerticalGradient(
+              context.chart,
+              withOpacity(profile.color, 0.74),
+              profile.highlight,
+            );
           },
+          borderColor: (context) => profiles[context.dataIndex].color,
+          borderWidth: 1.5,
+          borderRadius: 10,
+          borderSkipped: false,
+          maxBarThickness: 54,
         },
       ],
     },
@@ -855,8 +1235,9 @@ function createSocialImpactChart(canvas, profiles) {
         tooltip: {
           ...basePluginConfig().tooltip,
           callbacks: {
-            label: tooltipItem => `Interakcie: ${formatInteger(tooltipItem.parsed.y)}`,
-            afterLabel: tooltipItem => {
+            label: (tooltipItem) =>
+              `Interakcie: ${formatCompactMetric(tooltipItem.parsed.y)}`,
+            afterLabel: (tooltipItem) => {
               const profile = profiles[tooltipItem.dataIndex];
 
               return [
@@ -869,19 +1250,21 @@ function createSocialImpactChart(canvas, profiles) {
       },
       scales: {
         x: {
-          ...commonScale('Líder politickej strany'),
+          ...commonScale("Líder politickej strany"),
           grid: {
             display: false,
             drawBorder: false,
           },
         },
         y: {
-          ...commonScale('Súčet interakcií'),
+          ...commonScale("Súčet interakcií"),
           beginAtZero: true,
-          suggestedMax: Math.max(...profiles.map(profile => profile.totalInteractions)) * 1.12,
+          suggestedMax:
+            Math.max(...profiles.map((profile) => profile.totalInteractions)) *
+            1.12,
           ticks: {
-            ...commonScale('').ticks,
-            callback: value => formatCompactMetric(Number(value)),
+            ...commonScale("").ticks,
+            callback: (value) => formatCompactMetric(Number(value)),
           },
         },
       },
@@ -889,43 +1272,45 @@ function createSocialImpactChart(canvas, profiles) {
   });
 }
 
-function createSocialStrategyChart(canvas, profiles) {
-  return new Chart(canvas.getContext('2d'), {
-    type: 'bar',
+function createSocialFormatsChart(canvas, profiles) {
+  return new Chart(canvas.getContext("2d"), {
+    type: "bar",
     data: {
-      labels: profiles.map(profile => profile.shortLabel),
-      datasets: SOCIAL_TYPE_ORDER.map(type => ({
+      labels: profiles.map((profile) => profile.shortLabel),
+      datasets: SOCIAL_TYPE_ORDER.map((type) => ({
         label: SOCIAL_TYPE_LABELS[type],
-        data: profiles.map(profile => profile.typeCounts[type]),
-        backgroundColor: withOpacity(SOCIAL_TYPE_COLORS[type], 0.82),
+        data: profiles.map((profile) => profile.typeCounts[type]),
+        backgroundColor: withOpacity(SOCIAL_TYPE_COLORS[type], 0.84),
         borderColor: SOCIAL_TYPE_COLORS[type],
-        borderWidth: 1.6,
-        borderRadius: context => getSocialStackRadius(type, profiles[context.dataIndex]),
+        borderWidth: 1.4,
+        borderRadius: (context) =>
+          getSocialStackRadius(type, profiles[context.dataIndex]),
         borderSkipped: false,
-        stack: 'content',
-        maxBarThickness: 64,
-        borderJoinStyle: 'round',
-        barPercentage: 0.74,
-        categoryPercentage: 0.7,
+        stack: "formats",
+        maxBarThickness: 56,
       })),
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       interaction: {
-        mode: 'index',
+        mode: "index",
         intersect: false,
       },
       plugins: {
         ...basePluginConfig(),
         legend: {
-          display: false,
+          ...basePluginConfig().legend,
+          display: true,
+          position: "top",
+          align: "center",
         },
         tooltip: {
           ...basePluginConfig().tooltip,
           callbacks: {
-            label: tooltipItem => `${tooltipItem.dataset.label}: ${formatInteger(tooltipItem.parsed.y)} príspevkov`,
-            afterBody: tooltipItems => {
+            label: (tooltipItem) =>
+              `${tooltipItem.dataset.label}: ${formatInteger(tooltipItem.parsed.y)} príspevkov`,
+            afterBody: (tooltipItems) => {
               const profile = profiles[tooltipItems[0].dataIndex];
 
               return `Spolu: ${formatInteger(profile.totalPosts)} príspevkov`;
@@ -935,7 +1320,7 @@ function createSocialStrategyChart(canvas, profiles) {
       },
       scales: {
         x: {
-          ...commonScale('Líder politickej strany'),
+          ...commonScale("Líder politickej strany"),
           stacked: true,
           grid: {
             display: false,
@@ -943,14 +1328,15 @@ function createSocialStrategyChart(canvas, profiles) {
           },
         },
         y: {
-          ...commonScale('Počet príspevkov'),
+          ...commonScale("Počet príspevkov"),
           stacked: true,
           beginAtZero: true,
-          suggestedMax: Math.max(...profiles.map(profile => profile.totalPosts)) + 2,
+          suggestedMax:
+            Math.max(...profiles.map((profile) => profile.totalPosts)) + 2,
           ticks: {
-            ...commonScale('').ticks,
+            ...commonScale("").ticks,
             precision: 0,
-            callback: value => formatInteger(Number(value)),
+            callback: (value) => formatInteger(Number(value)),
           },
         },
       },
@@ -964,30 +1350,512 @@ function resizeChart(chart) {
   }
 
   chart.resize();
-  chart.update('none');
+  chart.update("none");
+}
+
+function getActivityCharts() {
+  return [
+    activityState.topActiveChart,
+    activityState.topInactiveChart,
+    activityState.partyChart,
+    activityState.speechesChart,
+    activityState.lawsChart,
+  ].filter(Boolean);
+}
+
+function destroyActivityCharts() {
+  getActivityCharts().forEach((chart) => chart.destroy());
+  activityState.topActiveChart = null;
+  activityState.topInactiveChart = null;
+  activityState.partyChart = null;
+  activityState.speechesChart = null;
+  activityState.lawsChart = null;
+}
+
+function calculateActivityScore(member) {
+  return (
+    member.navrhy_zakonov +
+    member.pozmenujuce_navrhy +
+    member.vystupenia_v_rozprave
+  );
+}
+
+function deriveActivityPayload(entries) {
+  const activeMembers = entries
+    .filter((member) => member.aktivny_mandat)
+    .map((member) => ({
+      ...member,
+      score: calculateActivityScore(member),
+      shortName: compactPersonName(member.meno),
+    }));
+
+  const topActive = [...activeMembers]
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        right.navrhy_zakonov - left.navrhy_zakonov ||
+        right.vystupenia_v_rozprave - left.vystupenia_v_rozprave ||
+        left.meno.localeCompare(right.meno, "sk"),
+    )
+    .slice(0, 10);
+
+  const topInactive = [...activeMembers]
+    .sort(
+      (left, right) =>
+        left.score - right.score ||
+        left.navrhy_zakonov - right.navrhy_zakonov ||
+        left.meno.localeCompare(right.meno, "sk"),
+    )
+    .slice(0, 10);
+
+  const partyMap = activeMembers.reduce((map, member) => {
+    const currentValue = map.get(member.strana) ?? {
+      party: member.strana,
+      score: 0,
+      count: 0,
+    };
+
+    currentValue.score += member.score;
+    currentValue.count += 1;
+    map.set(member.strana, currentValue);
+
+    return map;
+  }, new Map());
+
+  const partyRanking = [...partyMap.values()]
+    .map((item) => ({
+      ...item,
+      averageScore: item.count ? item.score / item.count : 0,
+    }))
+    .sort(
+      (left, right) =>
+        right.score - left.score ||
+        right.count - left.count ||
+        left.party.localeCompare(right.party, "sk"),
+    );
+
+  const topSpeeches = [...activeMembers]
+    .sort(
+      (left, right) =>
+        right.vystupenia_v_rozprave - left.vystupenia_v_rozprave ||
+        right.score - left.score ||
+        left.meno.localeCompare(right.meno, "sk"),
+    )
+    .slice(0, 5);
+
+  const topLaws = [...activeMembers]
+    .sort(
+      (left, right) =>
+        right.navrhy_zakonov - left.navrhy_zakonov ||
+        right.score - left.score ||
+        left.meno.localeCompare(right.meno, "sk"),
+    )
+    .slice(0, 5);
+
+  return {
+    activeCount: activeMembers.length,
+    partyCount: partyRanking.length,
+    topActive,
+    topInactive,
+    partyRanking,
+    topSpeeches,
+    topLaws,
+  };
+}
+
+async function loadActivityPayload() {
+  if (activityState.payload) {
+    return activityState.payload;
+  }
+
+  if (activityState.loadingPromise) {
+    return activityState.loadingPromise;
+  }
+
+  activityState.loadingPromise = fetch("data/nrsr_aktivita_poslancov.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Aktivita data request failed: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((payload) => {
+      const derivedPayload = deriveActivityPayload(payload);
+      activityState.payload = derivedPayload;
+      return derivedPayload;
+    })
+    .finally(() => {
+      activityState.loadingPromise = null;
+    });
+
+  return activityState.loadingPromise;
+}
+
+function createActivityRankingChart(canvas, config) {
+  const values = config.items.map((item) => config.getValue(item));
+  const maxValue = Math.max(...values, 0);
+  const allIntegerValues = values.every(Number.isInteger);
+  const useUnitTicks = allIntegerValues && maxValue <= 12;
+  const formatValue = config.formatValue ?? ((value) => formatAxisTick(value));
+  const tickFormatter =
+    config.tickFormatter ?? ((value) => formatAxisTick(value));
+  const labels = config.items.map((item) =>
+    wrapLabel(config.getAxisLabel(item), config.maxLineLength ?? 16),
+  );
+  const axisLabelTooltipPlugin = {
+    id: "axisLabelTooltip",
+    afterEvent(chart, args) {
+      if (!config.enableAxisLabelTooltip) {
+        return;
+      }
+
+      if (args.event.type === "mouseout") {
+        clearAxisLabelTooltip(chart);
+        return;
+      }
+
+      if (chart.getActiveElements().length) {
+        chart.$axisLabelTooltipActive = false;
+        chart.$axisLabelTooltipIndex = -1;
+        return;
+      }
+
+      const hoveredIndex = getAxisLabelHoverIndex(chart, args.event);
+
+      if (hoveredIndex == null) {
+        clearAxisLabelTooltip(chart);
+        return;
+      }
+
+      if (chart.$axisLabelTooltipIndex === hoveredIndex) {
+        return;
+      }
+
+      const barElement = chart.getDatasetMeta(0).data[hoveredIndex];
+
+      if (!barElement) {
+        return;
+      }
+
+      chart.tooltip.setActiveElements(
+        [{ datasetIndex: 0, index: hoveredIndex }],
+        { x: barElement.x, y: barElement.y },
+      );
+      chart.$axisLabelTooltipActive = true;
+      chart.$axisLabelTooltipIndex = hoveredIndex;
+      chart.update("none");
+    },
+  };
+
+  return new Chart(canvas.getContext("2d"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        {
+          label: config.datasetLabel,
+          data: values,
+          backgroundColor: config.getBackgroundColor
+            ? config.items.map((item) => config.getBackgroundColor(item))
+            : (context) =>
+                createVerticalGradient(
+                  context.chart,
+                  config.colors.start,
+                  config.colors.end,
+                ),
+          borderColor: config.getBorderColor
+            ? config.items.map((item) => config.getBorderColor(item))
+            : config.colors.border,
+          borderWidth: 1.2,
+          borderRadius: 14,
+          borderSkipped: false,
+          maxBarThickness: config.maxBarThickness ?? 26,
+        },
+      ],
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      events: ["mousemove", "mouseout", "click", "touchstart", "touchmove"],
+      plugins: {
+        ...basePluginConfig(),
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          ...basePluginConfig().tooltip,
+          callbacks: {
+            title: (tooltipItems) => {
+              const item = config.items[tooltipItems[0].dataIndex];
+              return config.getTitle(item);
+            },
+            label: (tooltipItem) =>
+              `${config.datasetLabel}: ${formatValue(tooltipItem.parsed.x)}`,
+            afterLabel: (tooltipItem) => {
+              if (!config.getAfterLabel) {
+                return [];
+              }
+
+              return config.getAfterLabel(config.items[tooltipItem.dataIndex]);
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          ...commonScale(config.xAxisTitle),
+          beginAtZero: true,
+          grace: useUnitTicks ? 0 : "10%",
+          suggestedMax: useUnitTicks ? maxValue : undefined,
+          ticks: {
+            ...commonScale("").ticks,
+            precision: allIntegerValues ? 0 : undefined,
+            stepSize: useUnitTicks ? 1 : undefined,
+            callback: (value) => tickFormatter(value),
+          },
+        },
+        y: {
+          ...commonScale(""),
+          grid: {
+            display: false,
+            drawBorder: false,
+          },
+          ticks: {
+            ...commonScale("").ticks,
+            autoSkip: false,
+          },
+        },
+      },
+    },
+    plugins: [axisLabelTooltipPlugin],
+  });
+}
+
+async function initActivityCharts() {
+  const topActiveCanvas = document.getElementById("chartActivityTopActive");
+  const topInactiveCanvas = document.getElementById("chartActivityTopInactive");
+  const partiesCanvas = document.getElementById("chartActivityParties");
+  const speechesCanvas = document.getElementById("chartActivitySpeeches");
+  const lawsCanvas = document.getElementById("chartActivityLaws");
+
+  if (
+    !topActiveCanvas ||
+    !topInactiveCanvas ||
+    !partiesCanvas ||
+    !speechesCanvas ||
+    !lawsCanvas
+  ) {
+    return;
+  }
+
+  try {
+    const payload = await loadActivityPayload();
+
+    destroyActivityCharts();
+
+    activityState.topActiveChart = createActivityRankingChart(topActiveCanvas, {
+      items: payload.topActive,
+      datasetLabel: "Skóre aktivity",
+      xAxisTitle: "Celkové skóre aktivity",
+      colors: {
+        start: withOpacity(COLORS.accentStrong, 0.92),
+        end: withOpacity(COLORS.accent, 0.72),
+        border: COLORS.accentStrong,
+      },
+      getBackgroundColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accent ?? COLORS.accent,
+          0.84,
+        ),
+      getBorderColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accentStrong ??
+            COLORS.accentStrong,
+          0.95,
+        ),
+      getAxisLabel: (item) => item.shortName,
+      getTitle: (item) => [item.meno, `Strana: ${item.strana}`],
+      getValue: (item) => item.score,
+      enableAxisLabelTooltip: true,
+      formatValue: (value) => formatInteger(value),
+      tickFormatter: (value) => formatInteger(value),
+      getAfterLabel: (item) => [
+        `Návrhy zákonov: ${formatInteger(item.navrhy_zakonov)}`,
+        `Pozmeňujúce návrhy: ${formatInteger(item.pozmenujuce_navrhy)}`,
+        `Rozpravy: ${formatInteger(item.vystupenia_v_rozprave)}`,
+      ],
+    });
+
+    activityState.topInactiveChart = createActivityRankingChart(
+      topInactiveCanvas,
+      {
+        items: payload.topInactive,
+        datasetLabel: "Skóre aktivity",
+        xAxisTitle: "Celkové skóre aktivity",
+        colors: {
+          start: withOpacity(COLORS.mutedStrong, 0.9),
+          end: withOpacity(COLORS.muted, 0.72),
+          border: COLORS.mutedStrong,
+        },
+        getBackgroundColor: (item) =>
+          withOpacity(
+            getPartyVisualByLabel(item.strana)?.accent ?? COLORS.mutedStrong,
+            0.84,
+          ),
+        getBorderColor: (item) =>
+          withOpacity(
+            getPartyVisualByLabel(item.strana)?.accentStrong ??
+              COLORS.mutedStrong,
+            0.95,
+          ),
+        getAxisLabel: (item) => item.shortName,
+        getTitle: (item) => [item.meno, `Strana: ${item.strana}`],
+        getValue: (item) => item.score,
+        enableAxisLabelTooltip: true,
+        formatValue: (value) => formatInteger(value),
+        tickFormatter: (value) => formatInteger(value),
+        getAfterLabel: (item) => [
+          `Návrhy zákonov: ${formatInteger(item.navrhy_zakonov)}`,
+          `Pozmeňujúce návrhy: ${formatInteger(item.pozmenujuce_navrhy)}`,
+          `Rozpravy: ${formatInteger(item.vystupenia_v_rozprave)}`,
+        ],
+      },
+    );
+
+    activityState.partyChart = createActivityRankingChart(partiesCanvas, {
+      items: payload.partyRanking,
+      datasetLabel: "Súčet aktivity",
+      xAxisTitle: "Súčet skóre aktivity",
+      colors: {
+        start: withOpacity("#ffb37f", 0.94),
+        end: withOpacity("#d5474d", 0.74),
+        border: "#ffd2ad",
+      },
+      getBackgroundColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.party)?.accent ?? COLORS.accent,
+          0.84,
+        ),
+      getBorderColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.party)?.accentStrong ??
+            COLORS.accentStrong,
+          0.95,
+        ),
+      getAxisLabel: (item) => item.party,
+      getTitle: (item) => item.party,
+      getValue: (item) => item.score,
+      formatValue: (value) => formatInteger(value),
+      tickFormatter: (value) => formatInteger(value),
+      maxLineLength: 14,
+      getAfterLabel: (item) => [
+        `Aktívne mandáty: ${formatInteger(item.count)}`,
+        `Priemer na mandát: ${formatOneDecimal(item.averageScore)}`,
+      ],
+    });
+
+    activityState.speechesChart = createActivityRankingChart(speechesCanvas, {
+      items: payload.topSpeeches,
+      datasetLabel: "Počet rozpráv",
+      xAxisTitle: "Počet vystúpení v rozprave",
+      colors: {
+        start: withOpacity(COLORS.electric, 0.92),
+        end: withOpacity(COLORS.softBlue, 0.74),
+        border: COLORS.electric,
+      },
+      getBackgroundColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accent ?? COLORS.electric,
+          0.84,
+        ),
+      getBorderColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accentStrong ?? COLORS.electric,
+          0.95,
+        ),
+      getAxisLabel: (item) => item.shortName,
+      getTitle: (item) => [item.meno, `Strana: ${item.strana}`],
+      getValue: (item) => item.vystupenia_v_rozprave,
+      enableAxisLabelTooltip: true,
+      formatValue: (value) => formatInteger(value),
+      tickFormatter: (value) => formatInteger(value),
+      getAfterLabel: (item) => [
+        `Celkové skóre: ${formatInteger(item.score)}`,
+        `Návrhy zákonov: ${formatInteger(item.navrhy_zakonov)}`,
+      ],
+    });
+
+    activityState.lawsChart = createActivityRankingChart(lawsCanvas, {
+      items: payload.topLaws,
+      datasetLabel: "Počet návrhov zákonov",
+      xAxisTitle: "Počet návrhov zákonov",
+      colors: {
+        start: withOpacity("#408080", 0.94),
+        end: withOpacity("#2a5959", 0.74),
+        border: "#408080",
+      },
+      getBackgroundColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accent ?? "#408080",
+          0.84,
+        ),
+      getBorderColor: (item) =>
+        withOpacity(
+          getPartyVisualByLabel(item.strana)?.accentStrong ?? "#408080",
+          0.95,
+        ),
+      getAxisLabel: (item) => item.shortName,
+      getTitle: (item) => [item.meno, `Strana: ${item.strana}`],
+      getValue: (item) => item.navrhy_zakonov,
+      enableAxisLabelTooltip: true,
+      formatValue: (value) => formatInteger(value),
+      tickFormatter: (value) => formatInteger(value),
+      getAfterLabel: (item) => [
+        `Celkové skóre: ${formatInteger(item.score)}`,
+        `Rozpravy: ${formatInteger(item.vystupenia_v_rozprave)}`,
+      ],
+    });
+  } catch (error) {
+    console.error("Nepodarilo sa načítať dáta o aktivite poslancov.", error);
+  }
 }
 
 function syncPanelCharts(targetId) {
-  if (targetId === 'panel-socialne') {
+  if (targetId === "panel-socialne") {
     requestAnimationFrame(() => {
-      if (!socialState.impactChart || !socialState.strategyChart) {
+      if (
+        !socialState.impactChart ||
+        !socialState.strategyChart ||
+        !socialState.totalChart ||
+        !socialState.formatsChart
+      ) {
         initSocialChart();
         return;
       }
 
       resizeChart(socialState.impactChart);
       resizeChart(socialState.strategyChart);
+      resizeChart(socialState.totalChart);
+      resizeChart(socialState.formatsChart);
     });
   }
 
-  if (targetId === 'panel-transparentne') {
+  if (targetId === "panel-aktivita") {
     requestAnimationFrame(() => {
-      if (!transparentState.chart) {
-        initTransparentChart();
+      if (
+        !activityState.topActiveChart ||
+        !activityState.topInactiveChart ||
+        !activityState.partyChart ||
+        !activityState.speechesChart ||
+        !activityState.lawsChart
+      ) {
+        void initActivityCharts();
         return;
       }
 
-      resizeChart(transparentState.chart);
+      getActivityCharts().forEach((chart) => resizeChart(chart));
     });
   }
 }
@@ -999,33 +1867,52 @@ function renderPartySwitcher() {
     return;
   }
 
-  container.textContent = '';
+  container.textContent = "";
 
-  electionState.partyOptions.forEach(party => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'party-switcher__btn';
+  electionState.partyOptions.forEach((party) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "party-switcher__btn";
     button.dataset.party = party.key;
-    button.setAttribute('aria-label', `Zobraziť korelačný graf pre stranu ${party.label}`);
-    button.setAttribute('aria-pressed', String(party.key === electionState.selectedPartyKey));
-    button.style.setProperty('--party-accent', party.accent);
-    button.style.setProperty('--party-accent-strong', party.accentStrong);
-    button.style.setProperty('--party-accent-soft', withOpacity(party.accent, 0.18));
-    button.style.setProperty('--party-accent-border', withOpacity(party.accent, 0.38));
-    button.style.setProperty('--party-shadow', withOpacity(party.accentStrong, 0.26));
+    button.setAttribute(
+      "aria-label",
+      `Zobraziť korelačný graf pre stranu ${party.label}`,
+    );
+    button.setAttribute(
+      "aria-pressed",
+      String(party.key === electionState.selectedPartyKey),
+    );
+    button.style.setProperty("--party-accent", party.accent);
+    button.style.setProperty("--party-accent-strong", party.accentStrong);
+    button.style.setProperty(
+      "--party-accent-soft",
+      withOpacity(party.accent, 0.18),
+    );
+    button.style.setProperty(
+      "--party-accent-border",
+      withOpacity(party.accent, 0.38),
+    );
+    button.style.setProperty(
+      "--party-shadow",
+      withOpacity(party.accentStrong, 0.26),
+    );
 
-    const logoShell = createPartyLogoShell(party, 'party-switcher__logo-shell', 'party-switcher__logo');
-    const label = document.createElement('span');
-    label.className = 'party-switcher__label';
+    const logoShell = createPartyLogoShell(
+      party,
+      "party-switcher__logo-shell",
+      "party-switcher__logo",
+    );
+    const label = document.createElement("span");
+    label.className = "party-switcher__label";
     label.textContent = party.buttonLabel;
 
     button.append(logoShell, label);
 
     if (party.key === electionState.selectedPartyKey) {
-      button.classList.add('active');
+      button.classList.add("active");
     }
 
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
       if (party.key === electionState.selectedPartyKey) {
         return;
       }
@@ -1037,7 +1924,9 @@ function renderPartySwitcher() {
         updateElectionChart();
       } catch (error) {
         console.error(error);
-        renderElectionError('Nepodarilo sa prekresliť graf pre zvolenú stranu.');
+        renderElectionError(
+          "Nepodarilo sa prekresliť graf pre zvolenú stranu.",
+        );
       }
     });
 
@@ -1046,7 +1935,10 @@ function renderPartySwitcher() {
 }
 
 function isDistrictSearchOpen() {
-  return Boolean(electionSection.districtSearchPanel && !electionSection.districtSearchPanel.hidden);
+  return Boolean(
+    electionSection.districtSearchPanel &&
+    !electionSection.districtSearchPanel.hidden,
+  );
 }
 
 function applyElectionTheme(party) {
@@ -1055,13 +1947,19 @@ function applyElectionTheme(party) {
   const accentLine = withOpacity(party.accentStrong, 0.22);
 
   if (electionSection.card) {
-    electionSection.card.style.setProperty('--party-accent-soft', accentSoft);
-    electionSection.card.style.setProperty('--party-accent-glow', accentGlow);
+    electionSection.card.style.setProperty("--party-accent-soft", accentSoft);
+    electionSection.card.style.setProperty("--party-accent-glow", accentGlow);
   }
 
   if (electionSection.chartFrame) {
-    electionSection.chartFrame.style.setProperty('--party-accent-soft', accentSoft);
-    electionSection.chartFrame.style.setProperty('--party-accent-line', accentLine);
+    electionSection.chartFrame.style.setProperty(
+      "--party-accent-soft",
+      accentSoft,
+    );
+    electionSection.chartFrame.style.setProperty(
+      "--party-accent-line",
+      accentLine,
+    );
   }
 }
 
@@ -1075,8 +1973,8 @@ function syncDistrictSearchSummary() {
   }
 
   if (!district || !party) {
-    districtSearchValue.textContent = 'Vyber okres';
-    districtSearchHint.textContent = 'Klikni a začni písať názov okresu';
+    districtSearchValue.textContent = "Vyber okres";
+    districtSearchHint.textContent = "Klikni a začni písať názov okresu";
     return;
   }
 
@@ -1091,7 +1989,7 @@ function clearElectionChartSelection() {
 
   electionState.chart.setActiveElements([]);
   electionState.chart.tooltip.setActiveElements([], { x: 0, y: 0 });
-  electionState.chart.update('none');
+  electionState.chart.update("none");
 }
 
 function focusDistrictInChart(label) {
@@ -1101,7 +1999,7 @@ function focusDistrictInChart(label) {
   }
 
   if (applyPinnedDistrictSelection(electionState.chart, label)) {
-    electionState.chart.update('none');
+    electionState.chart.update("none");
   }
 }
 
@@ -1111,7 +2009,7 @@ function applyPinnedDistrictSelection(chart, label) {
   }
 
   const dataset = chart.data.datasets[0]?.data ?? [];
-  const pointIndex = dataset.findIndex(point => point.label === label);
+  const pointIndex = dataset.findIndex((point) => point.label === label);
 
   if (pointIndex === -1) {
     return false;
@@ -1134,14 +2032,19 @@ function applyPinnedDistrictSelection(chart, label) {
 }
 
 function setDistrictSearchOpen(isOpen) {
-  const { districtSearch, districtSearchToggle, districtSearchPanel, districtSearchInput } = electionSection;
+  const {
+    districtSearch,
+    districtSearchToggle,
+    districtSearchPanel,
+    districtSearchInput,
+  } = electionSection;
 
   if (!districtSearch || !districtSearchToggle || !districtSearchPanel) {
     return;
   }
 
-  districtSearch.classList.toggle('open', isOpen);
-  districtSearchToggle.setAttribute('aria-expanded', String(isOpen));
+  districtSearch.classList.toggle("open", isOpen);
+  districtSearchToggle.setAttribute("aria-expanded", String(isOpen));
   districtSearchPanel.hidden = !isOpen;
 
   if (isOpen) {
@@ -1153,10 +2056,10 @@ function setDistrictSearchOpen(isOpen) {
     return;
   }
 
-  electionState.districtQuery = '';
+  electionState.districtQuery = "";
 
   if (districtSearchInput) {
-    districtSearchInput.value = '';
+    districtSearchInput.value = "";
   }
 }
 
@@ -1182,65 +2085,75 @@ function renderDistrictSearchResults() {
     return;
   }
 
-  container.textContent = '';
+  container.textContent = "";
 
   const fragment = document.createDocumentFragment();
-  const clearButton = document.createElement('button');
-  clearButton.type = 'button';
-  clearButton.className = 'district-search__option district-search__option--clear';
-  clearButton.setAttribute('role', 'option');
-  clearButton.setAttribute('aria-selected', String(!electionState.selectedDistrictLabel));
+  const clearButton = document.createElement("button");
+  clearButton.type = "button";
+  clearButton.className =
+    "district-search__option district-search__option--clear";
+  clearButton.setAttribute("role", "option");
+  clearButton.setAttribute(
+    "aria-selected",
+    String(!electionState.selectedDistrictLabel),
+  );
 
   if (!electionState.selectedDistrictLabel) {
-    clearButton.classList.add('active');
+    clearButton.classList.add("active");
   }
 
-  const clearTitle = document.createElement('strong');
-  clearTitle.className = 'district-search__option-name';
-  clearTitle.textContent = 'Všetky okresy';
+  const clearTitle = document.createElement("strong");
+  clearTitle.className = "district-search__option-name";
+  clearTitle.textContent = "Všetky okresy";
 
-  const clearMeta = document.createElement('span');
-  clearMeta.className = 'district-search__option-meta';
-  clearMeta.textContent = 'Zruš zvýraznenie a nechaj tooltip reagovať iba na hover.';
+  const clearMeta = document.createElement("span");
+  clearMeta.className = "district-search__option-meta";
+  clearMeta.textContent =
+    "Zruš zvýraznenie a nechaj tooltip reagovať iba na hover.";
 
   clearButton.append(clearTitle, clearMeta);
-  clearButton.addEventListener('click', () => {
-    selectDistrict('');
+  clearButton.addEventListener("click", () => {
+    selectDistrict("");
   });
   fragment.append(clearButton);
 
-  const filteredRows = getSortedDistrictRows().filter(row => !query || normalizeSearchText(row.okres).includes(query));
+  const filteredRows = getSortedDistrictRows().filter(
+    (row) => !query || normalizeSearchText(row.okres).includes(query),
+  );
 
   if (!filteredRows.length) {
-    const emptyState = document.createElement('div');
-    emptyState.className = 'district-search__empty';
-    emptyState.textContent = 'Tomuto filtru nezodpovedá žiadny okres.';
+    const emptyState = document.createElement("div");
+    emptyState.className = "district-search__empty";
+    emptyState.textContent = "Tomuto filtru nezodpovedá žiadny okres.";
     fragment.append(emptyState);
     container.append(fragment);
     return;
   }
 
-  filteredRows.forEach(row => {
-    const option = document.createElement('button');
-    option.type = 'button';
-    option.className = 'district-search__option';
-    option.setAttribute('role', 'option');
-    option.setAttribute('aria-selected', String(row.okres === electionState.selectedDistrictLabel));
+  filteredRows.forEach((row) => {
+    const option = document.createElement("button");
+    option.type = "button";
+    option.className = "district-search__option";
+    option.setAttribute("role", "option");
+    option.setAttribute(
+      "aria-selected",
+      String(row.okres === electionState.selectedDistrictLabel),
+    );
 
     if (row.okres === electionState.selectedDistrictLabel) {
-      option.classList.add('active');
+      option.classList.add("active");
     }
 
-    const name = document.createElement('strong');
-    name.className = 'district-search__option-name';
+    const name = document.createElement("strong");
+    name.className = "district-search__option-name";
     name.textContent = row.okres;
 
-    const meta = document.createElement('span');
-    meta.className = 'district-search__option-meta';
+    const meta = document.createElement("span");
+    meta.className = "district-search__option-meta";
     meta.textContent = `Nezamestnanosť ${formatPercent(row.nezam_pct)} • ${party.buttonLabel} ${formatPercent(row[party.key])}`;
 
     option.append(name, meta);
-    option.addEventListener('click', () => {
+    option.addEventListener("click", () => {
       selectDistrict(row.okres);
     });
 
@@ -1251,33 +2164,35 @@ function renderDistrictSearchResults() {
 }
 
 function initDistrictSearch() {
-  const {
-    districtSearch,
-    districtSearchToggle,
-    districtSearchInput,
-  } = electionSection;
+  const { districtSearch, districtSearchToggle, districtSearchInput } =
+    electionSection;
 
-  if (electionState.districtSearchReady || !districtSearch || !districtSearchToggle || !districtSearchInput) {
+  if (
+    electionState.districtSearchReady ||
+    !districtSearch ||
+    !districtSearchToggle ||
+    !districtSearchInput
+  ) {
     return;
   }
 
-  districtSearchToggle.addEventListener('click', () => {
+  districtSearchToggle.addEventListener("click", () => {
     setDistrictSearchOpen(!isDistrictSearchOpen());
   });
 
-  districtSearchInput.addEventListener('input', event => {
+  districtSearchInput.addEventListener("input", (event) => {
     electionState.districtQuery = event.currentTarget.value;
     renderDistrictSearchResults();
   });
 
-  districtSearchInput.addEventListener('keydown', event => {
-    if (event.key === 'Escape') {
+  districtSearchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
       setDistrictSearchOpen(false);
       districtSearchToggle.focus();
     }
   });
 
-  document.addEventListener('click', event => {
+  document.addEventListener("click", (event) => {
     if (!districtSearch.contains(event.target)) {
       setDistrictSearchOpen(false);
     }
@@ -1288,33 +2203,42 @@ function initDistrictSearch() {
 }
 
 const pinnedDistrictSelectionPlugin = {
-  id: 'pinnedDistrictSelection',
+  id: "pinnedDistrictSelection",
   afterEvent(chart, args) {
     if (chart !== electionState.chart || !electionState.selectedDistrictLabel) {
       return;
     }
 
-    if (applyPinnedDistrictSelection(chart, electionState.selectedDistrictLabel)) {
+    if (
+      applyPinnedDistrictSelection(chart, electionState.selectedDistrictLabel)
+    ) {
       args.changed = true;
     }
   },
 };
 
-function renderElectionSummary({ party, pointCount, correlation, regression, meta }) {
+function renderElectionSummary({
+  party,
+  pointCount,
+  correlation,
+  regression,
+  meta,
+}) {
   const assessment = describeCorrelation(correlation);
   const trendLabel = describeTrend(regression.slope);
   const monthLabel = formatMonth(meta.unemployment_month);
   const absoluteSlope = Math.abs(regression.slope);
-  const slopeDirection = regression.slope >= 0 ? 'rastie' : 'klesá';
+  const slopeDirection = regression.slope >= 0 ? "rastie" : "klesá";
 
-  electionSection.title.textContent = 'Okresy ukazujú, kde ekonomický tlak mení politické preferencie.';
+  electionSection.title.textContent =
+    "Okresy ukazujú, kde ekonomický tlak mení politické preferencie.";
   electionSection.description.textContent = `Každý bod v grafe predstavuje jeden okres Slovenska a porovnáva nezamestnanosť z ${monthLabel} s podielom hlasov pre ${party.label} vo voľbách do NR SR ${meta.election_year}.`;
-  electionSection.note.textContent = `Pri strane ${party.label} trendová čiara naznačuje ${regression.slope >= 0 ? 'rastúci' : 'klesajúci'} vzťah a Pearsonov koeficient r = ${formatNumber(correlation)} hovorí o tom, že ide o ${assessment} koreláciu. Je to typ signálu, ktorý môže redakcia ďalej rozpracovať reportážou z konkrétnych regiónov.`;
+  electionSection.note.textContent = `Pri strane ${party.label} trendová čiara naznačuje ${regression.slope >= 0 ? "rastúci" : "klesajúci"} vzťah a Pearsonov koeficient r = ${formatNumber(correlation)} hovorí o tom, že ide o ${assessment} koreláciu. Je to typ signálu, ktorý môže redakcia ďalej rozpracovať reportážou z konkrétnych regiónov.`;
   electionSection.toolbarText.textContent = `Dataset pracuje s ${pointCount} okresmi Slovenska. Rozsah analýzy je ${ELECTION_SCOPE_LABEL}; na osi X je nezamestnanosť za ${monthLabel}, na osi Y volebný výsledok strany ${party.label}.`;
   electionSection.correlationValue.textContent = `r = ${formatNumber(correlation)}`;
   electionSection.correlationText.textContent = `Pearsonov korelačný koeficient pre ${party.label} vypočítaný z ${pointCount} okresov.`;
   electionSection.trendValue.textContent = trendLabel;
-  electionSection.trendText.textContent = `Sklon trendovej čiary je ${regression.slope >= 0 ? '+' : '-'}${formatNumber(absoluteSlope)} p. b.; pri raste nezamestnanosti o 1 p. b. ${slopeDirection} odhadovaný zisk ${party.label} približne o ${formatNumber(absoluteSlope)} p. b.`;
+  electionSection.trendText.textContent = `Sklon trendovej čiary je ${regression.slope >= 0 ? "+" : "-"}${formatNumber(absoluteSlope)} p. b.; pri raste nezamestnanosti o 1 p. b. ${slopeDirection} odhadovaný zisk ${party.label} približne o ${formatNumber(absoluteSlope)} p. b.`;
   electionSection.assessmentValue.textContent = capitalize(assessment);
   electionSection.assessmentText.textContent = `${party.label} a nezamestnanosť majú v okresoch Slovenska ${assessment} koreláciu.`;
   electionSection.footnote.textContent = `Zdroj: ${meta.sources.volby}; ${meta.sources.nezamestnanost}. Voľby ${meta.election_year}, nezamestnanosť ${monthLabel}.`;
@@ -1322,24 +2246,30 @@ function renderElectionSummary({ party, pointCount, correlation, regression, met
 
 function renderElectionError(message) {
   electionSection.description.textContent = message;
-  electionSection.note.textContent = 'Skontroluj, či je JSON súbor dostupný a stránka beží cez lokálny server.';
-  electionSection.toolbarText.textContent = 'Prepínanie strán bude dostupné po úspešnom načítaní dát.';
-  electionSection.partySwitcher.textContent = '';
-  electionState.selectedDistrictLabel = '';
+  electionSection.note.textContent =
+    "Skontroluj, či je JSON súbor dostupný a stránka beží cez lokálny server.";
+  electionSection.toolbarText.textContent =
+    "Prepínanie strán bude dostupné po úspešnom načítaní dát.";
+  electionSection.partySwitcher.textContent = "";
+  electionState.selectedDistrictLabel = "";
   syncDistrictSearchSummary();
   setDistrictSearchOpen(false);
 
   if (electionSection.districtSearchResults) {
-    electionSection.districtSearchResults.textContent = '';
+    electionSection.districtSearchResults.textContent = "";
   }
 
-  electionSection.correlationValue.textContent = 'r = --';
-  electionSection.correlationText.textContent = 'Výpočet sa nepodarilo dokončiť.';
-  electionSection.trendValue.textContent = '--';
-  electionSection.trendText.textContent = 'Trendovú čiaru sa nepodarilo zostaviť.';
-  electionSection.assessmentValue.textContent = '--';
-  electionSection.assessmentText.textContent = 'Zhodnotenie bude dostupné po načítaní dát.';
-  electionSection.footnote.textContent = 'Dáta sa nepodarilo načítať zo súboru data/volby_nezamestnanost_okresy.json.';
+  electionSection.correlationValue.textContent = "r = --";
+  electionSection.correlationText.textContent =
+    "Výpočet sa nepodarilo dokončiť.";
+  electionSection.trendValue.textContent = "--";
+  electionSection.trendText.textContent =
+    "Trendovú čiaru sa nepodarilo zostaviť.";
+  electionSection.assessmentValue.textContent = "--";
+  electionSection.assessmentText.textContent =
+    "Zhodnotenie bude dostupné po načítaní dát.";
+  electionSection.footnote.textContent =
+    "Dáta sa nepodarilo načítať zo súboru data/volby_nezamestnanost_okresy.json.";
 }
 
 function updateElectionChart() {
@@ -1352,24 +2282,30 @@ function updateElectionChart() {
   const scatterData = getScatterData(party.key);
 
   if (!scatterData.length) {
-    throw new Error('Pre zvolenú stranu sa nenašli žiadne dáta.');
+    throw new Error("Pre zvolenú stranu sa nenašli žiadne dáta.");
   }
 
   const correlation = pearsonCorrelation(scatterData);
   const regression = linearRegression(scatterData);
   const trendLine = regressionLine(scatterData, regression);
-  const xBounds = nicePercentAxis(scatterData.map(point => point.x), {
-    floor: 0,
-    step: 1,
-    minimumMax: 1,
-  });
+  const xBounds = nicePercentAxis(
+    scatterData.map((point) => point.x),
+    {
+      floor: 0,
+      step: 1,
+      minimumMax: 1,
+    },
+  );
   const yBounds = nicePercentAxis(
-    [...scatterData.map(point => point.y), ...trendLine.map(point => point.y)],
+    [
+      ...scatterData.map((point) => point.y),
+      ...trendLine.map((point) => point.y),
+    ],
     {
       floor: 0,
       step: 5,
       minimumMax: 5,
-    }
+    },
   );
   const axisLabel = `Podiel hlasov ${party.label} (%) — NRSR ${electionState.payload.meta.election_year}`;
 
@@ -1388,112 +2324,147 @@ function updateElectionChart() {
   }
 
   if (electionState.chart) {
-    electionState.chart.destroy();
-  }
+    // Update existing chart instance to trigger animations
+    electionState.chart.data.datasets[0].label = `${party.label} – ${ELECTION_SCOPE_LABEL}`;
+    electionState.chart.data.datasets[0].data = scatterData;
+    electionState.chart.data.datasets[0].backgroundColor = withOpacity(
+      party.accent,
+      0.74,
+    );
+    electionState.chart.data.datasets[0].borderColor = party.accentStrong;
+    electionState.chart.data.datasets[0].pointHoverBackgroundColor =
+      party.accentStrong;
 
-  electionState.chart = new Chart(electionState.context, {
-    type: 'scatter',
-    plugins: [pinnedDistrictSelectionPlugin],
-    data: {
-      datasets: [
-        {
-          label: `${party.label} – ${ELECTION_SCOPE_LABEL}`,
-          data: scatterData,
-          backgroundColor: withOpacity(party.accent, 0.74),
-          borderColor: party.accentStrong,
-          borderWidth: 1.5,
-          pointRadius: context => context.raw?.label === electionState.selectedDistrictLabel ? 7 : 5,
-          pointBorderWidth: context => context.raw?.label === electionState.selectedDistrictLabel ? 2.4 : 1.5,
-          pointBorderColor: withOpacity(COLORS.paper, 0.88),
-          pointHoverRadius: context => context.raw?.label === electionState.selectedDistrictLabel ? 10 : 8,
-          pointHoverBackgroundColor: party.accentStrong,
-          pointHoverBorderColor: COLORS.paper,
-          pointHoverBorderWidth: 2,
-        },
-        {
-          type: 'line',
-          label: 'Trendová čiara',
-          data: trendLine,
-          borderColor: party.trendColor,
-          borderWidth: 2.5,
-          borderDash: [8, 6],
-          borderCapStyle: 'round',
-          borderJoinStyle: 'round',
-          pointRadius: 0,
-          pointHoverRadius: 0,
-          pointHitRadius: 24,
-          fill: false,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        mode: 'nearest',
-        axis: 'xy',
-        intersect: false,
-        includeInvisible: true,
+    electionState.chart.data.datasets[1].data = trendLine;
+    electionState.chart.data.datasets[1].borderColor = party.trendColor;
+
+    electionState.chart.options.scales.x.title.text = `Nezamestnanosť (${formatMonth(electionState.payload.meta.unemployment_month)})`;
+    electionState.chart.options.scales.x.min = xBounds.min;
+    electionState.chart.options.scales.x.max = xBounds.max;
+
+    electionState.chart.options.scales.y.title.text = axisLabel;
+    electionState.chart.options.scales.y.min = yBounds.min;
+    electionState.chart.options.scales.y.max = yBounds.max;
+
+    electionState.chart.update();
+  } else {
+    electionState.chart = new Chart(electionState.context, {
+      type: "scatter",
+      plugins: [pinnedDistrictSelectionPlugin],
+      data: {
+        datasets: [
+          {
+            label: `${party.label} – ${ELECTION_SCOPE_LABEL}`,
+            data: scatterData,
+            backgroundColor: withOpacity(party.accent, 0.74),
+            borderColor: party.accentStrong,
+            borderWidth: 1.5,
+            pointRadius: (context) =>
+              context.raw?.label === electionState.selectedDistrictLabel
+                ? 7
+                : 5,
+            pointBorderWidth: (context) =>
+              context.raw?.label === electionState.selectedDistrictLabel
+                ? 2.4
+                : 1.5,
+            pointBorderColor: withOpacity(COLORS.paper, 0.88),
+            pointHoverRadius: (context) =>
+              context.raw?.label === electionState.selectedDistrictLabel
+                ? 10
+                : 8,
+            pointHoverBackgroundColor: party.accentStrong,
+            pointHoverBorderColor: COLORS.paper,
+            pointHoverBorderWidth: 2,
+          },
+          {
+            type: "line",
+            label: "Trendová čiara",
+            data: trendLine,
+            borderColor: party.trendColor,
+            borderWidth: 2.5,
+            borderDash: [8, 6],
+            borderCapStyle: "round",
+            borderJoinStyle: "round",
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            pointHitRadius: 24,
+            fill: false,
+          },
+        ],
       },
-      plugins: {
-        ...basePluginConfig(),
-        tooltip: {
-          ...basePluginConfig().tooltip,
-          displayColors: false,
-          padding: 14,
-          caretPadding: 10,
-          cornerRadius: 16,
-          callbacks: {
-            title: items => {
-              const [item] = items;
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: {
+          duration: 750,
+          easing: "easeOutQuart",
+        },
+        interaction: {
+          mode: "nearest",
+          axis: "xy",
+          intersect: false,
+          includeInvisible: true,
+        },
+        plugins: {
+          ...basePluginConfig(),
+          tooltip: {
+            ...basePluginConfig().tooltip,
+            displayColors: false,
+            padding: 14,
+            caretPadding: 10,
+            cornerRadius: 16,
+            callbacks: {
+              title: (items) => {
+                const [item] = items;
 
-              if (!item) {
-                return '';
-              }
+                if (!item) {
+                  return "";
+                }
 
-              return item.dataset.type === 'line'
-                ? 'Trendová čiara'
-                : item.raw?.label ?? 'Okres';
-            },
-            label: item => {
-              if (item.dataset.type === 'line') {
+                return item.dataset.type === "line"
+                  ? "Trendová čiara"
+                  : (item.raw?.label ?? "Okres");
+              },
+              label: (item) => {
+                if (item.dataset.type === "line") {
+                  return [
+                    `Nezamestnanosť: ${formatPercent(item.parsed.x)}`,
+                    `Odhad ${party.label}: ${formatPercent(item.parsed.y)}`,
+                  ];
+                }
+
                 return [
                   `Nezamestnanosť: ${formatPercent(item.parsed.x)}`,
-                  `Odhad ${party.label}: ${formatPercent(item.parsed.y)}`,
+                  `${party.label}: ${formatPercent(item.parsed.y)}`,
                 ];
-              }
-
-              return [
-                `Nezamestnanosť: ${formatPercent(item.parsed.x)}`,
-                `${party.label}: ${formatPercent(item.parsed.y)}`,
-              ];
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ...commonScale("Miera nezamestnanosti (%) — september 2023"),
+            min: xBounds.min,
+            max: xBounds.max,
+            ticks: {
+              ...commonScale("").ticks,
+              callback: (value) => `${formatNumber(value)} %`,
+            },
+          },
+          y: {
+            ...commonScale(axisLabel),
+            min: yBounds.min,
+            max: yBounds.max,
+            ticks: {
+              ...commonScale("").ticks,
+              stepSize: 5,
+              callback: (value) => `${formatNumber(value)} %`,
             },
           },
         },
       },
-      scales: {
-        x: {
-          ...commonScale('Miera nezamestnanosti (%) — september 2023'),
-          min: xBounds.min,
-          max: xBounds.max,
-          ticks: {
-            ...commonScale('').ticks,
-            callback: value => `${formatNumber(value)} %`,
-          },
-        },
-        y: {
-          ...commonScale(axisLabel),
-          min: yBounds.min,
-          max: yBounds.max,
-          ticks: {
-            ...commonScale('').ticks,
-            stepSize: 5,
-            callback: value => `${formatNumber(value)} %`,
-          },
-        },
-      },
-    },
-  });
+    });
+  }
 
   if (electionState.selectedDistrictLabel) {
     focusDistrictInChart(electionState.selectedDistrictLabel);
@@ -1501,23 +2472,25 @@ function updateElectionChart() {
 }
 
 async function initElectionChart() {
-  const canvas = document.getElementById('chartVolby');
+  const canvas = document.getElementById("chartVolby");
 
   if (!canvas) {
     return;
   }
 
   try {
-    const response = await fetch('data/volby_nezamestnanost_okresy.json');
+    const response = await fetch("data/volby_nezamestnanost_okresy.json");
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
 
     electionState.payload = await response.json();
-    electionState.context = canvas.getContext('2d');
+    electionState.context = canvas.getContext("2d");
     electionState.partyOptions = buildPartyOptions(electionState.payload.meta);
-    electionState.selectedPartyKey = electionState.partyOptions.some(party => party.key === DEFAULT_PARTY_KEY)
+    electionState.selectedPartyKey = electionState.partyOptions.some(
+      (party) => party.key === DEFAULT_PARTY_KEY,
+    )
       ? DEFAULT_PARTY_KEY
       : electionState.partyOptions[0]?.key;
 
@@ -1526,22 +2499,26 @@ async function initElectionChart() {
     renderDistrictSearchResults();
     updateElectionChart();
 
-    canvas.addEventListener('mouseleave', () => {
+    canvas.addEventListener("mouseleave", () => {
       if (electionState.selectedDistrictLabel) {
         focusDistrictInChart(electionState.selectedDistrictLabel);
       }
     });
   } catch (error) {
     console.error(error);
-    renderElectionError('Nepodarilo sa načítať dáta pre korelačný graf všetkých okresov SR.');
+    renderElectionError(
+      "Nepodarilo sa načítať dáta pre korelačný graf všetkých okresov SR.",
+    );
   }
 }
 
 function initSocialChart() {
-  const impactCanvas = document.getElementById('chartSocialImpact');
-  const strategyCanvas = document.getElementById('chartSocialStrategy');
+  const impactCanvas = document.getElementById("chartSocialImpact");
+  const strategyCanvas = document.getElementById("chartSocialStrategy");
+  const totalCanvas = document.getElementById("chartSocialTotal");
+  const formatsCanvas = document.getElementById("chartSocialFormats");
 
-  if (!impactCanvas || !strategyCanvas) {
+  if (!impactCanvas || !strategyCanvas || !totalCanvas || !formatsCanvas) {
     return;
   }
 
@@ -1555,79 +2532,32 @@ function initSocialChart() {
     socialState.strategyChart.destroy();
   }
 
-  socialState.impactChart = createSocialImpactChart(impactCanvas, socialState.profiles);
-  socialState.strategyChart = createSocialStrategyChart(strategyCanvas, socialState.profiles);
-}
-
-function initTransparentChart() {
-  const canvas = document.getElementById('chartTransparentne');
-
-  if (!canvas) {
-    return;
+  if (socialState.totalChart) {
+    socialState.totalChart.destroy();
   }
 
-  const parties = ['PS', 'SMER-SD', 'HLAS-SD', 'KDH', 'SaS'];
-  const income = [840, 910, 560, 320, 280];
-  const expenses = [690, 980, 430, 260, 310];
-
-  if (transparentState.chart) {
-    transparentState.chart.destroy();
+  if (socialState.formatsChart) {
+    socialState.formatsChart.destroy();
   }
 
-  transparentState.chart = new Chart(canvas.getContext('2d'), {
-    type: 'bar',
-    data: {
-      labels: parties,
-      datasets: [
-        {
-          label: 'Príjmy (tis. €)',
-          data: income,
-          backgroundColor: COLORS.accent,
-          borderRadius: 16,
-          borderSkipped: false,
-        },
-        {
-          label: 'Výdavky (tis. €)',
-          data: expenses,
-          backgroundColor: COLORS.electric,
-          borderRadius: 16,
-          borderSkipped: false,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        ...basePluginConfig(),
-        tooltip: {
-          ...basePluginConfig().tooltip,
-          callbacks: {
-            label: tooltipItem => `${tooltipItem.dataset.label}: ${tooltipItem.parsed.y} tis. €`,
-          },
-        },
-      },
-      scales: {
-        x: {
-          ...commonScale('Politický subjekt'),
-          grid: {
-            display: false,
-            drawBorder: false,
-          },
-        },
-        y: {
-          ...commonScale('Objem transakcií (tis. €)'),
-          beginAtZero: true,
-          ticks: {
-            ...commonScale('').ticks,
-            callback: value => `${value} tis.`,
-          },
-        },
-      },
-    },
-  });
+  socialState.impactChart = createSocialImpactChart(
+    impactCanvas,
+    socialState.profiles,
+  );
+  socialState.strategyChart = createSocialStrategyChart(
+    strategyCanvas,
+    socialState.profiles,
+  );
+  socialState.totalChart = createSocialTotalChart(
+    totalCanvas,
+    socialState.profiles,
+  );
+  socialState.formatsChart = createSocialFormatsChart(
+    formatsCanvas,
+    socialState.profiles,
+  );
 }
 
 hydrateSocialSection();
-setActivePanel('panel-volby');
+setActivePanel("panel-volby");
 void initElectionChart();

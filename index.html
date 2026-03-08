@@ -1,355 +1,526 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sk">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dátové portfólio | 360tka</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260307-6">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <div class="page-orb page-orb--left" aria-hidden="true"></div>
-  <div class="page-orb page-orb--right" aria-hidden="true"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dátové portfólio | 360tka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css?v=20260308-13" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="page-orb page-orb--left" aria-hidden="true"></div>
+    <div class="page-orb page-orb--right" aria-hidden="true"></div>
 
-  <header class="site-header">
-    <div class="container site-header__inner">
-      <a class="brand" href="#top" aria-label="Domovská sekcia portfólia">
-        <img class="brand__logo" src="obrazky/logo.jpg" alt="Logo 360tka">
-        <div class="brand__copy">
-          <span class="brand__name">Nik Kubala</span>
-          <span class="brand__meta">Dátové portfólio</span>
-        </div>
-      </a>
-      <span class="site-badge">Vytvorené pre 360tka</span>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero">
-      <div class="container hero__inner">
-        <p class="hero__eyebrow">Dátová žurnalistika / politická analytika</p>
-        <h1>Dáta, ktoré hýbu slovenskou politikou.</h1>
-        <p class="hero__lead">
-          Moderná žurnalistika potrebuje ľudí, ktorí rozumejú číslam. Ako študent informatiky prinášam iný pohľad na politiku
-          – cez skripty, čistenie dát a interaktívnu vizualizáciu. Tu sú tri ukážky toho, ako sa dajú z nudných tabuliek vytiahnuť
-          súvislosti, ktoré bežnému oku uniknú.
-        </p>
-
-        <div class="topic-tabs" role="tablist" aria-label="Prepínanie tém">
-          <button
-            class="topic-tab active"
-            id="tab-volby"
-            type="button"
-            role="tab"
-            aria-selected="true"
-            aria-controls="panel-volby"
-            data-target="panel-volby"
-          >
-            Voľby vs. Nezamestnanosť
-          </button>
-          <button
-            class="topic-tab"
-            id="tab-socialne"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            aria-controls="panel-socialne"
-            data-target="panel-socialne"
-          >
-            Sila na sociálnych sieťach
-          </button>
-          <button
-            class="topic-tab"
-            id="tab-transparentne"
-            type="button"
-            role="tab"
-            aria-selected="false"
-            aria-controls="panel-transparentne"
-            data-target="panel-transparentne"
-          >
-            Transparentné účty
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section
-      class="topic-panel active"
-      id="panel-volby"
-      role="tabpanel"
-      aria-labelledby="tab-volby"
-    >
-      <div class="container analysis-grid">
-        <article class="analysis-copy">
-          <span class="analysis-copy__label">Analýza 01</span>
-          <h2 id="volbyRegionTitle">Okresy ukazujú, kde ekonomický tlak mení politické preferencie.</h2>
-          <p class="analysis-copy__lead" id="volbyRegionDescription">
-            Každý bod v grafe predstavuje jeden okres. Keď sa vedľa seba položí miera nezamestnanosti a volebný výsledok, zrazu
-            sa ukáže, že politická mapa Slovenska nie je len príbehom kampane, ale aj každodennej ekonomickej reality.
-          </p>
-          <p>
-            V redakčnej praxi je tento typ pohľadu dôležitý práve preto, že spája veľké národné čísla s konkrétnym lokálnym terénom.
-            Krajina sa tak prestáva javiť ako jednoliata masa voličov a začne sa rozpadávať na malé, čitateľné vzorce.
-          </p>
-          <p id="volbyRegionNote">
-            V tejto ukážke je priestor aj pre krátku interpretáciu trendu. Text môže pri každej strane vysvetliť, či graf naznačuje
-            skôr slabú zhodu, alebo už zaujímavý politický signál hodný ďalšieho reportérskeho rozpracovania.
-          </p>
-        </article>
-
-        <aside class="analysis-visual">
-          <div class="visual-card visual-card--election">
-            <div class="visual-card__header">
-              <div>
-                <span class="visual-card__eyebrow">Korelačný pohľad</span>
-                <p class="visual-card__intro" id="volbyToolbarText">
-                  Prepínaj medzi stranami. Graf vždy zobrazuje všetky okresy Slovenska a mení sa len volebný výsledok na osi Y.
-                </p>
-              </div>
-              <div class="party-switcher" id="partySwitcher" aria-label="Prepínanie medzi stranami"></div>
-            </div>
-
-            <div class="election-toolbar">
-              <div class="district-search district-search--toolbar" id="districtSearch">
-                <button
-                  class="district-search__toggle"
-                  id="districtSearchToggle"
-                  type="button"
-                  aria-haspopup="listbox"
-                  aria-expanded="false"
-                >
-                  <span class="district-search__icon" aria-hidden="true"></span>
-                  <span class="district-search__eyebrow">Vyhľadaj okres</span>
-                  <strong class="district-search__value" id="districtSearchValue">Vyber okres</strong>
-                  <span class="district-search__hint" id="districtSearchHint">Klikni a začni písať názov okresu</span>
-                  <span class="district-search__chevron" aria-hidden="true"></span>
-                </button>
-
-                <div class="district-search__panel" id="districtSearchPanel" hidden>
-                  <label class="district-search__field" for="districtSearchInput">
-                    <span class="district-search__field-label">Filtrovanie okresov</span>
-                    <input
-                      class="district-search__input"
-                      id="districtSearchInput"
-                      type="search"
-                      autocomplete="off"
-                      spellcheck="false"
-                      placeholder="Napíš názov okresu"
-                    >
-                  </label>
-                  <div class="district-search__results" id="districtSearchResults" role="listbox" aria-label="Zoznam okresov"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="chart-frame chart-frame--large chart-frame--election">
-              <canvas id="chartVolby"></canvas>
-            </div>
-
-            <div class="metric-grid" aria-label="Zhrnutie korelácie">
-              <article class="metric-card">
-                <span>Koeficient</span>
-                <strong id="volbyCorrelationValue">r = --</strong>
-                <p id="volbyCorrelationText">Načítavam výpočet korelácie.</p>
-              </article>
-              <article class="metric-card">
-                <span>Trendová čiara</span>
-                <strong id="volbyTrendValue">--</strong>
-                <p id="volbyTrendText">Po načítaní doplním sklon trendovej čiary.</p>
-              </article>
-              <article class="metric-card">
-                <span>Zhodnotenie</span>
-                <strong id="volbyAssessmentValue">--</strong>
-                <p id="volbyAssessmentText">Po načítaní doplním slovné vyhodnotenie vzťahu.</p>
-              </article>
-            </div>
-
-            <div class="visual-card__footer">
-              <a class="report-button" href="data/portfolio_report.pdf" download>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
-                </svg>
-                Stiahnuť report (PDF)
-              </a>
-              <p class="analysis-footnote" id="volbyFootnote">Načítavam metodiku a zdroje z dátového súboru.</p>
-            </div>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="brand" href="#top" aria-label="Domovská sekcia portfólia">
+          <img class="brand__logo" src="obrazky/logo.jpg" alt="Logo 360tka" />
+          <div class="brand__copy">
+            <span class="brand__name">Nik Kubala</span>
+            <span class="brand__meta">Dátové portfólio</span>
           </div>
-        </aside>
+        </a>
+        <span class="site-badge">Vytvorené pre 360tka</span>
       </div>
-    </section>
+    </header>
 
-    <section
-      class="topic-panel"
-      id="panel-socialne"
-      role="tabpanel"
-      aria-labelledby="tab-socialne"
-      hidden
-    >
-      <div class="container analysis-grid">
-        <article class="analysis-copy">
-          <span class="analysis-copy__label">Analýza 02</span>
-          <h2>Facebook za päť dní ukazuje, kto tlačí na objem a kto na čistý zásah.</h2>
-          <p class="analysis-copy__lead">
-            V tomto datasete sledujeme 61 facebookových príspevkov štyroch lídrov strán od soboty 1. marca do stredy 5. marca 2026.
-            Namiesto followerov alebo samotných videní porovnávame tvrdší signál: koľko interakcií si obsah naozaj vypýtal a aký
-            formát na to jednotliví politici používajú.
+    <main id="top">
+      <section class="hero">
+        <div class="container hero__inner">
+          <p class="hero__eyebrow">Dátová žurnalistika / politická analytika</p>
+          <h1>Dáta, ktoré hýbu slovenskou politikou.</h1>
+          <p class="hero__lead">
+            Moderná žurnalistika potrebuje ľudí, ktorí rozumejú číslam. Ako
+            študent informatiky prinášam iný pohľad na politiku – cez skripty,
+            čistenie dát a interaktívnu vizualizáciu. Tu sú tri ukážky toho, ako
+            sa dajú z nudných tabuliek vytiahnuť súvislosti, ktoré bežnému oku
+            uniknú.
           </p>
-          <p id="socialLeadNarrative">Načítavam súhrn interakcií a poradie politikov.</p>
-          <p id="socialVolumeNarrative">Načítavam rozdiel medzi publikačným objemom a zásahom.</p>
-          <p id="socialFormatNarrative">Načítavam rozloženie formátov a metodiku klasifikácie.</p>
-        </article>
 
-        <aside class="analysis-visual">
-          <div class="visual-card visual-card--social">
-            <div class="visual-card__header visual-card__header--stacked">
-              <div>
-                <span class="visual-card__eyebrow">Facebook / 1. 3. - 5. 3.</span>
-                <p class="visual-card__intro">
-                  Prvý graf ráta iba lajky, komentáre a zdieľania. Druhý ukazuje, či jednotliví politici stavili skôr na Reels,
-                  klasické príspevky alebo udalosti.
-                </p>
+          <div class="topic-tabs" role="tablist" aria-label="Prepínanie tém">
+            <button
+              class="topic-tab active"
+              id="tab-volby"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-volby"
+              data-target="panel-volby"
+            >
+              Voľby vs. Nezamestnanosť
+            </button>
+            <button
+              class="topic-tab"
+              id="tab-socialne"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-socialne"
+              data-target="panel-socialne"
+            >
+              Sila na sociálnych sieťach
+            </button>
+            <button
+              class="topic-tab"
+              id="tab-aktivita"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-aktivita"
+              data-target="panel-aktivita"
+            >
+              Aktivita politikov
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="topic-panel active"
+        id="panel-volby"
+        role="tabpanel"
+        aria-labelledby="tab-volby"
+      >
+        <div class="container analysis-grid">
+          <article class="analysis-copy">
+            <span class="analysis-copy__label">Analýza 01</span>
+            <h2 id="volbyRegionTitle">
+              Okresy ukazujú, kde ekonomický tlak mení politické preferencie.
+            </h2>
+            <p class="analysis-copy__lead" id="volbyRegionDescription">
+              Každý bod v grafe predstavuje jeden okres. Keď sa vedľa seba
+              položí miera nezamestnanosti a volebný výsledok, zrazu sa ukáže,
+              že politická mapa Slovenska nie je len príbehom kampane, ale aj
+              každodennej ekonomickej reality.
+            </p>
+            <p>
+              V redakčnej praxi je tento typ pohľadu dôležitý práve preto, že
+              spája veľké národné čísla s konkrétnym lokálnym terénom. Krajina
+              sa tak prestáva javiť ako jednoliata masa voličov a začne sa
+              rozpadávať na malé, čitateľné vzorce.
+            </p>
+            <p id="volbyRegionNote">
+              V tejto ukážke je priestor aj pre krátku interpretáciu trendu.
+              Text môže pri každej strane vysvetliť, či graf naznačuje skôr
+              slabú zhodu, alebo už zaujímavý politický signál hodný ďalšieho
+              reportérskeho rozpracovania.
+            </p>
+          </article>
+
+          <aside class="analysis-visual">
+            <div class="visual-card visual-card--election">
+              <div class="visual-card__header">
+                <div>
+                  <span class="visual-card__eyebrow">Korelačný pohľad</span>
+                  <p class="visual-card__intro" id="volbyToolbarText">
+                    Prepínaj medzi stranami. Graf vždy zobrazuje všetky okresy
+                    Slovenska a mení sa len volebný výsledok na osi Y.
+                  </p>
+                </div>
+                <div
+                  class="party-switcher"
+                  id="partySwitcher"
+                  aria-label="Prepínanie medzi stranami"
+                ></div>
               </div>
-              <div class="inline-summary inline-summary--social">
-                <div class="inline-summary__item">
-                  <span>Profily</span>
-                  <strong id="socialProfilesCount">--</strong>
-                </div>
-                <div class="inline-summary__item">
-                  <span>Príspevky</span>
-                  <strong id="socialPostsCount">--</strong>
-                </div>
-                <div class="inline-summary__item">
-                  <span>Interakcie</span>
-                  <strong id="socialInteractionsCount">--</strong>
-                </div>
-                <div class="inline-summary__item">
-                  <span>Reels</span>
-                  <strong id="socialReelsCount">--</strong>
-                </div>
-              </div>
-            </div>
 
-            <div class="social-grid" aria-label="Facebook grafy za päť dní">
-              <section class="social-card social-card--impact">
-                <div class="social-card__meta">
-                  <span class="social-card__eyebrow">Graf 1</span>
-                  <h3>Celkový výtlak</h3>
-                  <p>Súčet lajkov, komentárov a zdieľaní za všetky príspevky. Videnia zámerne vynechávame, aby nedeformovali poradie.</p>
-                </div>
-                <div class="chart-frame social-chart-frame">
-                  <canvas id="chartSocialImpact"></canvas>
-                </div>
-              </section>
+              <div class="election-toolbar">
+                <div
+                  class="district-search district-search--toolbar"
+                  id="districtSearch"
+                >
+                  <button
+                    class="district-search__toggle"
+                    id="districtSearchToggle"
+                    type="button"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                  >
+                    <span class="district-search__icon" aria-hidden="true">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z" />
+                        <circle cx="12" cy="9" r="2.5" />
+                      </svg>
+                    </span>
+                    <span class="district-search__eyebrow">Vyhľadaj okres</span>
+                    <strong
+                      class="district-search__value"
+                      id="districtSearchValue"
+                      >Vyber okres</strong
+                    >
+                    <span class="district-search__hint" id="districtSearchHint"
+                      >Klikni a začni písať názov okresu</span
+                    >
+                    <span class="district-search__chevron" aria-hidden="true">
+                      <!-- Filled triangle down -->
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                        <polygon points="6,9 18,9 12,18" />
+                      </svg>
+                    </span>
+                  </button>
 
-              <section class="social-card social-card--strategy">
-                <div class="social-card__meta">
-                  <span class="social-card__eyebrow">Graf 2</span>
-                  <h3>Stratégia príspevkov</h3>
-                  <p>Počet publikovaných príspevkov rozdelený podľa formátu: Reels, klasický príspevok a udalosť.</p>
-                </div>
-                <div class="chart-frame social-chart-frame">
-                  <canvas id="chartSocialStrategy"></canvas>
-                </div>
-                <div class="social-legend">
-                  <span class="social-legend__label">Legenda ku grafu 2</span>
-                  <div class="social-notes social-notes--strategy" aria-label="Legenda ku grafu stratégia príspevkov">
-                    <span class="social-note social-note--reels">Reels = riadok so 4 číslami</span>
-                    <span class="social-note social-note--post">Príspevok = chýbajú videnia</span>
-                    <span class="social-note social-note--event">Udalosť = chýbajú zdieľania aj videnia</span>
+                  <div
+                    class="district-search__panel"
+                    id="districtSearchPanel"
+                    hidden
+                  >
+                    <label
+                      class="district-search__field"
+                      for="districtSearchInput"
+                    >
+                      <span class="district-search__field-label"
+                        >Filtrovanie okresov</span
+                      >
+                      <input
+                        class="district-search__input"
+                        id="districtSearchInput"
+                        type="search"
+                        autocomplete="off"
+                        spellcheck="false"
+                        placeholder="Napíš názov okresu"
+                      />
+                    </label>
+                    <div
+                      class="district-search__results"
+                      id="districtSearchResults"
+                      role="listbox"
+                      aria-label="Zoznam okresov"
+                    ></div>
                   </div>
                 </div>
-              </section>
-            </div>
+              </div>
 
-            <div class="visual-card__footer">
-              <a class="report-button" href="data/portfolio_report.pdf" download>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
-                </svg>
-                Stiahnuť report (PDF)
-              </a>
-              <p class="analysis-footnote">Zdroj: manuálne zozbierané facebookové dáta zo 61 príspevkov štyroch politikov medzi 1. 3. a 5. 3. 2026.</p>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
+              <div class="chart-frame chart-frame--large chart-frame--election">
+                <canvas id="chartVolby"></canvas>
+              </div>
 
-    <section
-      class="topic-panel"
-      id="panel-transparentne"
-      role="tabpanel"
-      aria-labelledby="tab-transparentne"
-      hidden
-    >
-      <div class="container analysis-grid">
-        <article class="analysis-copy">
-          <span class="analysis-copy__label">Analýza 03</span>
-          <h2>Z transparentných účtov sa dá vyčítať tempo aj nervozita kampane.</h2>
-          <p class="analysis-copy__lead">
-            Transparentný účet je pre politického reportéra viac než technická povinnosť. V správny moment sa z neho stáva stopa,
-            ktorá prezradí, kto prudko investuje do kampane, kto iba dobieha konkurenciu a kto si drží rozpočet v závetrí.
-          </p>
-          <p>
-            Vizuál nižšie je navrhnutý tak, aby sa dal použiť priamo v článku aj ako samostatný výrez na sociálne siete. Dôležité
-            je, že čitateľ bez námahy rozlíši príjmy a výdavky a vie si rýchlo porovnať jednotlivé subjekty.
-          </p>
-          <p>
-            Po doplnení reálnych transakcií sa táto sekcia dá rozšíriť o konkrétne mená darcov, vývoj v čase alebo podozrivé špičky,
-            ktoré si zaslúžia ďalšie reportérske otázky.
-          </p>
-        </article>
+              <div class="metric-grid" aria-label="Zhrnutie korelácie">
+                <article class="metric-card">
+                  <span>Koeficient</span>
+                  <strong id="volbyCorrelationValue">r = --</strong>
+                  <p id="volbyCorrelationText">Načítavam výpočet korelácie.</p>
+                </article>
+                <article class="metric-card">
+                  <span>Trendová čiara</span>
+                  <strong id="volbyTrendValue">--</strong>
+                  <p id="volbyTrendText">
+                    Po načítaní doplním sklon trendovej čiary.
+                  </p>
+                </article>
+                <article class="metric-card">
+                  <span>Zhodnotenie</span>
+                  <strong id="volbyAssessmentValue">--</strong>
+                  <p id="volbyAssessmentText">
+                    Po načítaní doplním slovné vyhodnotenie vzťahu.
+                  </p>
+                </article>
+              </div>
 
-        <aside class="analysis-visual">
-          <div class="visual-card">
-            <div class="visual-card__header visual-card__header--stacked">
-              <div>
-                <span class="visual-card__eyebrow">Finančný radar kampane</span>
-                <p class="visual-card__intro">
-                  Skupinový stĺpcový graf je vhodný na okamžité porovnanie príjmov a výdavkov viacerých strán v jednom newsroom bloku.
+              <div class="visual-card__footer">
+                <a
+                  class="report-button"
+                  href="data/portfolio_report.pdf"
+                  download
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  Stiahnuť report (PDF)
+                </a>
+                <p class="analysis-footnote" id="volbyFootnote">
+                  Načítavam metodiku a zdroje z dátového súboru.
                 </p>
               </div>
-              <div class="inline-summary">
-                <div class="inline-summary__item">
-                  <span>Subjekty</span>
-                  <strong>5</strong>
-                </div>
-                <div class="inline-summary__item">
-                  <span>Metriky</span>
-                  <strong>2</strong>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="topic-panel"
+        id="panel-socialne"
+        role="tabpanel"
+        aria-labelledby="tab-socialne"
+        hidden
+      >
+        <div class="container analysis-grid">
+          <article class="analysis-copy">
+            <span class="analysis-copy__label">Analýza 02</span>
+            <h2>
+              Facebook za päť dní ukazuje, kto tlačí na objem a kto na čistý
+              zásah.
+            </h2>
+            <p class="analysis-copy__lead">
+              V tomto datasete sledujeme 61 facebookových príspevkov štyroch
+              lídrov strán od soboty 1. marca do stredy 5. marca 2026. Namiesto
+              followerov alebo samotných videní porovnávame tvrdší signál: koľko
+              interakcií si obsah vypýta vzhľadom na počet videní a kde sa
+              publikum naozaj zapája, nielen pozerá.
+            </p>
+            <p id="socialLeadNarrative">
+              Načítavam súhrn interakcií a poradie politikov.
+            </p>
+            <p id="socialVolumeNarrative">
+              Načítavam rozdiel medzi publikačným objemom a zásahom.
+            </p>
+            <p id="socialFormatNarrative">
+              Načítavam rozloženie formátov a metodiku klasifikácie.
+            </p>
+          </article>
+
+          <aside class="analysis-visual">
+            <div class="visual-card visual-card--social">
+              <div class="visual-card__header visual-card__header--stacked">
+                <div>
+                  <span class="visual-card__eyebrow"
+                    >Facebook / 1. 3. - 5. 3.</span
+                  >
+                  <p class="visual-card__intro">
+                    Prvé dva grafy pracujú iba s Reels, pretože len pri nich
+                    poznáme aj počet videní. Spodný riadok vracia späť aj celkový
+                    objem interakcií a mix formátov za všetky príspevky.
+                  </p>
                 </div>
               </div>
-            </div>
 
-            <div class="chart-frame">
-              <canvas id="chartTransparentne"></canvas>
-            </div>
+              <div class="social-grid" aria-label="Facebook grafy za päť dní">
+                <section class="social-card social-card--impact">
+                  <div class="social-card__meta">
+                    <span class="social-card__eyebrow">Graf 1</span>
+                    <h3>Reakcie na 1 000 videní</h3>
+                    <p>
+                      Stĺpec rozdeľuje ľahké reakcie na lajky a silnejšie
+                      zapojenie cez komentáre a zdieľania.
+                    </p>
+                  </div>
+                  <div class="chart-frame social-chart-frame">
+                    <canvas id="chartSocialImpact"></canvas>
+                  </div>
+                </section>
 
-            <div class="visual-card__footer">
-              <a class="report-button" href="data/portfolio_report.pdf" download>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
-                </svg>
-                Stiahnuť report (PDF)
-              </a>
-              <p class="analysis-footnote">Ilustračné dáta pre ukážku, ako by mohla vyzerať sekcia o transparentných účtoch.</p>
+                <section class="social-card social-card--strategy">
+                  <div class="social-card__meta">
+                    <span class="social-card__eyebrow">Graf 2</span>
+                    <h3>Aktivita publika na Reels</h3>
+                    <p>
+                      Horizontálny porovnávací graf ukazuje, koľko percent
+                      Reels videní sa zmenilo na interakciu a koľko publika iba
+                      sledovalo.
+                    </p>
+                  </div>
+                  <div class="chart-frame social-chart-frame">
+                    <canvas id="chartSocialStrategy"></canvas>
+                  </div>
+                </section>
+
+                <section class="social-card social-card--total">
+                  <div class="social-card__meta">
+                    <span class="social-card__eyebrow">Graf 3</span>
+                    <h3>Celkový výtlak</h3>
+                    <p>
+                      Súčet lajkov, komentárov a zdieľaní za všetky príspevky.
+                      Videnia tu zámerne nepočítame, aby nedeformovali poradie.
+                    </p>
+                  </div>
+                  <div class="chart-frame social-chart-frame">
+                    <canvas id="chartSocialTotal"></canvas>
+                  </div>
+                </section>
+
+                <section class="social-card social-card--formats">
+                  <div class="social-card__meta">
+                    <span class="social-card__eyebrow">Graf 4</span>
+                    <h3>Mix formátov</h3>
+                    <p>
+                      Koľko obsahu pri každom politikovi tvorili Reels,
+                      klasické príspevky a udalosti.
+                    </p>
+                  </div>
+                  <div class="chart-frame social-chart-frame">
+                    <canvas id="chartSocialFormats"></canvas>
+                  </div>
+                </section>
+              </div>
+
+              <div class="visual-card__footer">
+                <a
+                  class="report-button"
+                  href="data/portfolio_report.pdf"
+                  download
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  Stiahnuť report (PDF)
+                </a>
+                <p class="analysis-footnote">
+                  Zdroj: manuálne zozbierané facebookové dáta zo 61 príspevkov
+                  štyroch politikov medzi 1. 3. a 5. 3. 2026.
+                </p>
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="topic-panel"
+        id="panel-aktivita"
+        role="tabpanel"
+        aria-labelledby="tab-aktivita"
+        hidden
+      >
+        <div class="container analysis-grid">
+          <article class="analysis-copy">
+            <span class="analysis-copy__label">Analýza 03</span>
+            <h2>Aktivita poslancov rýchlo ukáže, kto ťahá parlament a kto v ňom len sedí.</h2>
+            <p class="analysis-copy__lead">
+              Rebríček nižšie ráta len poslancov s aktívnym mandátom. Každému z
+              nich priraďuje celkové skóre aktivity ako súčet návrhov zákonov,
+              pozmeňujúcich návrhov a vystúpení v rozprave.
+            </p>
+            <p>
+              Prvý pohľad patrí dvom top 10 rebríčkom: najaktívnejším a
+              najmenej aktívnym. Pri neaktivite je dôležité, že z dát sú úplne
+              vyhodené neaktívne mandáty, takže nízke skóre patrí len tým, ktorí
+              v parlamente naozaj sedia.
+            </p>
+            <p>
+              Pod nimi je poradie strán podľa súčtu tejto aktivity a dvojica
+              detailov: kto najčastejšie vystupuje v rozprave a kto najčastejšie
+              predkladá návrhy zákonov. Sekcia je pripravená tak, aby sa dala
+              použiť priamo v článku aj ako samostatný newsroom výrez.
+            </p>
+          </article>
+
+          <aside class="analysis-visual">
+            <div class="visual-card visual-card--activity">
+              <div class="visual-card__header visual-card__header--stacked">
+                <div>
+                  <span class="visual-card__eyebrow">Aktivita v parlamente</span>
+                  <p class="visual-card__intro">
+                    Základný filter ponecháva iba záznamy s
+                    <code>aktivny_mandat: true</code>. Pri remíze v rebríčku
+                    neaktivity rozhoduje nižší počet návrhov zákonov a potom
+                    abeceda.
+                  </p>
+                </div>
+              </div>
+
+              <div class="activity-stack">
+                <section class="activity-card activity-card--active">
+                  <div class="activity-card__meta">
+                    <span class="activity-card__eyebrow">Top 10</span>
+                    <h3>Najaktívnejší poslanci podľa celkového skóre</h3>
+                    <p>
+                      Skóre aktivity je súčet troch metrík:
+                      <strong>návrhy zákonov + pozmeňujúce návrhy + rozpravy</strong>.
+                    </p>
+                  </div>
+                  <div class="activity-chart-frame">
+                    <canvas id="chartActivityTopActive"></canvas>
+                  </div>
+                </section>
+
+                <section class="activity-card activity-card--inactive">
+                  <div class="activity-card__meta">
+                    <span class="activity-card__eyebrow">Top 10</span>
+                    <h3>Najmenej aktívni poslanci po odfiltrovaní neaktívnych mandátov</h3>
+                    <p>
+                      Pri rovnakom skóre sa vyššie zobrazí ten, kto má menej
+                      návrhov zákonov; ak je zhodné aj to, rozhoduje abeceda.
+                    </p>
+                  </div>
+                  <div class="activity-chart-frame">
+                    <canvas id="chartActivityTopInactive"></canvas>
+                  </div>
+                </section>
+
+                <section class="activity-card activity-card--party">
+                  <div class="activity-card__meta">
+                    <span class="activity-card__eyebrow">Strany</span>
+                    <h3>Poradie strán podľa súčtu aktivity ich aktívnych poslancov</h3>
+                    <p>
+                      Každá strana dostáva sumu skóre všetkých svojich aktívnych
+                      mandátov, takže graf ukazuje celkový parlamentný výkon.
+                    </p>
+                  </div>
+                  <div class="activity-chart-frame activity-chart-frame--party">
+                    <canvas id="chartActivityParties"></canvas>
+                  </div>
+                </section>
+
+                <div class="activity-grid">
+                  <section class="activity-card activity-card--speeches">
+                    <div class="activity-card__meta">
+                      <span class="activity-card__eyebrow">Top 5</span>
+                      <h3>Najviac vystúpení v rozprave</h3>
+                      <p>Rebríček zachytáva päť poslancov s najvyšším počtom rozpráv.</p>
+                    </div>
+                    <div class="activity-chart-frame activity-chart-frame--short">
+                      <canvas id="chartActivitySpeeches"></canvas>
+                    </div>
+                  </section>
+
+                  <section class="activity-card activity-card--laws">
+                    <div class="activity-card__meta">
+                      <span class="activity-card__eyebrow">Top 5</span>
+                      <h3>Najviac návrhov zákonov</h3>
+                      <p>
+                        Samostatný pohľad na legislatívnu aktivitu bez započítania rozpráv.
+                      </p>
+                    </div>
+                    <div class="activity-chart-frame activity-chart-frame--short">
+                      <canvas id="chartActivityLaws"></canvas>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="visual-card__footer">
+                <p class="analysis-footnote">
+                  Zdroj: <code>data/nrsr_aktivita_poslancov.json</code>. Z analýzy sú vyradené
+                  všetky záznamy s <code>aktivny_mandat: false</code>.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <p>
+          Vytvorené pre účely výberového konania do redakcie 360tka. Dáta sú
+          čerpané z verejných zdrojov.
+        </p>
+        <a href="https://github.com/nik-kubala" target="_blank" rel="noreferrer"
+          >GitHub</a
+        >
       </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <p>Vytvorené pre účely výberového konania do redakcie 360tka. Dáta sú čerpané z verejných zdrojov.</p>
-      <a href="https://github.com/nik-kubala" target="_blank" rel="noreferrer">GitHub</a>
-    </div>
-  </footer>
-
-  <script src="app.js?v=20260307-5"></script>
-</body>
+    <script src="app.js?v=20260308-15"></script>
+  </body>
 </html>
