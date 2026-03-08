@@ -120,29 +120,100 @@ const ONE_DECIMAL_FORMATTER = new Intl.NumberFormat('sk-SK', {
 const DEFAULT_PARTY_KEY = 'SMER';
 const ELECTION_SCOPE_LABEL = 'okresy SR';
 
-const PARTY_LABELS = {
-  HLAS: 'HLAS-SD',
-  KDH: 'KDH',
-  OLaNO: 'OĽANO a priatelia',
-  PS: 'PS',
-  REPUBLIKA: 'REPUBLIKA',
-  SMER: 'SMER-SD',
-  SaS: 'SaS',
-  SNS: 'SNS',
-  SZÖVETSÉG: 'SZÖVETSÉG',
+const PARTY_VISUALS = {
+  HLAS: {
+    label: 'HLAS-SD',
+    buttonLabel: 'HLAS',
+    accent: '#ff173e',
+    accentStrong: '#78106e',
+    trendColor: '#7e1f93',
+    logoSrc: 'obrazky/hlas.png',
+    logoBackground: '#ffffff',
+  },
+  KDH: {
+    label: 'KDH',
+    buttonLabel: 'KDH',
+    accent: '#234887',
+    accentStrong: '#ff2a31',
+    trendColor: '#ff2a31',
+    logoSrc: 'obrazky/kdh.png',
+    logoBackground: '#ffffff',
+  },
+  OLaNO: {
+    label: 'SLOVENSKO',
+    buttonLabel: 'SLOVENSKO',
+    accent: '#eef1f4',
+    accentStrong: '#6b7280',
+    trendColor: '#9aa3af',
+    logoSrc: 'obrazky/slovensko.png',
+    logoBackground: '#ffffff',
+    logoScale: 1.2,
+  },
+  PS: {
+    label: 'PS',
+    buttonLabel: 'PS',
+    accent: '#1fb9f3',
+    accentStrong: '#0f8fdd',
+    trendColor: '#0f8fdd',
+    logoSrc: 'obrazky/ps.png',
+    logoBackground: '#ffffff',
+    logoScale: 1.4,
+  },
+  REPUBLIKA: {
+    label: 'REPUBLIKA',
+    buttonLabel: 'REPUBLIKA',
+    accent: '#de2630',
+    accentStrong: '#1f4aa4',
+    trendColor: '#1f4aa4',
+    logoSrc: 'obrazky/republika.png',
+    logoBackground: '#ffffff',
+  },
+  SMER: {
+    label: 'SMER-SD',
+    buttonLabel: 'SMER',
+    accent: '#e0262d',
+    accentStrong: '#30204e',
+    trendColor: '#30204e',
+    logoSrc: 'obrazky/smer.png',
+    logoBackground: '#ffffff',
+  },
+  SaS: {
+    label: 'SaS',
+    buttonLabel: 'SaS',
+    accent: '#a6ca16',
+    accentStrong: '#0b3d6f',
+    trendColor: '#0b3d6f',
+    logoSrc: 'obrazky/sas.png',
+    logoBackground: '#ffffff',
+  },
+  SNS: {
+    label: 'SNS',
+    buttonLabel: 'SNS',
+    accent: '#11376a',
+    accentStrong: '#2f6fc2',
+    trendColor: '#2f6fc2',
+    logoSrc: 'obrazky/sns.jpg',
+    logoBackground: '#ffffff',
+  },
+  SZÖVETSÉG: {
+    label: 'SZÖVETSÉG',
+    buttonLabel: 'SZÖVETSÉG',
+    accent: '#73b72d',
+    accentStrong: '#f39b16',
+    trendColor: '#f39b16',
+    logoSrc: 'obrazky/szovesteg.png',
+    logoBackground: '#ffffff',
+    logoScale: 1.32,
+  },
 };
 
-const PARTY_BUTTON_LABELS = {
-  HLAS: 'HLAS',
-  KDH: 'KDH',
-  OLaNO: 'OĽANO',
-  PS: 'PS',
-  REPUBLIKA: 'REPUBLIKA',
-  SMER: 'SMER',
-  SaS: 'SaS',
-  SNS: 'SNS',
-  SZÖVETSÉG: 'SZÖVETSÉG',
-};
+const PARTY_LABELS = Object.fromEntries(
+  Object.entries(PARTY_VISUALS).map(([key, config]) => [key, config.label])
+);
+
+const PARTY_BUTTON_LABELS = Object.fromEntries(
+  Object.entries(PARTY_VISUALS).map(([key, config]) => [key, config.buttonLabel])
+);
 
 const electionSection = {
   title: document.getElementById('volbyRegionTitle'),
@@ -150,6 +221,13 @@ const electionSection = {
   note: document.getElementById('volbyRegionNote'),
   toolbarText: document.getElementById('volbyToolbarText'),
   partySwitcher: document.getElementById('partySwitcher'),
+  districtSearch: document.getElementById('districtSearch'),
+  districtSearchToggle: document.getElementById('districtSearchToggle'),
+  districtSearchPanel: document.getElementById('districtSearchPanel'),
+  districtSearchValue: document.getElementById('districtSearchValue'),
+  districtSearchHint: document.getElementById('districtSearchHint'),
+  districtSearchInput: document.getElementById('districtSearchInput'),
+  districtSearchResults: document.getElementById('districtSearchResults'),
   correlationValue: document.getElementById('volbyCorrelationValue'),
   correlationText: document.getElementById('volbyCorrelationText'),
   trendValue: document.getElementById('volbyTrendValue'),
@@ -157,6 +235,8 @@ const electionSection = {
   assessmentValue: document.getElementById('volbyAssessmentValue'),
   assessmentText: document.getElementById('volbyAssessmentText'),
   footnote: document.getElementById('volbyFootnote'),
+  card: document.querySelector('.visual-card--election'),
+  chartFrame: document.querySelector('.chart-frame--election'),
 };
 
 const electionState = {
@@ -165,6 +245,9 @@ const electionState = {
   payload: null,
   partyOptions: [],
   selectedPartyKey: DEFAULT_PARTY_KEY,
+  selectedDistrictLabel: '',
+  districtQuery: '',
+  districtSearchReady: false,
 };
 
 const SOCIAL_TYPE_LABELS = {
@@ -381,11 +464,27 @@ function regressionLine(points, regression) {
   const xValues = points.map(point => point.x);
   const minX = Math.min(...xValues);
   const maxX = Math.max(...xValues);
+  const sampleCount = 56;
 
-  return [
-    { x: minX, y: regression.intercept + regression.slope * minX },
-    { x: maxX, y: regression.intercept + regression.slope * maxX },
-  ];
+  if (minX === maxX) {
+    const y = regression.intercept + regression.slope * minX;
+
+    return [
+      { label: 'Trendová čiara', x: minX, y },
+      { label: 'Trendová čiara', x: maxX, y },
+    ];
+  }
+
+  return Array.from({ length: sampleCount }, (_, index) => {
+    const progress = index / (sampleCount - 1);
+    const x = minX + (maxX - minX) * progress;
+
+    return {
+      label: 'Trendová čiara',
+      x,
+      y: regression.intercept + regression.slope * x,
+    };
+  });
 }
 
 function chartBounds(values, minimumPadding, floor = 0) {
@@ -466,8 +565,24 @@ function cleanPartyLabel(label) {
   return label.replace(/\s*\(%\)\s*$/, '');
 }
 
+function normalizeSearchText(value) {
+  return String(value ?? '').trim().toLocaleLowerCase('sk-SK');
+}
+
 function getPartyDefinition(key) {
   return electionState.partyOptions.find(party => party.key === key);
+}
+
+function getDistrictRow(label) {
+  return electionState.payload?.data?.find(row => row.okres === label) ?? null;
+}
+
+function getSortedDistrictRows() {
+  if (!electionState.payload?.data) {
+    return [];
+  }
+
+  return [...electionState.payload.data].sort((left, right) => left.okres.localeCompare(right.okres, 'sk-SK'));
 }
 
 function buildPartyOptions(meta) {
@@ -477,6 +592,12 @@ function buildPartyOptions(meta) {
       key,
       label: PARTY_LABELS[key] ?? cleanPartyLabel(label),
       buttonLabel: PARTY_BUTTON_LABELS[key] ?? cleanPartyLabel(label),
+      accent: PARTY_VISUALS[key]?.accent ?? COLORS.accent,
+      accentStrong: PARTY_VISUALS[key]?.accentStrong ?? COLORS.accentStrong,
+      trendColor: PARTY_VISUALS[key]?.trendColor ?? PARTY_VISUALS[key]?.accentStrong ?? COLORS.electric,
+      logoSrc: PARTY_VISUALS[key]?.logoSrc ?? '',
+      logoBackground: PARTY_VISUALS[key]?.logoBackground ?? '#ffffff',
+      logoScale: PARTY_VISUALS[key]?.logoScale ?? 1,
     }));
 }
 
@@ -488,6 +609,28 @@ function getScatterData(partyKey) {
       y: row[partyKey],
     }))
     .sort((left, right) => left.x - right.x);
+}
+
+function createPartyLogoShell(party, shellClassName, imageClassName) {
+  const shell = document.createElement('span');
+  shell.className = shellClassName;
+  shell.style.setProperty('--party-logo-bg', party.logoBackground ?? '#ffffff');
+  shell.style.setProperty('--party-logo-scale', String(party.logoScale ?? 1));
+
+  if (!party.logoSrc) {
+    shell.textContent = party.buttonLabel;
+    return shell;
+  }
+
+  const image = document.createElement('img');
+  image.className = imageClassName;
+  image.src = party.logoSrc;
+  image.alt = '';
+  image.decoding = 'async';
+  image.loading = 'lazy';
+  shell.append(image);
+
+  return shell;
 }
 
 function sumValues(values) {
@@ -862,9 +1005,21 @@ function renderPartySwitcher() {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'party-switcher__btn';
-    button.textContent = party.buttonLabel;
     button.dataset.party = party.key;
+    button.setAttribute('aria-label', `Zobraziť korelačný graf pre stranu ${party.label}`);
     button.setAttribute('aria-pressed', String(party.key === electionState.selectedPartyKey));
+    button.style.setProperty('--party-accent', party.accent);
+    button.style.setProperty('--party-accent-strong', party.accentStrong);
+    button.style.setProperty('--party-accent-soft', withOpacity(party.accent, 0.18));
+    button.style.setProperty('--party-accent-border', withOpacity(party.accent, 0.38));
+    button.style.setProperty('--party-shadow', withOpacity(party.accentStrong, 0.26));
+
+    const logoShell = createPartyLogoShell(party, 'party-switcher__logo-shell', 'party-switcher__logo');
+    const label = document.createElement('span');
+    label.className = 'party-switcher__label';
+    label.textContent = party.buttonLabel;
+
+    button.append(logoShell, label);
 
     if (party.key === electionState.selectedPartyKey) {
       button.classList.add('active');
@@ -889,6 +1044,261 @@ function renderPartySwitcher() {
     container.append(button);
   });
 }
+
+function isDistrictSearchOpen() {
+  return Boolean(electionSection.districtSearchPanel && !electionSection.districtSearchPanel.hidden);
+}
+
+function applyElectionTheme(party) {
+  const accentSoft = withOpacity(party.accent, 0.16);
+  const accentGlow = withOpacity(party.accentStrong, 0.24);
+  const accentLine = withOpacity(party.accentStrong, 0.22);
+
+  if (electionSection.card) {
+    electionSection.card.style.setProperty('--party-accent-soft', accentSoft);
+    electionSection.card.style.setProperty('--party-accent-glow', accentGlow);
+  }
+
+  if (electionSection.chartFrame) {
+    electionSection.chartFrame.style.setProperty('--party-accent-soft', accentSoft);
+    electionSection.chartFrame.style.setProperty('--party-accent-line', accentLine);
+  }
+}
+
+function syncDistrictSearchSummary() {
+  const { districtSearchValue, districtSearchHint } = electionSection;
+  const party = getPartyDefinition(electionState.selectedPartyKey);
+  const district = getDistrictRow(electionState.selectedDistrictLabel);
+
+  if (!districtSearchValue || !districtSearchHint) {
+    return;
+  }
+
+  if (!district || !party) {
+    districtSearchValue.textContent = 'Vyber okres';
+    districtSearchHint.textContent = 'Klikni a začni písať názov okresu';
+    return;
+  }
+
+  districtSearchValue.textContent = district.okres;
+  districtSearchHint.textContent = `Nezamestnanosť ${formatPercent(district.nezam_pct)} • ${party.buttonLabel} ${formatPercent(district[party.key])}`;
+}
+
+function clearElectionChartSelection() {
+  if (!electionState.chart) {
+    return;
+  }
+
+  electionState.chart.setActiveElements([]);
+  electionState.chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+  electionState.chart.update('none');
+}
+
+function focusDistrictInChart(label) {
+  if (!label || !electionState.chart) {
+    clearElectionChartSelection();
+    return;
+  }
+
+  if (applyPinnedDistrictSelection(electionState.chart, label)) {
+    electionState.chart.update('none');
+  }
+}
+
+function applyPinnedDistrictSelection(chart, label) {
+  if (!label || !chart) {
+    return false;
+  }
+
+  const dataset = chart.data.datasets[0]?.data ?? [];
+  const pointIndex = dataset.findIndex(point => point.label === label);
+
+  if (pointIndex === -1) {
+    return false;
+  }
+
+  const pointElement = chart.getDatasetMeta(0).data[pointIndex];
+
+  if (!pointElement) {
+    return false;
+  }
+
+  const activeElements = [{ datasetIndex: 0, index: pointIndex }];
+  chart.setActiveElements(activeElements);
+  chart.tooltip.setActiveElements(activeElements, {
+    x: pointElement.x,
+    y: pointElement.y,
+  });
+
+  return true;
+}
+
+function setDistrictSearchOpen(isOpen) {
+  const { districtSearch, districtSearchToggle, districtSearchPanel, districtSearchInput } = electionSection;
+
+  if (!districtSearch || !districtSearchToggle || !districtSearchPanel) {
+    return;
+  }
+
+  districtSearch.classList.toggle('open', isOpen);
+  districtSearchToggle.setAttribute('aria-expanded', String(isOpen));
+  districtSearchPanel.hidden = !isOpen;
+
+  if (isOpen) {
+    renderDistrictSearchResults();
+    requestAnimationFrame(() => {
+      districtSearchInput?.focus();
+      districtSearchInput?.select();
+    });
+    return;
+  }
+
+  electionState.districtQuery = '';
+
+  if (districtSearchInput) {
+    districtSearchInput.value = '';
+  }
+}
+
+function selectDistrict(label) {
+  electionState.selectedDistrictLabel = label;
+  syncDistrictSearchSummary();
+  setDistrictSearchOpen(false);
+
+  if (!label) {
+    clearElectionChartSelection();
+    return;
+  }
+
+  focusDistrictInChart(label);
+}
+
+function renderDistrictSearchResults() {
+  const container = electionSection.districtSearchResults;
+  const party = getPartyDefinition(electionState.selectedPartyKey);
+  const query = normalizeSearchText(electionState.districtQuery);
+
+  if (!container || !party) {
+    return;
+  }
+
+  container.textContent = '';
+
+  const fragment = document.createDocumentFragment();
+  const clearButton = document.createElement('button');
+  clearButton.type = 'button';
+  clearButton.className = 'district-search__option district-search__option--clear';
+  clearButton.setAttribute('role', 'option');
+  clearButton.setAttribute('aria-selected', String(!electionState.selectedDistrictLabel));
+
+  if (!electionState.selectedDistrictLabel) {
+    clearButton.classList.add('active');
+  }
+
+  const clearTitle = document.createElement('strong');
+  clearTitle.className = 'district-search__option-name';
+  clearTitle.textContent = 'Všetky okresy';
+
+  const clearMeta = document.createElement('span');
+  clearMeta.className = 'district-search__option-meta';
+  clearMeta.textContent = 'Zruš zvýraznenie a nechaj tooltip reagovať iba na hover.';
+
+  clearButton.append(clearTitle, clearMeta);
+  clearButton.addEventListener('click', () => {
+    selectDistrict('');
+  });
+  fragment.append(clearButton);
+
+  const filteredRows = getSortedDistrictRows().filter(row => !query || normalizeSearchText(row.okres).includes(query));
+
+  if (!filteredRows.length) {
+    const emptyState = document.createElement('div');
+    emptyState.className = 'district-search__empty';
+    emptyState.textContent = 'Tomuto filtru nezodpovedá žiadny okres.';
+    fragment.append(emptyState);
+    container.append(fragment);
+    return;
+  }
+
+  filteredRows.forEach(row => {
+    const option = document.createElement('button');
+    option.type = 'button';
+    option.className = 'district-search__option';
+    option.setAttribute('role', 'option');
+    option.setAttribute('aria-selected', String(row.okres === electionState.selectedDistrictLabel));
+
+    if (row.okres === electionState.selectedDistrictLabel) {
+      option.classList.add('active');
+    }
+
+    const name = document.createElement('strong');
+    name.className = 'district-search__option-name';
+    name.textContent = row.okres;
+
+    const meta = document.createElement('span');
+    meta.className = 'district-search__option-meta';
+    meta.textContent = `Nezamestnanosť ${formatPercent(row.nezam_pct)} • ${party.buttonLabel} ${formatPercent(row[party.key])}`;
+
+    option.append(name, meta);
+    option.addEventListener('click', () => {
+      selectDistrict(row.okres);
+    });
+
+    fragment.append(option);
+  });
+
+  container.append(fragment);
+}
+
+function initDistrictSearch() {
+  const {
+    districtSearch,
+    districtSearchToggle,
+    districtSearchInput,
+  } = electionSection;
+
+  if (electionState.districtSearchReady || !districtSearch || !districtSearchToggle || !districtSearchInput) {
+    return;
+  }
+
+  districtSearchToggle.addEventListener('click', () => {
+    setDistrictSearchOpen(!isDistrictSearchOpen());
+  });
+
+  districtSearchInput.addEventListener('input', event => {
+    electionState.districtQuery = event.currentTarget.value;
+    renderDistrictSearchResults();
+  });
+
+  districtSearchInput.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      setDistrictSearchOpen(false);
+      districtSearchToggle.focus();
+    }
+  });
+
+  document.addEventListener('click', event => {
+    if (!districtSearch.contains(event.target)) {
+      setDistrictSearchOpen(false);
+    }
+  });
+
+  electionState.districtSearchReady = true;
+  syncDistrictSearchSummary();
+}
+
+const pinnedDistrictSelectionPlugin = {
+  id: 'pinnedDistrictSelection',
+  afterEvent(chart, args) {
+    if (chart !== electionState.chart || !electionState.selectedDistrictLabel) {
+      return;
+    }
+
+    if (applyPinnedDistrictSelection(chart, electionState.selectedDistrictLabel)) {
+      args.changed = true;
+    }
+  },
+};
 
 function renderElectionSummary({ party, pointCount, correlation, regression, meta }) {
   const assessment = describeCorrelation(correlation);
@@ -915,6 +1325,14 @@ function renderElectionError(message) {
   electionSection.note.textContent = 'Skontroluj, či je JSON súbor dostupný a stránka beží cez lokálny server.';
   electionSection.toolbarText.textContent = 'Prepínanie strán bude dostupné po úspešnom načítaní dát.';
   electionSection.partySwitcher.textContent = '';
+  electionState.selectedDistrictLabel = '';
+  syncDistrictSearchSummary();
+  setDistrictSearchOpen(false);
+
+  if (electionSection.districtSearchResults) {
+    electionSection.districtSearchResults.textContent = '';
+  }
+
   electionSection.correlationValue.textContent = 'r = --';
   electionSection.correlationText.textContent = 'Výpočet sa nepodarilo dokončiť.';
   electionSection.trendValue.textContent = '--';
@@ -962,6 +1380,12 @@ function updateElectionChart() {
     regression,
     meta: electionState.payload.meta,
   });
+  applyElectionTheme(party);
+  syncDistrictSearchSummary();
+
+  if (isDistrictSearchOpen()) {
+    renderDistrictSearchResults();
+  }
 
   if (electionState.chart) {
     electionState.chart.destroy();
@@ -969,17 +1393,20 @@ function updateElectionChart() {
 
   electionState.chart = new Chart(electionState.context, {
     type: 'scatter',
+    plugins: [pinnedDistrictSelectionPlugin],
     data: {
       datasets: [
         {
           label: `${party.label} – ${ELECTION_SCOPE_LABEL}`,
           data: scatterData,
-          backgroundColor: COLORS.accentSoft,
-          borderColor: COLORS.accent,
+          backgroundColor: withOpacity(party.accent, 0.74),
+          borderColor: party.accentStrong,
           borderWidth: 1.5,
-          pointRadius: 5,
-          pointHoverRadius: 8,
-          pointHoverBackgroundColor: COLORS.accent,
+          pointRadius: context => context.raw?.label === electionState.selectedDistrictLabel ? 7 : 5,
+          pointBorderWidth: context => context.raw?.label === electionState.selectedDistrictLabel ? 2.4 : 1.5,
+          pointBorderColor: withOpacity(COLORS.paper, 0.88),
+          pointHoverRadius: context => context.raw?.label === electionState.selectedDistrictLabel ? 10 : 8,
+          pointHoverBackgroundColor: party.accentStrong,
           pointHoverBorderColor: COLORS.paper,
           pointHoverBorderWidth: 2,
         },
@@ -987,11 +1414,14 @@ function updateElectionChart() {
           type: 'line',
           label: 'Trendová čiara',
           data: trendLine,
-          borderColor: COLORS.electric,
+          borderColor: party.trendColor,
           borderWidth: 2.5,
           borderDash: [8, 6],
+          borderCapStyle: 'round',
+          borderJoinStyle: 'round',
           pointRadius: 0,
           pointHoverRadius: 0,
+          pointHitRadius: 24,
           fill: false,
         },
       ],
@@ -1001,17 +1431,36 @@ function updateElectionChart() {
       maintainAspectRatio: false,
       interaction: {
         mode: 'nearest',
+        axis: 'xy',
         intersect: false,
+        includeInvisible: true,
       },
       plugins: {
         ...basePluginConfig(),
         tooltip: {
           ...basePluginConfig().tooltip,
+          displayColors: false,
+          padding: 14,
+          caretPadding: 10,
+          cornerRadius: 16,
           callbacks: {
-            title: items => items[0]?.raw?.label ?? 'Trendová čiara',
+            title: items => {
+              const [item] = items;
+
+              if (!item) {
+                return '';
+              }
+
+              return item.dataset.type === 'line'
+                ? 'Trendová čiara'
+                : item.raw?.label ?? 'Okres';
+            },
             label: item => {
               if (item.dataset.type === 'line') {
-                return `Odhad na trendovej čiare: ${formatPercent(item.parsed.y)}`;
+                return [
+                  `Nezamestnanosť: ${formatPercent(item.parsed.x)}`,
+                  `Odhad ${party.label}: ${formatPercent(item.parsed.y)}`,
+                ];
               }
 
               return [
@@ -1045,6 +1494,10 @@ function updateElectionChart() {
       },
     },
   });
+
+  if (electionState.selectedDistrictLabel) {
+    focusDistrictInChart(electionState.selectedDistrictLabel);
+  }
 }
 
 async function initElectionChart() {
@@ -1068,8 +1521,16 @@ async function initElectionChart() {
       ? DEFAULT_PARTY_KEY
       : electionState.partyOptions[0]?.key;
 
+    initDistrictSearch();
     renderPartySwitcher();
+    renderDistrictSearchResults();
     updateElectionChart();
+
+    canvas.addEventListener('mouseleave', () => {
+      if (electionState.selectedDistrictLabel) {
+        focusDistrictInChart(electionState.selectedDistrictLabel);
+      }
+    });
   } catch (error) {
     console.error(error);
     renderElectionError('Nepodarilo sa načítať dáta pre korelačný graf všetkých okresov SR.');
