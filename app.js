@@ -44,6 +44,8 @@ const COLORS = {
   paper: "#ffffff",
 };
 
+const TOOLTIP_PROXIMITY_PX = 38;
+
 Chart.defaults.font.family = "'Manrope', 'Segoe UI', sans-serif";
 Chart.defaults.color = COLORS.mutedStrong;
 Chart.defaults.borderColor = COLORS.line;
@@ -103,6 +105,98 @@ function commonScale(title) {
   };
 }
 
+function getDistanceToRect(point, rect) {
+  const dx =
+    point.x < rect.left
+      ? rect.left - point.x
+      : point.x > rect.right
+        ? point.x - rect.right
+        : 0;
+  const dy =
+    point.y < rect.top
+      ? rect.top - point.y
+      : point.y > rect.bottom
+        ? point.y - rect.bottom
+        : 0;
+
+  return Math.hypot(dx, dy);
+}
+
+function getBarElementRect(element) {
+  const { x, y, base, width, height, horizontal } = element.getProps(
+    ["x", "y", "base", "width", "height", "horizontal"],
+    true,
+  );
+
+  if (horizontal) {
+    return {
+      left: Math.min(base, x),
+      right: Math.max(base, x),
+      top: y - height / 2,
+      bottom: y + height / 2,
+    };
+  }
+
+  return {
+    left: x - width / 2,
+    right: x + width / 2,
+    top: Math.min(y, base),
+    bottom: Math.max(y, base),
+  };
+}
+
+function clearChartTooltip(chart) {
+  chart.setActiveElements([]);
+  chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+}
+
+function createTooltipProximityPlugin(thresholdPx = TOOLTIP_PROXIMITY_PX) {
+  return {
+    id: `tooltipProximity-${thresholdPx}`,
+    afterEvent(chart, args) {
+      const event = args.event;
+
+      if (!event) {
+        return;
+      }
+
+      if (event.type === "mouseout") {
+        clearChartTooltip(chart);
+        chart.update("none");
+        return;
+      }
+
+      const activeElements = chart.getActiveElements();
+
+      if (!activeElements.length) {
+        return;
+      }
+
+      const cursor = { x: event.x, y: event.y };
+      const minDistance = activeElements.reduce((closestDistance, item) => {
+        const element = chart.getDatasetMeta(item.datasetIndex)?.data?.[
+          item.index
+        ];
+
+        if (!element) {
+          return closestDistance;
+        }
+
+        const distance = getDistanceToRect(cursor, getBarElementRect(element));
+
+        return Math.min(closestDistance, distance);
+      }, Number.POSITIVE_INFINITY);
+
+      if (minDistance <= thresholdPx) {
+        return;
+      }
+
+      clearChartTooltip(chart);
+      chart.update("none");
+    },
+  };
+}
+
 const NUMBER_FORMATTER = new Intl.NumberFormat("sk-SK", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
@@ -119,6 +213,12 @@ const ONE_DECIMAL_FORMATTER = new Intl.NumberFormat("sk-SK", {
 
 const DEFAULT_PARTY_KEY = "SMER";
 const ELECTION_SCOPE_LABEL = "okresy SR";
+const ELECTION_DATA_URL =
+  "data/Voľby vs. Nezamestnanosť/volby_nrsr2023_nezamestnanost_sep2023.json";
+const SOCIAL_DATA_URL =
+  "data/Sila na sociálnych sieťach/facebook_prispevky_2026-03-01_2026-03-05.json";
+const ACTIVITY_DATA_URL =
+  "data/Aktivita politikov/nrsr_aktivita_poslancov.json";
 
 const PARTY_VISUALS = {
   HLAS: {
@@ -194,6 +294,9 @@ const PARTY_VISUALS = {
     trendColor: "#2f6fc2",
     logoSrc: "obrazky/sns.jpg",
     logoBackground: "#ffffff",
+    logoBorder: "rgba(95, 163, 255, 0.62)",
+    logoShadow:
+      "0 0 0 1px rgba(95, 163, 255, 0.18), 0 10px 22px rgba(95, 163, 255, 0.16)",
   },
   SZÖVETSÉG: {
     label: "SZÖVETSÉG",
@@ -226,7 +329,6 @@ const electionSection = {
   title: document.getElementById("volbyRegionTitle"),
   description: document.getElementById("volbyRegionDescription"),
   note: document.getElementById("volbyRegionNote"),
-  toolbarText: document.getElementById("volbyToolbarText"),
   partySwitcher: document.getElementById("partySwitcher"),
   districtSearch: document.getElementById("districtSearch"),
   districtSearchToggle: document.getElementById("districtSearchToggle"),
@@ -273,108 +375,137 @@ const SOCIAL_TYPE_COLORS = {
 
 const SOCIAL_PROFILES = [
   {
-    key: "fico",
     label: "Robert Fico",
     shortLabel: "Fico",
-    color: "#d5464e",
-    highlight: "#ff9fa4",
-    rawPosts: [
-      "7k 850 1,1k 120k",
-      "2,6k 298 161 52k",
-      "2,8k 582 109 -",
-      "4,8k 652 423 128k",
-      "34k 2228 3,2k 714k",
-      "4,7k 1k 157 115k",
-      "29k 1,9k 3,2k 702k",
-      "3,3k 361 140 82k",
-      "2,6k 258 99 -",
-      "3,3k 312 125 -",
-      "7,5k 2332 149 -",
-      "5,1k 655 324 190k",
-      "17k 1,6k 1,7k 425k",
-      "6,6k 698 344 163k",
+    color: "#630000",
+    highlight: "#e61919",
+    posts: [
+      {
+        likes: 7000,
+        comments: 850,
+        shares: 1100,
+        views: 120000,
+        type: "reels",
+      },
+      { likes: 2600, comments: 298, shares: 161, views: 52000, type: "reels" },
+      { likes: 2800, comments: 582, shares: 109, views: 0, type: "post" },
+      { likes: 4800, comments: 652, shares: 423, views: 128000, type: "reels" },
+      {
+        likes: 34000,
+        comments: 2228,
+        shares: 3200,
+        views: 714000,
+        type: "reels",
+      },
+      {
+        likes: 4700,
+        comments: 1000,
+        shares: 157,
+        views: 115000,
+        type: "reels",
+      },
+      {
+        likes: 29000,
+        comments: 1900,
+        shares: 3200,
+        views: 702000,
+        type: "reels",
+      },
+      { likes: 3300, comments: 361, shares: 140, views: 82000, type: "reels" },
+      { likes: 2600, comments: 258, shares: 99, views: 0, type: "post" },
+      { likes: 3300, comments: 312, shares: 125, views: 0, type: "post" },
+      { likes: 7500, comments: 2332, shares: 149, views: 0, type: "post" },
+      { likes: 5100, comments: 655, shares: 324, views: 190000, type: "reels" },
+      {
+        likes: 17000,
+        comments: 1600,
+        shares: 1700,
+        views: 425000,
+        type: "reels",
+      },
+      { likes: 6600, comments: 698, shares: 344, views: 163000, type: "reels" },
     ],
   },
   {
-    key: "simecka",
     label: "Michal Šimečka",
     shortLabel: "Šimečka",
-    color: "#66c9ff",
-    highlight: "#b7ebff",
-    rawPosts: [
-      "2,3k 86 70 50k",
-      "2,3k 97 97 -",
-      "2k 26 33 -",
-      "665 63 23 -",
-      "330 22 34 -",
-      "1,3k 59 34 24k",
-      "2,5k 89 74 -",
-      "305 35 3 6,3k",
-      "1,5k 45 44 -",
-      "957 58 69 -",
-      "2,4k 85 105 35k",
-      "118 23 - -",
-      "3,6k 138 177 47k",
-      "665 92 21 16k",
-      "1,3k 124 41 -",
-      "800 49 13 43",
-      "7,6k 454 146 -",
-      "174 43 - -",
-      "2k 71 24 -",
-      "432 23 1 9,7k",
-      "298 29 6 7,8k",
-      "1,9k 96 80 59k",
-      "2,9k 141 113 48k",
-      "7,7k 1,5k 333 -",
-      "294 20 11 -",
-      "668 140 17 17k",
+    color: "#0f8fdd",
+    highlight: "#1fb9f3",
+    posts: [
+      { likes: 2300, comments: 86, shares: 70, views: 50000, type: "reels" },
+      { likes: 2300, comments: 97, shares: 97, views: 0, type: "post" },
+      { likes: 2000, comments: 26, shares: 33, views: 0, type: "post" },
+      { likes: 665, comments: 63, shares: 23, views: 0, type: "post" },
+      { likes: 330, comments: 22, shares: 34, views: 0, type: "post" },
+      { likes: 1300, comments: 59, shares: 34, views: 24000, type: "reels" },
+      { likes: 2500, comments: 89, shares: 74, views: 0, type: "post" },
+      { likes: 305, comments: 35, shares: 3, views: 6300, type: "reels" },
+      { likes: 1500, comments: 45, shares: 44, views: 0, type: "post" },
+      { likes: 957, comments: 58, shares: 69, views: 0, type: "post" },
+      { likes: 2400, comments: 85, shares: 105, views: 35000, type: "reels" },
+      { likes: 118, comments: 23, shares: 0, views: 0, type: "event" },
+      { likes: 3600, comments: 138, shares: 177, views: 47000, type: "reels" },
+      { likes: 665, comments: 92, shares: 21, views: 16000, type: "reels" },
+      { likes: 1300, comments: 124, shares: 41, views: 0, type: "post" },
+      { likes: 800, comments: 49, shares: 13, views: 43, type: "reels" },
+      { likes: 7600, comments: 454, shares: 146, views: 0, type: "post" },
+      { likes: 174, comments: 43, shares: 0, views: 0, type: "event" },
+      { likes: 2000, comments: 71, shares: 24, views: 0, type: "post" },
+      { likes: 432, comments: 23, shares: 1, views: 9700, type: "reels" },
+      { likes: 298, comments: 29, shares: 6, views: 7800, type: "reels" },
+      { likes: 1900, comments: 96, shares: 80, views: 59000, type: "reels" },
+      { likes: 2900, comments: 141, shares: 113, views: 48000, type: "reels" },
+      { likes: 7700, comments: 1500, shares: 333, views: 0, type: "post" },
+      { likes: 294, comments: 20, shares: 11, views: 0, type: "post" },
+      { likes: 668, comments: 140, shares: 17, views: 17000, type: "reels" },
     ],
   },
   {
-    key: "uhrik",
     label: "Milan Uhrík",
     shortLabel: "Uhrík",
-    color: "#2c6f57",
-    highlight: "#79b39b",
-    rawPosts: [
-      "1,8k 259 163 -",
-      "2,7k 130 184 43k",
-      "710 19 115 -",
-      "22k 681 5k 502k",
+    color: "#1f4aa4",
+    highlight: "#de2630",
+    posts: [
+      { likes: 1800, comments: 259, shares: 163, views: 0, type: "post" },
+      { likes: 2700, comments: 130, shares: 184, views: 43000, type: "reels" },
+      { likes: 710, comments: 19, shares: 115, views: 0, type: "post" },
+      {
+        likes: 22000,
+        comments: 681,
+        shares: 5000,
+        views: 502000,
+        type: "reels",
+      },
     ],
   },
   {
-    key: "matovic",
     label: "Igor Matovič",
     shortLabel: "Matovič",
-    color: "#79b445",
-    highlight: "#c4ec82",
-    rawPosts: [
-      "1k 276 45 -",
-      "1,3k 325 486 39k",
-      "562 220 56 -",
-      "493 179 42 -",
-      "1,1k 278 308 33k",
-      "2k 498 383 70k",
-      "2,1k 455 378 -",
-      "2,3k 454 183 96k",
-      "461 252 26 -",
-      "2,2k 497 436 102k",
-      "459 135 36 -",
-      "2,5k 101 235 150k",
-      "2,3k 1,4k 476 80k",
-      "756 463 79 -",
-      "1,1k 262 201 42k",
-      "3,7k 996 231 224k",
-      "2,2k 655 274 104k",
+    color: "#6b7280",
+    highlight: "#eef1f4",
+    posts: [
+      { likes: 1000, comments: 276, shares: 45, views: 0, type: "post" },
+      { likes: 1300, comments: 325, shares: 486, views: 39000, type: "reels" },
+      { likes: 562, comments: 220, shares: 56, views: 0, type: "post" },
+      { likes: 493, comments: 179, shares: 42, views: 0, type: "post" },
+      { likes: 1100, comments: 278, shares: 308, views: 33000, type: "reels" },
+      { likes: 2000, comments: 498, shares: 383, views: 70000, type: "reels" },
+      { likes: 2100, comments: 455, shares: 378, views: 0, type: "post" },
+      { likes: 2300, comments: 454, shares: 183, views: 96000, type: "reels" },
+      { likes: 461, comments: 252, shares: 26, views: 0, type: "post" },
+      { likes: 2200, comments: 497, shares: 436, views: 102000, type: "reels" },
+      { likes: 459, comments: 135, shares: 36, views: 0, type: "post" },
+      { likes: 2500, comments: 101, shares: 235, views: 150000, type: "reels" },
+      { likes: 2300, comments: 1400, shares: 476, views: 80000, type: "reels" },
+      { likes: 756, comments: 463, shares: 79, views: 0, type: "post" },
+      { likes: 1100, comments: 262, shares: 201, views: 42000, type: "reels" },
+      { likes: 3700, comments: 996, shares: 231, views: 224000, type: "reels" },
+      { likes: 2200, comments: 655, shares: 274, views: 104000, type: "reels" },
     ],
   },
 ];
 
 const socialSection = {
-  leadNarrative: document.getElementById("socialLeadNarrative"),
-  volumeNarrative: document.getElementById("socialVolumeNarrative"),
-  formatNarrative: document.getElementById("socialFormatNarrative"),
   profilesCount: document.getElementById("socialProfilesCount"),
   postsCount: document.getElementById("socialPostsCount"),
   interactionsCount: document.getElementById("socialInteractionsCount"),
@@ -387,6 +518,8 @@ const socialState = {
   totalChart: null,
   formatsChart: null,
   profiles: [],
+  payload: null,
+  loadingPromise: null,
 };
 
 const activityState = {
@@ -491,7 +624,12 @@ function getAxisLabelHoverIndex(chart, event) {
 
   const { x, y } = event;
 
-  if (x < yScale.left || x > yScale.right || y < yScale.top || y > yScale.bottom) {
+  if (
+    x < yScale.left ||
+    x > yScale.right ||
+    y < yScale.top ||
+    y > yScale.bottom
+  ) {
     return null;
   }
 
@@ -503,7 +641,9 @@ function getAxisLabelHoverIndex(chart, event) {
       ? Math.min(
           ...tickPositions
             .slice(1)
-            .map((position, index) => Math.abs(position - tickPositions[index])),
+            .map((position, index) =>
+              Math.abs(position - tickPositions[index]),
+            ),
         )
       : 28;
   const threshold = Math.max(12, spacing * 0.45);
@@ -728,6 +868,8 @@ function buildPartyOptions(meta) {
         COLORS.electric,
       logoSrc: PARTY_VISUALS[key]?.logoSrc ?? "",
       logoBackground: PARTY_VISUALS[key]?.logoBackground ?? "#ffffff",
+      logoBorder: PARTY_VISUALS[key]?.logoBorder ?? "rgba(7, 12, 28, 0.08)",
+      logoShadow: PARTY_VISUALS[key]?.logoShadow ?? "none",
       logoScale: PARTY_VISUALS[key]?.logoScale ?? 1,
     }));
 }
@@ -746,6 +888,11 @@ function createPartyLogoShell(party, shellClassName, imageClassName) {
   const shell = document.createElement("span");
   shell.className = shellClassName;
   shell.style.setProperty("--party-logo-bg", party.logoBackground ?? "#ffffff");
+  shell.style.setProperty(
+    "--party-logo-border",
+    party.logoBorder ?? "rgba(7, 12, 28, 0.08)",
+  );
+  shell.style.setProperty("--party-logo-shadow", party.logoShadow ?? "none");
   shell.style.setProperty("--party-logo-scale", String(party.logoScale ?? 1));
 
   if (!party.logoSrc) {
@@ -768,55 +915,16 @@ function sumValues(values) {
   return values.reduce((sum, value) => sum + value, 0);
 }
 
-function parseCompactNumber(token) {
-  const normalizedToken = String(token ?? "")
-    .trim()
-    .toLowerCase();
-
-  if (!normalizedToken || normalizedToken === "-") {
-    return null;
-  }
-
-  const normalizedNumber = normalizedToken.replace(",", ".");
-
-  if (normalizedNumber.endsWith("k")) {
-    return Math.round(Number.parseFloat(normalizedNumber.slice(0, -1)) * 1000);
-  }
-
-  return Number.parseInt(normalizedNumber, 10);
-}
-
-function parseSocialPostRow(row) {
-  const [
-    likesToken = "",
-    commentsToken = "",
-    sharesToken = "-",
-    viewsToken = "-",
-  ] = row.trim().split(/\s+/);
-  const likes = parseCompactNumber(likesToken) ?? 0;
-  const comments = parseCompactNumber(commentsToken) ?? 0;
-  const shareValue = parseCompactNumber(sharesToken);
-  const viewValue = parseCompactNumber(viewsToken);
-  const type =
-    viewValue !== null ? "reels" : shareValue === null ? "event" : "post";
-
-  return {
-    likes,
-    comments,
-    shares: shareValue ?? 0,
-    views: viewValue ?? 0,
-    type,
-    interactions: likes + comments + (shareValue ?? 0),
-  };
-}
-
 function perThousand(value, total) {
   return total ? (value / total) * 1000 : 0;
 }
 
-function prepareSocialProfiles() {
-  return SOCIAL_PROFILES.map((profile) => {
-    const posts = profile.rawPosts.map(parseSocialPostRow);
+function prepareSocialProfiles(rawProfiles = SOCIAL_PROFILES) {
+  return rawProfiles.map((profile) => {
+    const posts = profile.posts.map((post) => ({
+      ...post,
+      interactions: post.likes + post.comments + post.shares,
+    }));
     const typeCounts = posts.reduce(
       (summary, post) => {
         summary[post.type] += 1;
@@ -961,17 +1069,23 @@ function renderSocialNarratives(profiles) {
   if (socialSection.reelsCount) {
     socialSection.reelsCount.textContent = formatInteger(totalReels);
   }
+}
 
-  if (socialSection.leadNarrative) {
-    socialSection.leadNarrative.textContent = `${activityLeader.label} má najaktívnejšie Reels publikum: na 1 000 videní pripadá ${formatOneDecimal(activityLeader.likesPerThousandViews + activityLeader.strongPerThousandViews)} interakcií, teda engagement rate ${formatShortPercent(activityLeader.reelsEngagementRate * 100)}.`;
+function renderSocialError(message) {
+  if (socialSection.profilesCount) {
+    socialSection.profilesCount.textContent = "--";
   }
 
-  if (socialSection.volumeNarrative) {
-    socialSection.volumeNarrative.textContent = `${strongLeader.label} má najsilnejšie „hlbšie“ zapojenie publika: ${formatOneDecimal(strongLeader.strongPerThousandViews)} komentárov a zdieľaní na 1 000 videní. ${mostPassive.label} má naopak najslabšiu mieru zapojenia, iba ${formatShortPercent(mostPassive.reelsEngagementRate * 100)}.`;
+  if (socialSection.postsCount) {
+    socialSection.postsCount.textContent = "--";
   }
 
-  if (socialSection.formatNarrative) {
-    socialSection.formatNarrative.textContent = `${reachLeader.label} má najväčší Reels zásah, spolu ${formatCompactMetric(reachLeader.reelsViews)} videní. Preto grafy nižšie oddeľujú čistý reach od publika, ktoré iba pozerá, a publika, ktoré aj reaguje.`;
+  if (socialSection.interactionsCount) {
+    socialSection.interactionsCount.textContent = "--";
+  }
+
+  if (socialSection.reelsCount) {
+    socialSection.reelsCount.textContent = "--";
   }
 }
 
@@ -1000,12 +1114,54 @@ function getSocialStackRadius(type, profile) {
   };
 }
 
-function hydrateSocialSection() {
-  if (!socialState.profiles.length) {
-    socialState.profiles = prepareSocialProfiles();
+async function loadSocialProfiles() {
+  if (socialState.profiles.length) {
+    return socialState.profiles;
   }
 
-  renderSocialNarratives(socialState.profiles);
+  if (socialState.loadingPromise) {
+    return socialState.loadingPromise;
+  }
+
+  socialState.loadingPromise = fetch(SOCIAL_DATA_URL)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Social data request failed: ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .then((payload) => {
+      socialState.payload = payload;
+      socialState.profiles = prepareSocialProfiles(payload.profiles);
+      return socialState.profiles;
+    })
+    .catch((error) => {
+      console.warn(
+        "Nepodarilo sa načítať externý JSON pre sociálne siete, používam fallback z app.js.",
+        error,
+      );
+
+      socialState.payload = null;
+      socialState.profiles = prepareSocialProfiles();
+      return socialState.profiles;
+    });
+
+  return socialState.loadingPromise;
+}
+
+async function hydrateSocialSection() {
+  try {
+    const profiles = await loadSocialProfiles();
+    renderSocialNarratives(profiles);
+    return profiles;
+  } catch (error) {
+    console.error("Nepodarilo sa pripraviť dáta pre sociálne siete.", error);
+    renderSocialError(
+      "Nepodarilo sa načítať dáta pre sekciu Sila na sociálnych sieťach.",
+    );
+    return [];
+  }
 }
 
 function createSocialImpactChart(canvas, profiles) {
@@ -1052,14 +1208,6 @@ function createSocialImpactChart(canvas, profiles) {
           callbacks: {
             label: (tooltipItem) =>
               `${tooltipItem.dataset.label}: ${formatOneDecimal(tooltipItem.parsed.y)} na 1 000 videní`,
-            afterLabel: (tooltipItem) => {
-              const profile = profiles[tooltipItem.dataIndex];
-
-              return [
-                `Reels videnia: ${formatCompactMetric(profile.reelsViews)}`,
-                `Celkový engagement: ${formatShortPercent(profile.reelsEngagementRate * 100)}`,
-              ];
-            },
           },
         },
       },
@@ -1093,6 +1241,8 @@ function createSocialImpactChart(canvas, profiles) {
 }
 
 function createSocialStrategyChart(canvas, profiles) {
+  const tooltipProximityPlugin = createTooltipProximityPlugin();
+
   return new Chart(canvas.getContext("2d"), {
     type: "bar",
     data: {
@@ -1195,6 +1345,7 @@ function createSocialStrategyChart(canvas, profiles) {
         },
       },
     },
+    plugins: [tooltipProximityPlugin],
   });
 }
 
@@ -1234,6 +1385,7 @@ function createSocialTotalChart(canvas, profiles) {
         },
         tooltip: {
           ...basePluginConfig().tooltip,
+          displayColors: false,
           callbacks: {
             label: (tooltipItem) =>
               `Interakcie: ${formatCompactMetric(tooltipItem.parsed.y)}`,
@@ -1273,6 +1425,8 @@ function createSocialTotalChart(canvas, profiles) {
 }
 
 function createSocialFormatsChart(canvas, profiles) {
+  const tooltipProximityPlugin = createTooltipProximityPlugin();
+
   return new Chart(canvas.getContext("2d"), {
     type: "bar",
     data: {
@@ -1341,6 +1495,7 @@ function createSocialFormatsChart(canvas, profiles) {
         },
       },
     },
+    plugins: [tooltipProximityPlugin],
   });
 }
 
@@ -1472,7 +1627,7 @@ async function loadActivityPayload() {
     return activityState.loadingPromise;
   }
 
-  activityState.loadingPromise = fetch("data/nrsr_aktivita_poslancov.json")
+  activityState.loadingPromise = fetch(ACTIVITY_DATA_URL)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Aktivita data request failed: ${response.status}`);
@@ -1629,7 +1784,7 @@ function createActivityRankingChart(canvas, config) {
         },
       },
     },
-    plugins: [axisLabelTooltipPlugin],
+    plugins: [axisLabelTooltipPlugin, ...(config.plugins || [])],
   });
 }
 
@@ -1711,7 +1866,14 @@ async function initActivityCharts() {
             0.95,
           ),
         getAxisLabel: (item) => item.shortName,
-        getTitle: (item) => [item.meno, `Strana: ${item.strana}`],
+        getTitle: (item) =>
+          item.meno.includes("Monika Kolejáková")
+            ? [
+                item.meno,
+                "V parlamente menej ako 2 mesiace",
+                `Strana: ${item.strana}`,
+              ]
+            : [item.meno, `Strana: ${item.strana}`],
         getValue: (item) => item.score,
         enableAxisLabelTooltip: true,
         formatValue: (value) => formatInteger(value),
@@ -1720,6 +1882,33 @@ async function initActivityCharts() {
           `Návrhy zákonov: ${formatInteger(item.navrhy_zakonov)}`,
           `Pozmeňujúce návrhy: ${formatInteger(item.pozmenujuce_navrhy)}`,
           `Rozpravy: ${formatInteger(item.vystupenia_v_rozprave)}`,
+        ],
+        plugins: [
+          {
+            id: "kolejakovaInlineLabel",
+            afterDatasetsDraw(chart) {
+              const ctx = chart.ctx;
+              const meta = chart.getDatasetMeta(0);
+              const dataPoints = payload.topInactive;
+
+              meta.data.forEach((bar, index) => {
+                const item = dataPoints[index];
+                if (item && item.meno.includes("Monika Kolejáková")) {
+                  ctx.save();
+                  ctx.font = "italic 12px Inter, system-ui, sans-serif";
+                  ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+                  ctx.textAlign = "left";
+                  ctx.textBaseline = "middle";
+                  ctx.fillText(
+                    "* vykonáva mandát až od 3. 2. 2026, teda v parlamente je menej ako 2 mesiace.",
+                    bar.x + 10,
+                    bar.y,
+                  );
+                  ctx.restore();
+                }
+              });
+            },
+          },
         ],
       },
     );
@@ -1784,6 +1973,7 @@ async function initActivityCharts() {
       getAfterLabel: (item) => [
         `Celkové skóre: ${formatInteger(item.score)}`,
         `Návrhy zákonov: ${formatInteger(item.navrhy_zakonov)}`,
+        `Pozmeňujúce návrhy: ${formatInteger(item.pozmenujuce_navrhy)}`,
       ],
     });
 
@@ -1814,6 +2004,7 @@ async function initActivityCharts() {
       tickFormatter: (value) => formatInteger(value),
       getAfterLabel: (item) => [
         `Celkové skóre: ${formatInteger(item.score)}`,
+        `Pozmeňujúce návrhy: ${formatInteger(item.pozmenujuce_navrhy)}`,
         `Rozpravy: ${formatInteger(item.vystupenia_v_rozprave)}`,
       ],
     });
@@ -1831,7 +2022,7 @@ function syncPanelCharts(targetId) {
         !socialState.totalChart ||
         !socialState.formatsChart
       ) {
-        initSocialChart();
+        void initSocialChart();
         return;
       }
 
@@ -1886,16 +2077,13 @@ function renderPartySwitcher() {
     button.style.setProperty("--party-accent-strong", party.accentStrong);
     button.style.setProperty(
       "--party-accent-soft",
-      withOpacity(party.accent, 0.18),
+      withOpacity(party.accent, 0.2),
     );
     button.style.setProperty(
       "--party-accent-border",
-      withOpacity(party.accent, 0.38),
+      withOpacity(party.accent, 0.44),
     );
-    button.style.setProperty(
-      "--party-shadow",
-      withOpacity(party.accentStrong, 0.26),
-    );
+    button.style.setProperty("--party-shadow", withOpacity(party.accent, 0.32));
 
     const logoShell = createPartyLogoShell(
       party,
@@ -2029,6 +2217,35 @@ function applyPinnedDistrictSelection(chart, label) {
   });
 
   return true;
+}
+
+function handleElectionChartClick(event) {
+  if (!electionState.chart) {
+    return;
+  }
+
+  const hitElements = electionState.chart.getElementsAtEventForMode(
+    event,
+    "nearest",
+    {
+      intersect: true,
+      axis: "xy",
+    },
+    false,
+  );
+  const pointHit = hitElements.find((item) => item.datasetIndex === 0);
+
+  if (!pointHit) {
+    selectDistrict("");
+    return;
+  }
+
+  const point =
+    electionState.chart.data.datasets[pointHit.datasetIndex]?.data?.[
+      pointHit.index
+    ];
+
+  selectDistrict(point?.label ?? "");
 }
 
 function setDistrictSearchOpen(isOpen) {
@@ -2230,26 +2447,26 @@ function renderElectionSummary({
   const absoluteSlope = Math.abs(regression.slope);
   const slopeDirection = regression.slope >= 0 ? "rastie" : "klesá";
 
-  electionSection.title.textContent =
-    "Okresy ukazujú, kde ekonomický tlak mení politické preferencie.";
-  electionSection.description.textContent = `Každý bod v grafe predstavuje jeden okres Slovenska a porovnáva nezamestnanosť z ${monthLabel} s podielom hlasov pre ${party.label} vo voľbách do NR SR ${meta.election_year}.`;
-  electionSection.note.textContent = `Pri strane ${party.label} trendová čiara naznačuje ${regression.slope >= 0 ? "rastúci" : "klesajúci"} vzťah a Pearsonov koeficient r = ${formatNumber(correlation)} hovorí o tom, že ide o ${assessment} koreláciu. Je to typ signálu, ktorý môže redakcia ďalej rozpracovať reportážou z konkrétnych regiónov.`;
-  electionSection.toolbarText.textContent = `Dataset pracuje s ${pointCount} okresmi Slovenska. Rozsah analýzy je ${ELECTION_SCOPE_LABEL}; na osi X je nezamestnanosť za ${monthLabel}, na osi Y volebný výsledok strany ${party.label}.`;
+  const assessmentAccusative = assessment
+    .replace("nízka", "nízku")
+    .replace("stredná", "strednú")
+    .replace("vysoká", "vysokú")
+    .replace("pozitívna", "pozitívnu")
+    .replace("negatívna", "negatívnu");
+
   electionSection.correlationValue.textContent = `r = ${formatNumber(correlation)}`;
   electionSection.correlationText.textContent = `Pearsonov korelačný koeficient pre ${party.label} vypočítaný z ${pointCount} okresov.`;
   electionSection.trendValue.textContent = trendLabel;
   electionSection.trendText.textContent = `Sklon trendovej čiary je ${regression.slope >= 0 ? "+" : "-"}${formatNumber(absoluteSlope)} p. b.; pri raste nezamestnanosti o 1 p. b. ${slopeDirection} odhadovaný zisk ${party.label} približne o ${formatNumber(absoluteSlope)} p. b.`;
   electionSection.assessmentValue.textContent = capitalize(assessment);
-  electionSection.assessmentText.textContent = `${party.label} a nezamestnanosť majú v okresoch Slovenska ${assessment} koreláciu.`;
-  electionSection.footnote.textContent = `Zdroj: ${meta.sources.volby}; ${meta.sources.nezamestnanost}. Voľby ${meta.election_year}, nezamestnanosť ${monthLabel}.`;
+  electionSection.assessmentText.textContent = `${party.label} a nezamestnanosť majú v okresoch Slovenska ${assessmentAccusative} koreláciu.`;
+  electionSection.footnote.textContent = `Zdroj: ${meta.sources.volby}; ${meta.sources.nezamestnanost}.`;
 }
 
 function renderElectionError(message) {
   electionSection.description.textContent = message;
   electionSection.note.textContent =
     "Skontroluj, či je JSON súbor dostupný a stránka beží cez lokálny server.";
-  electionSection.toolbarText.textContent =
-    "Prepínanie strán bude dostupné po úspešnom načítaní dát.";
   electionSection.partySwitcher.textContent = "";
   electionState.selectedDistrictLabel = "";
   syncDistrictSearchSummary();
@@ -2268,8 +2485,7 @@ function renderElectionError(message) {
   electionSection.assessmentValue.textContent = "--";
   electionSection.assessmentText.textContent =
     "Zhodnotenie bude dostupné po načítaní dát.";
-  electionSection.footnote.textContent =
-    "Dáta sa nepodarilo načítať zo súboru data/volby_nezamestnanost_okresy.json.";
+  electionSection.footnote.textContent = `Dáta sa nepodarilo načítať zo súboru ${ELECTION_DATA_URL}.`;
 }
 
 function updateElectionChart() {
@@ -2372,6 +2588,7 @@ function updateElectionChart() {
               context.raw?.label === electionState.selectedDistrictLabel
                 ? 10
                 : 8,
+            pointHitRadius: 18,
             pointHoverBackgroundColor: party.accentStrong,
             pointHoverBorderColor: COLORS.paper,
             pointHoverBorderWidth: 2,
@@ -2402,7 +2619,7 @@ function updateElectionChart() {
         interaction: {
           mode: "nearest",
           axis: "xy",
-          intersect: false,
+          intersect: true,
           includeInvisible: true,
         },
         plugins: {
@@ -2479,7 +2696,7 @@ async function initElectionChart() {
   }
 
   try {
-    const response = await fetch("data/volby_nezamestnanost_okresy.json");
+    const response = await fetch(ELECTION_DATA_URL);
 
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
@@ -2504,6 +2721,7 @@ async function initElectionChart() {
         focusDistrictInChart(electionState.selectedDistrictLabel);
       }
     });
+    canvas.addEventListener("click", handleElectionChartClick);
   } catch (error) {
     console.error(error);
     renderElectionError(
@@ -2512,7 +2730,7 @@ async function initElectionChart() {
   }
 }
 
-function initSocialChart() {
+async function initSocialChart() {
   const impactCanvas = document.getElementById("chartSocialImpact");
   const strategyCanvas = document.getElementById("chartSocialStrategy");
   const totalCanvas = document.getElementById("chartSocialTotal");
@@ -2522,7 +2740,11 @@ function initSocialChart() {
     return;
   }
 
-  hydrateSocialSection();
+  const profiles = await hydrateSocialSection();
+
+  if (!profiles.length) {
+    return;
+  }
 
   if (socialState.impactChart) {
     socialState.impactChart.destroy();
@@ -2540,24 +2762,15 @@ function initSocialChart() {
     socialState.formatsChart.destroy();
   }
 
-  socialState.impactChart = createSocialImpactChart(
-    impactCanvas,
-    socialState.profiles,
-  );
+  socialState.impactChart = createSocialImpactChart(impactCanvas, profiles);
   socialState.strategyChart = createSocialStrategyChart(
     strategyCanvas,
-    socialState.profiles,
+    profiles,
   );
-  socialState.totalChart = createSocialTotalChart(
-    totalCanvas,
-    socialState.profiles,
-  );
-  socialState.formatsChart = createSocialFormatsChart(
-    formatsCanvas,
-    socialState.profiles,
-  );
+  socialState.totalChart = createSocialTotalChart(totalCanvas, profiles);
+  socialState.formatsChart = createSocialFormatsChart(formatsCanvas, profiles);
 }
 
-hydrateSocialSection();
+void hydrateSocialSection();
 setActivePanel("panel-volby");
 void initElectionChart();

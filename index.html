@@ -33,14 +33,10 @@
     <main id="top">
       <section class="hero">
         <div class="container hero__inner">
-          <p class="hero__eyebrow">Dátová žurnalistika / politická analytika</p>
-          <h1>Dáta, ktoré hýbu slovenskou politikou.</h1>
+          <p class="hero__eyebrow">UKÁŽKA PRÁCE PRE 360TKU</p>
+          <h1>Slovenská<br>politika cez<br>reálne dáta.</h1>
           <p class="hero__lead">
-            Moderná žurnalistika potrebuje ľudí, ktorí rozumejú číslam. Ako
-            študent informatiky prinášam iný pohľad na politiku – cez skripty,
-            čistenie dát a interaktívnu vizualizáciu. Tu sú tri ukážky toho, ako
-            sa dajú z nudných tabuliek vytiahnuť súvislosti, ktoré bežnému oku
-            uniknú.
+            Ako študent informatiky viem redakcii pomôcť s technickou a analytickou prácou. Vytvoril som tento web, aby som prakticky ukázal, ako dokážem využiť skripty, prácu s dátami a vizualizácie pri spracovaní politických tém. Tu sú tri konkrétne ukážky toho, ako viem verejné dáta pretaviť do prehľadnej podoby.
           </p>
 
           <div class="topic-tabs" role="tablist" aria-label="Prepínanie tém">
@@ -89,40 +85,21 @@
       >
         <div class="container analysis-grid">
           <article class="analysis-copy">
-            <span class="analysis-copy__label">Analýza 01</span>
             <h2 id="volbyRegionTitle">
-              Okresy ukazujú, kde ekonomický tlak mení politické preferencie.
+              Korelácia nezamestnanosti a volebných výsledkov
             </h2>
             <p class="analysis-copy__lead" id="volbyRegionDescription">
-              Každý bod v grafe predstavuje jeden okres. Keď sa vedľa seba
-              položí miera nezamestnanosti a volebný výsledok, zrazu sa ukáže,
-              že politická mapa Slovenska nie je len príbehom kampane, ale aj
-              každodennej ekonomickej reality.
-            </p>
-            <p>
-              V redakčnej praxi je tento typ pohľadu dôležitý práve preto, že
-              spája veľké národné čísla s konkrétnym lokálnym terénom. Krajina
-              sa tak prestáva javiť ako jednoliata masa voličov a začne sa
-              rozpadávať na malé, čitateľné vzorce.
+              Interaktívny bodový graf vizualizuje vzťah medzi ekonomickou situáciou regiónov a ich politickými preferenciami. Každý bod v grafe reprezentuje jeden zo 79 okresov Slovenska. Na osi X je zobrazená miera nezamestnanosti v danom okrese (k septembru 2023), zatiaľ čo os Y ukazuje percentuálny zisk vybranej politickej strany v parlamentných voľbách (NR SR 2023).
             </p>
             <p id="volbyRegionNote">
-              V tejto ukážke je priestor aj pre krátku interpretáciu trendu.
-              Text môže pri každej strane vysvetliť, či graf naznačuje skôr
-              slabú zhodu, alebo už zaujímavý politický signál hodný ďalšieho
-              reportérskeho rozpracovania.
+              Graf umožňuje sledovať, či existuje matematická závislosť (korelácia) medzi podielom ľudí bez práce v okrese a volebným výsledkom konkrétneho politického subjektu.
             </p>
           </article>
 
           <aside class="analysis-visual">
             <div class="visual-card visual-card--election">
               <div class="visual-card__header">
-                <div>
-                  <span class="visual-card__eyebrow">Korelačný pohľad</span>
-                  <p class="visual-card__intro" id="volbyToolbarText">
-                    Prepínaj medzi stranami. Graf vždy zobrazuje všetky okresy
-                    Slovenska a mení sa len volebný výsledok na osi Y.
-                  </p>
-                </div>
+                <div></div>
                 <div
                   class="party-switcher"
                   id="partySwitcher"
@@ -225,8 +202,8 @@
               <div class="visual-card__footer">
                 <a
                   class="report-button"
-                  href="data/portfolio_report.pdf"
-                  download
+                  href="data/volby-vs-nezamestnanost.zip"
+                  download="Voľby vs. Nezamestnanosť.zip"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path
@@ -238,7 +215,7 @@
                       stroke-width="1.8"
                     />
                   </svg>
-                  Stiahnuť report (PDF)
+                  Stiahni dáta
                 </a>
                 <p class="analysis-footnote" id="volbyFootnote">
                   Načítavam metodiku a zdroje z dátového súboru.
@@ -258,48 +235,22 @@
       >
         <div class="container analysis-grid">
           <article class="analysis-copy">
-            <span class="analysis-copy__label">Analýza 02</span>
             <h2>
-              Facebook za päť dní ukazuje, kto tlačí na objem a kto na čistý
-              zásah.
+              Analýza výtlaku a interakcií na Facebooku.
             </h2>
             <p class="analysis-copy__lead">
-              V tomto datasete sledujeme 61 facebookových príspevkov štyroch
-              lídrov strán od soboty 1. marca do stredy 5. marca 2026. Namiesto
-              followerov alebo samotných videní porovnávame tvrdší signál: koľko
-              interakcií si obsah vypýta vzhľadom na počet videní a kde sa
-              publikum naozaj zapája, nielen pozerá.
+              Tento analytický panel spracováva dáta zo 61 facebookových príspevkov zverejnených v období od 1. do 5. marca 2026. Do výberu boli zaradení lídri štyroch najsilnejších politických strán na základe volebných modelov agentúry FOCUS pre redakciu 360tka (február 2026).
             </p>
-            <p id="socialLeadNarrative">
-              Načítavam súhrn interakcií a poradie politikov.
-            </p>
-            <p id="socialVolumeNarrative">
-              Načítavam rozdiel medzi publikačným objemom a zásahom.
-            </p>
-            <p id="socialFormatNarrative">
-              Načítavam rozloženie formátov a metodiku klasifikácie.
+            <p class="analysis-copy__lead">
+              Namiesto bežného porovnávania celkového počtu followerov alebo absolútnych videní sa dashboard sústredí na tvrdšiu metriku: mieru reálneho zapojenia publika (engagement). Dáta sú štruktúrované tak, aby vizualizovali rozdiel medzi obsahom, ktorý generuje iba pasívne zhliadnutia (čistý dosah), a obsahom, ktorý divákov motivuje k priamej interakcii.
             </p>
           </article>
 
           <aside class="analysis-visual">
             <div class="visual-card visual-card--social">
-              <div class="visual-card__header visual-card__header--stacked">
-                <div>
-                  <span class="visual-card__eyebrow"
-                    >Facebook / 1. 3. - 5. 3.</span
-                  >
-                  <p class="visual-card__intro">
-                    Prvé dva grafy pracujú iba s Reels, pretože len pri nich
-                    poznáme aj počet videní. Spodný riadok vracia späť aj celkový
-                    objem interakcií a mix formátov za všetky príspevky.
-                  </p>
-                </div>
-              </div>
-
               <div class="social-grid" aria-label="Facebook grafy za päť dní">
                 <section class="social-card social-card--impact">
                   <div class="social-card__meta">
-                    <span class="social-card__eyebrow">Graf 1</span>
                     <h3>Reakcie na 1 000 videní</h3>
                     <p>
                       Stĺpec rozdeľuje ľahké reakcie na lajky a silnejšie
@@ -313,7 +264,6 @@
 
                 <section class="social-card social-card--strategy">
                   <div class="social-card__meta">
-                    <span class="social-card__eyebrow">Graf 2</span>
                     <h3>Aktivita publika na Reels</h3>
                     <p>
                       Horizontálny porovnávací graf ukazuje, koľko percent
@@ -328,11 +278,9 @@
 
                 <section class="social-card social-card--total">
                   <div class="social-card__meta">
-                    <span class="social-card__eyebrow">Graf 3</span>
-                    <h3>Celkový výtlak</h3>
+                    <h3>Súčet interakcií</h3>
                     <p>
                       Súčet lajkov, komentárov a zdieľaní za všetky príspevky.
-                      Videnia tu zámerne nepočítame, aby nedeformovali poradie.
                     </p>
                   </div>
                   <div class="chart-frame social-chart-frame">
@@ -342,7 +290,6 @@
 
                 <section class="social-card social-card--formats">
                   <div class="social-card__meta">
-                    <span class="social-card__eyebrow">Graf 4</span>
                     <h3>Mix formátov</h3>
                     <p>
                       Koľko obsahu pri každom politikovi tvorili Reels,
@@ -358,8 +305,8 @@
               <div class="visual-card__footer">
                 <a
                   class="report-button"
-                  href="data/portfolio_report.pdf"
-                  download
+                  href="data/sila-na-socialnych-sietach.zip"
+                  download="Sila na sociálnych sieťach.zip"
                 >
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path
@@ -371,11 +318,10 @@
                       stroke-width="1.8"
                     />
                   </svg>
-                  Stiahnuť report (PDF)
+                  Stiahni dáta
                 </a>
                 <p class="analysis-footnote">
-                  Zdroj: manuálne zozbierané facebookové dáta zo 61 príspevkov
-                  štyroch politikov medzi 1. 3. a 5. 3. 2026.
+                  Zdroj: Facebook – verejné profily politikov (manuálne zozbierané, 1. – 5. 3. 2026)
                 </p>
               </div>
             </div>
@@ -392,49 +338,24 @@
       >
         <div class="container analysis-grid">
           <article class="analysis-copy">
-            <span class="analysis-copy__label">Analýza 03</span>
-            <h2>Aktivita poslancov rýchlo ukáže, kto ťahá parlament a kto v ňom len sedí.</h2>
+            <h2>Analýza parlamentnej aktivity v NR SR</h2>
             <p class="analysis-copy__lead">
-              Rebríček nižšie ráta len poslancov s aktívnym mandátom. Každému z
-              nich priraďuje celkové skóre aktivity ako súčet návrhov zákonov,
-              pozmeňujúcich návrhov a vystúpení v rozprave.
+              Tento analytický panel vizualizuje reálnu pracovnú aktivitu poslancov Národnej rady SR. Pre zabezpečenie čistoty dát sú z datasetu striktne vyfiltrovaní poslanci s neaktívnym mandátom.
             </p>
-            <p>
-              Prvý pohľad patrí dvom top 10 rebríčkom: najaktívnejším a
-              najmenej aktívnym. Pri neaktivite je dôležité, že z dát sú úplne
-              vyhodené neaktívne mandáty, takže nízke skóre patrí len tým, ktorí
-              v parlamente naozaj sedia.
-            </p>
-            <p>
-              Pod nimi je poradie strán podľa súčtu tejto aktivity a dvojica
-              detailov: kto najčastejšie vystupuje v rozprave a kto najčastejšie
-              predkladá návrhy zákonov. Sekcia je pripravená tak, aby sa dala
-              použiť priamo v článku aj ako samostatný newsroom výrez.
+            <p class="analysis-copy__lead">
+              Na účely porovnania je každému poslancovi priradené kumulatívne "skóre aktivity". Ide o súčet troch kľúčových metrík: predložené návrhy zákonov, pozmeňujúce návrhy a počet vystúpení v rozprave.
             </p>
           </article>
 
           <aside class="analysis-visual">
             <div class="visual-card visual-card--activity">
-              <div class="visual-card__header visual-card__header--stacked">
-                <div>
-                  <span class="visual-card__eyebrow">Aktivita v parlamente</span>
-                  <p class="visual-card__intro">
-                    Základný filter ponecháva iba záznamy s
-                    <code>aktivny_mandat: true</code>. Pri remíze v rebríčku
-                    neaktivity rozhoduje nižší počet návrhov zákonov a potom
-                    abeceda.
-                  </p>
-                </div>
-              </div>
-
               <div class="activity-stack">
                 <section class="activity-card activity-card--active">
                   <div class="activity-card__meta">
-                    <span class="activity-card__eyebrow">Top 10</span>
-                    <h3>Najaktívnejší poslanci podľa celkového skóre</h3>
+                    <h3>Top 10 najaktívnejších poslancov podľa celkového skóre</h3>
                     <p>
                       Skóre aktivity je súčet troch metrík:
-                      <strong>návrhy zákonov + pozmeňujúce návrhy + rozpravy</strong>.
+                      návrhy zákonov + pozmeňujúce návrhy + rozpravy.
                     </p>
                   </div>
                   <div class="activity-chart-frame">
@@ -444,8 +365,7 @@
 
                 <section class="activity-card activity-card--inactive">
                   <div class="activity-card__meta">
-                    <span class="activity-card__eyebrow">Top 10</span>
-                    <h3>Najmenej aktívni poslanci po odfiltrovaní neaktívnych mandátov</h3>
+                    <h3>Top 10 najmenej aktívnych poslancov po odfiltrovaní neaktívnych mandátov</h3>
                     <p>
                       Pri rovnakom skóre sa vyššie zobrazí ten, kto má menej
                       návrhov zákonov; ak je zhodné aj to, rozhoduje abeceda.
@@ -458,7 +378,6 @@
 
                 <section class="activity-card activity-card--party">
                   <div class="activity-card__meta">
-                    <span class="activity-card__eyebrow">Strany</span>
                     <h3>Poradie strán podľa súčtu aktivity ich aktívnych poslancov</h3>
                     <p>
                       Každá strana dostáva sumu skóre všetkých svojich aktívnych
@@ -473,8 +392,7 @@
                 <div class="activity-grid">
                   <section class="activity-card activity-card--speeches">
                     <div class="activity-card__meta">
-                      <span class="activity-card__eyebrow">Top 5</span>
-                      <h3>Najviac vystúpení v rozprave</h3>
+                      <h3>Top 5 najviac vystúpení v rozprave</h3>
                       <p>Rebríček zachytáva päť poslancov s najvyšším počtom rozpráv.</p>
                     </div>
                     <div class="activity-chart-frame activity-chart-frame--short">
@@ -484,11 +402,8 @@
 
                   <section class="activity-card activity-card--laws">
                     <div class="activity-card__meta">
-                      <span class="activity-card__eyebrow">Top 5</span>
-                      <h3>Najviac návrhov zákonov</h3>
-                      <p>
-                        Samostatný pohľad na legislatívnu aktivitu bez započítania rozpráv.
-                      </p>
+                      <h3>Top 5 najviac návrhov zákonov</h3>
+                      <p>Rebríček zachytáva päť poslancov s najvyšším počtom návrhov zákonov.</p>
                     </div>
                     <div class="activity-chart-frame activity-chart-frame--short">
                       <canvas id="chartActivityLaws"></canvas>
@@ -498,9 +413,25 @@
               </div>
 
               <div class="visual-card__footer">
+                <a
+                  class="report-button"
+                  href="data/aktivita-politikov.zip"
+                  download="Aktivita politikov.zip"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 3v11m0 0 4-4m-4 4-4-4M5 19h14"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                    />
+                  </svg>
+                  Stiahni dáta
+                </a>
                 <p class="analysis-footnote">
-                  Zdroj: <code>data/nrsr_aktivita_poslancov.json</code>. Z analýzy sú vyradené
-                  všetky záznamy s <code>aktivny_mandat: false</code>.
+                  Zdroj: Národná rada SR (nrsr.sk), polidata.sk. Z analýzy sú vyradení poslanci s neaktívnym mandátom.
                 </p>
               </div>
             </div>
@@ -509,18 +440,6 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container site-footer__inner">
-        <p>
-          Vytvorené pre účely výberového konania do redakcie 360tka. Dáta sú
-          čerpané z verejných zdrojov.
-        </p>
-        <a href="https://github.com/nik-kubala" target="_blank" rel="noreferrer"
-          >GitHub</a
-        >
-      </div>
-    </footer>
-
-    <script src="app.js?v=20260308-15"></script>
+    <script src="app.js?v=20260309-06"></script>
   </body>
 </html>

@@ -2,8 +2,8 @@
   "meta": {
     "description": "Výsledky volieb NRSR 2023 (% platných hlasov) a miera nezamestnanosti (ÚPSVaR, september 2023) po okresoch SR",
     "sources": {
-      "volby": "Štatistický úrad SR – NRSR2023_SK_tab03d.xlsx",
-      "nezamestnanost": "ÚPSVaR – Mesačná štatistika, september 2023, Tab2"
+      "volby": "Štatistický úrad SR – Výsledky volieb do NR SR 2023",
+      "nezamestnanost": "ÚPSVaR – Mesačná štatistika o uchádzačoch o zamestnanie, september 2023"
     },
     "columns": {
       "okres": "Názov okresu",

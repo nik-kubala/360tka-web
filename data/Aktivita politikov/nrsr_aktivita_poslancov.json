@@ -1,6 +1,5 @@
 [
   {
-    "poradie": 1,
     "meno": "Mgr. Michal Šipoš",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -9,7 +8,6 @@
     "vystupenia_v_rozprave": 385
   },
   {
-    "poradie": 2,
     "meno": "Ing. Július Jakab",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -18,7 +16,6 @@
     "vystupenia_v_rozprave": 356
   },
   {
-    "poradie": 2,
     "meno": "RNDr. Ing. Marián Viskupič",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -27,7 +24,6 @@
     "vystupenia_v_rozprave": 371
   },
   {
-    "poradie": 4,
     "meno": "Mgr. Igor Matovič",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -36,7 +32,6 @@
     "vystupenia_v_rozprave": 310
   },
   {
-    "poradie": 5,
     "meno": "Mgr. Gábor Grendel",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -45,7 +40,6 @@
     "vystupenia_v_rozprave": 433
   },
   {
-    "poradie": 6,
     "meno": "Mgr. Jozef Pročko",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -54,7 +48,6 @@
     "vystupenia_v_rozprave": 1000
   },
   {
-    "poradie": 7,
     "meno": "Mgr. Peter Pollák",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -63,7 +56,6 @@
     "vystupenia_v_rozprave": 234
   },
   {
-    "poradie": 8,
     "meno": "Mgr. Ondrej Dostál",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -72,7 +64,6 @@
     "vystupenia_v_rozprave": 920
   },
   {
-    "poradie": 9,
     "meno": "JUDr. Lucia Plaváková, PhD.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -81,7 +72,6 @@
     "vystupenia_v_rozprave": 259
   },
   {
-    "poradie": 10,
     "meno": "Mgr. art. Veronika Remišová, M.A., ArtD.",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -90,7 +80,6 @@
     "vystupenia_v_rozprave": 175
   },
   {
-    "poradie": 11,
     "meno": "MUDr. Marek Krajčí",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -99,7 +88,6 @@
     "vystupenia_v_rozprave": 160
   },
   {
-    "poradie": 12,
     "meno": "JUDr. Zuzana Števulová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -108,7 +96,6 @@
     "vystupenia_v_rozprave": 354
   },
   {
-    "poradie": 13,
     "meno": "Ing. Roman Mikulec",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -117,7 +104,6 @@
     "vystupenia_v_rozprave": 156
   },
   {
-    "poradie": 14,
     "meno": "Mgr. Mária Kolíková",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -126,7 +112,6 @@
     "vystupenia_v_rozprave": 365
   },
   {
-    "poradie": 15,
     "meno": "Mgr. et Mgr. Beáta Jurík",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -135,7 +120,6 @@
     "vystupenia_v_rozprave": 361
   },
   {
-    "poradie": 16,
     "meno": "Mgr. Lukáš Bužo",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -144,7 +128,6 @@
     "vystupenia_v_rozprave": 124
   },
   {
-    "poradie": 17,
     "meno": "Mgr. Anežka Škopová",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -153,7 +136,6 @@
     "vystupenia_v_rozprave": 111
   },
   {
-    "poradie": 17,
     "meno": "Mgr. Richard Vašečka",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -162,7 +144,6 @@
     "vystupenia_v_rozprave": 173
   },
   {
-    "poradie": 19,
     "meno": "PhDr. Vladimír Ledecký",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -171,7 +152,6 @@
     "vystupenia_v_rozprave": 191
   },
   {
-    "poradie": 20,
     "meno": "Mgr. Rastislav Krátky",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -180,7 +160,6 @@
     "vystupenia_v_rozprave": 203
   },
   {
-    "poradie": 21,
     "meno": "Ing. Ján Hargaš",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -189,7 +168,6 @@
     "vystupenia_v_rozprave": 310
   },
   {
-    "poradie": 22,
     "meno": "Mgr. Vladimíra Marcinková",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -198,7 +176,6 @@
     "vystupenia_v_rozprave": 176
   },
   {
-    "poradie": 23,
     "meno": "Mgr. Martin Šmilňák",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -207,7 +184,6 @@
     "vystupenia_v_rozprave": 233
   },
   {
-    "poradie": 24,
     "meno": "MUDr. Peter Stachura, Dr. med., MBA",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -216,7 +192,6 @@
     "vystupenia_v_rozprave": 163
   },
   {
-    "poradie": 25,
     "meno": "Mgr. Ján Horecký",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -225,7 +200,6 @@
     "vystupenia_v_rozprave": 193
   },
   {
-    "poradie": 26,
     "meno": "Ing. Jozef Hajko",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -234,7 +208,6 @@
     "vystupenia_v_rozprave": 205
   },
   {
-    "poradie": 26,
     "meno": "Ing. Andrea Turčanová",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -243,7 +216,6 @@
     "vystupenia_v_rozprave": 141
   },
   {
-    "poradie": 28,
     "meno": "Mgr. Ľubomír Galko",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -252,7 +224,6 @@
     "vystupenia_v_rozprave": 179
   },
   {
-    "poradie": 29,
     "meno": "Martina Bajo Holečková",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -261,7 +232,6 @@
     "vystupenia_v_rozprave": 89
   },
   {
-    "poradie": 29,
     "meno": "Ing. Marián Čaučík",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -270,7 +240,6 @@
     "vystupenia_v_rozprave": 168
   },
   {
-    "poradie": 31,
     "meno": "MUDr. Tomáš Szalay, PhD.",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -279,7 +248,6 @@
     "vystupenia_v_rozprave": 203
   },
   {
-    "poradie": 32,
     "meno": "Mgr. František Majerský",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -288,7 +256,6 @@
     "vystupenia_v_rozprave": 121
   },
   {
-    "poradie": 32,
     "meno": "JUDr. Zuzana Mesterová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -297,7 +264,6 @@
     "vystupenia_v_rozprave": 276
   },
   {
-    "poradie": 34,
     "meno": "JUDr. Igor Dušenka",
     "strana": "SLOVENSKO",
     "aktivny_mandat": true,
@@ -306,7 +272,6 @@
     "vystupenia_v_rozprave": 163
   },
   {
-    "poradie": 35,
     "meno": "Bc. Igor Janckulík",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -315,7 +280,6 @@
     "vystupenia_v_rozprave": 122
   },
   {
-    "poradie": 36,
     "meno": "Mgr. Tina Gažovičová, PhD.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -324,7 +288,6 @@
     "vystupenia_v_rozprave": 258
   },
   {
-    "poradie": 37,
     "meno": "PhDr. Juraj Krúpa",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -333,7 +296,6 @@
     "vystupenia_v_rozprave": 217
   },
   {
-    "poradie": 38,
     "meno": "Mgr. Michal Sabo",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -342,7 +304,6 @@
     "vystupenia_v_rozprave": 300
   },
   {
-    "poradie": 38,
     "meno": "Mgr. Ivan Štefunko",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -351,7 +312,6 @@
     "vystupenia_v_rozprave": 157
   },
   {
-    "poradie": 40,
     "meno": "Mgr. Simona Petrík",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -360,7 +320,6 @@
     "vystupenia_v_rozprave": 97
   },
   {
-    "poradie": 41,
     "meno": "Ing. Mgr. Ingrid Kosová, PhD.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -369,7 +328,6 @@
     "vystupenia_v_rozprave": 166
   },
   {
-    "poradie": 42,
     "meno": "JUDr. Andrej Danko",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -378,7 +336,6 @@
     "vystupenia_v_rozprave": 152
   },
   {
-    "poradie": 42,
     "meno": "Mgr. Roman Michelko",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -387,7 +344,6 @@
     "vystupenia_v_rozprave": 84
   },
   {
-    "poradie": 44,
     "meno": "Ing. Darina Luščíková, PhD.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -396,7 +352,6 @@
     "vystupenia_v_rozprave": 190
   },
   {
-    "poradie": 45,
     "meno": "Mgr. Jana Bittó Cigániková, MBA",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -405,7 +360,6 @@
     "vystupenia_v_rozprave": 75
   },
   {
-    "poradie": 46,
     "meno": "JUDr. Branislav Vančo",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -414,7 +368,6 @@
     "vystupenia_v_rozprave": 274
   },
   {
-    "poradie": 47,
     "meno": "Ing. Adam Lučanský",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -423,7 +376,6 @@
     "vystupenia_v_rozprave": 43
   },
   {
-    "poradie": 48,
     "meno": "MSc Martin Dubéci",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -432,7 +384,6 @@
     "vystupenia_v_rozprave": 199
   },
   {
-    "poradie": 48,
     "meno": "MSc Tamara Stohlová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -441,7 +392,6 @@
     "vystupenia_v_rozprave": 135
   },
   {
-    "poradie": 50,
     "meno": "Ing. Štefan Kišš, MSc.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -450,7 +400,6 @@
     "vystupenia_v_rozprave": 187
   },
   {
-    "poradie": 51,
     "meno": "Mgr. art. Roman Malatinec",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -459,7 +408,6 @@
     "vystupenia_v_rozprave": 58
   },
   {
-    "poradie": 52,
     "meno": "MBA Marek Lackovič",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -468,7 +416,6 @@
     "vystupenia_v_rozprave": 247
   },
   {
-    "poradie": 53,
     "meno": "Mgr. Branislav Škripek",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -477,7 +424,6 @@
     "vystupenia_v_rozprave": 51
   },
   {
-    "poradie": 54,
     "meno": "Mgr. art. Zora Jaurová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -486,7 +432,6 @@
     "vystupenia_v_rozprave": 115
   },
   {
-    "poradie": 54,
     "meno": "Mgr. Veronika Veslárová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -495,7 +440,6 @@
     "vystupenia_v_rozprave": 55
   },
   {
-    "poradie": 56,
     "meno": "Mgr. Oskar Dvořák",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -504,7 +448,6 @@
     "vystupenia_v_rozprave": 147
   },
   {
-    "poradie": 57,
     "meno": "Mgr. Irena Bihariová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -513,7 +456,6 @@
     "vystupenia_v_rozprave": 111
   },
   {
-    "poradie": 58,
     "meno": "PaedDr. Natália Nash",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -522,7 +464,6 @@
     "vystupenia_v_rozprave": 215
   },
   {
-    "poradie": 59,
     "meno": "gen. v. v. PaedDr. Tibor Gašpar",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -531,7 +472,6 @@
     "vystupenia_v_rozprave": 184
   },
   {
-    "poradie": 59,
     "meno": "Mgr. Jana Hanuliaková",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -540,7 +480,6 @@
     "vystupenia_v_rozprave": 170
   },
   {
-    "poradie": 61,
     "meno": "PaedDr. Milan Majerský, PhD.",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -549,7 +488,6 @@
     "vystupenia_v_rozprave": 40
   },
   {
-    "poradie": 62,
     "meno": "Michal Bartek",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -558,7 +496,6 @@
     "vystupenia_v_rozprave": 67
   },
   {
-    "poradie": 63,
     "meno": "Mgr. Dagmar Kramplová, Mgr.",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -567,7 +504,6 @@
     "vystupenia_v_rozprave": 34
   },
   {
-    "poradie": 64,
     "meno": "Mgr. Zdenko Svoboda, MBA",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -576,7 +512,6 @@
     "vystupenia_v_rozprave": 66
   },
   {
-    "poradie": 65,
     "meno": "Mgr. art. Dana Kleinert",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -585,7 +520,6 @@
     "vystupenia_v_rozprave": 204
   },
   {
-    "poradie": 66,
     "meno": "Viliam Tankó",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -594,7 +528,6 @@
     "vystupenia_v_rozprave": 46
   },
   {
-    "poradie": 67,
     "meno": "RNDr. František Mikloško",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -603,7 +536,6 @@
     "vystupenia_v_rozprave": 61
   },
   {
-    "poradie": 68,
     "meno": "MUDr. Anna Záborská",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -612,7 +544,6 @@
     "vystupenia_v_rozprave": 34
   },
   {
-    "poradie": 69,
     "meno": "Ing. Igor Šimko, PhD. MBA",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -621,7 +552,6 @@
     "vystupenia_v_rozprave": 48
   },
   {
-    "poradie": 70,
     "meno": "Ing. Michal Truban",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -630,7 +560,6 @@
     "vystupenia_v_rozprave": 51
   },
   {
-    "poradie": 71,
     "meno": "Ing. Milan Garaj, PhD.",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -639,7 +568,6 @@
     "vystupenia_v_rozprave": 11
   },
   {
-    "poradie": 72,
     "meno": "doc. Mgr. Ondrej Prostredník, PhD.",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -648,7 +576,6 @@
     "vystupenia_v_rozprave": 123
   },
   {
-    "poradie": 73,
     "meno": "PhDr. Mgr. Ján Ferenčák, MBA",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -657,7 +584,6 @@
     "vystupenia_v_rozprave": 35
   },
   {
-    "poradie": 74,
     "meno": "doc. Mgr. art. Dušan Jarjabek",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -666,7 +592,6 @@
     "vystupenia_v_rozprave": 61
   },
   {
-    "poradie": 75,
     "meno": "doc. PhDr. PaedDr. Karol Janas, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -675,7 +600,6 @@
     "vystupenia_v_rozprave": 45
   },
   {
-    "poradie": 75,
     "meno": "M. A. Tomáš Valášek",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -684,7 +608,6 @@
     "vystupenia_v_rozprave": 80
   },
   {
-    "poradie": 77,
     "meno": "doc. Ing. Jozef Habánik, PhD.",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -693,7 +616,6 @@
     "vystupenia_v_rozprave": 41
   },
   {
-    "poradie": 78,
     "meno": "PhDr. Ľubica Laššáková",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -702,7 +624,6 @@
     "vystupenia_v_rozprave": 27
   },
   {
-    "poradie": 79,
     "meno": "PhD. Karol Farkašovský",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -711,7 +632,6 @@
     "vystupenia_v_rozprave": 31
   },
   {
-    "poradie": 80,
     "meno": "Mgr. Zuzana Plevíková",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -720,7 +640,6 @@
     "vystupenia_v_rozprave": 84
   },
   {
-    "poradie": 81,
     "meno": "doc. Ing. Dis. art. Paula Puškárová, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -729,7 +648,6 @@
     "vystupenia_v_rozprave": 38
   },
   {
-    "poradie": 82,
     "meno": "RNDr. Karol Galek, MSc.",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -738,7 +656,6 @@
     "vystupenia_v_rozprave": 49
   },
   {
-    "poradie": 82,
     "meno": "PaedDr. Viera Kalmárová",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -747,7 +664,6 @@
     "vystupenia_v_rozprave": 116
   },
   {
-    "poradie": 84,
     "meno": "Mgr. Daniel Karas",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -756,7 +672,6 @@
     "vystupenia_v_rozprave": 35
   },
   {
-    "poradie": 84,
     "meno": "Ing. Veronika Šrobová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -765,7 +680,6 @@
     "vystupenia_v_rozprave": 91
   },
   {
-    "poradie": 86,
     "meno": "Ing. Pavel Ľupták",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -774,7 +688,6 @@
     "vystupenia_v_rozprave": 41
   },
   {
-    "poradie": 86,
     "meno": "Ing. Zuzana Matejičková",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -783,7 +696,6 @@
     "vystupenia_v_rozprave": 42
   },
   {
-    "poradie": 88,
     "meno": "MBA Richard Dubovický",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -792,7 +704,6 @@
     "vystupenia_v_rozprave": 194
   },
   {
-    "poradie": 89,
     "meno": "Ing. Róbert Puci",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -801,7 +712,6 @@
     "vystupenia_v_rozprave": 17
   },
   {
-    "poradie": 90,
     "meno": "Ing. Ján Blcháč, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -810,7 +720,6 @@
     "vystupenia_v_rozprave": 78
   },
   {
-    "poradie": 90,
     "meno": "Mgr. et Mgr. Miroslav Čellár, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -819,7 +728,6 @@
     "vystupenia_v_rozprave": 31
   },
   {
-    "poradie": 92,
     "meno": "D.Phil. Michal Šimečka",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -828,7 +736,6 @@
     "vystupenia_v_rozprave": 100
   },
   {
-    "poradie": 93,
     "meno": "JUDr. Štefan Gašparovič",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -837,7 +744,6 @@
     "vystupenia_v_rozprave": 8
   },
   {
-    "poradie": 93,
     "meno": "Alojz Hlina",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -846,7 +752,6 @@
     "vystupenia_v_rozprave": 328
   },
   {
-    "poradie": 93,
     "meno": "Mgr. Peter Kalivoda",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -855,7 +760,6 @@
     "vystupenia_v_rozprave": 71
   },
   {
-    "poradie": 93,
     "meno": "JUDr. PhDr. Ján Podmanický, PhD.",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -864,7 +768,6 @@
     "vystupenia_v_rozprave": 25
   },
   {
-    "poradie": 97,
     "meno": "MUDr. Vladimír Baláž, PhD.",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -873,7 +776,6 @@
     "vystupenia_v_rozprave": 59
   },
   {
-    "poradie": 98,
     "meno": "Ing. Marián Saloň, PhD.",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -882,7 +784,6 @@
     "vystupenia_v_rozprave": 34
   },
   {
-    "poradie": 99,
     "meno": "JUDr. Richard Glück",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -891,7 +792,6 @@
     "vystupenia_v_rozprave": 69
   },
   {
-    "poradie": 100,
     "meno": "Mgr. Dávid Dej",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -900,7 +800,6 @@
     "vystupenia_v_rozprave": 106
   },
   {
-    "poradie": 101,
     "meno": "PaedDr. Jozef Cech",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -909,7 +808,6 @@
     "vystupenia_v_rozprave": 15
   },
   {
-    "poradie": 101,
     "meno": "Mgr. Zdenka Mačicová",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -918,7 +816,6 @@
     "vystupenia_v_rozprave": 10
   },
   {
-    "poradie": 103,
     "meno": "Mgr. Branislav Gröhling",
     "strana": "SaS",
     "aktivny_mandat": true,
@@ -927,7 +824,6 @@
     "vystupenia_v_rozprave": 55
   },
   {
-    "poradie": 104,
     "meno": "PhDr. Andrea Szabóová",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -936,7 +832,6 @@
     "vystupenia_v_rozprave": 1
   },
   {
-    "poradie": 105,
     "meno": "Ing. Ľubomír Vážny",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -945,7 +840,6 @@
     "vystupenia_v_rozprave": 14
   },
   {
-    "poradie": 106,
     "meno": "Mgr. Erik Kaliňák",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -954,7 +848,6 @@
     "vystupenia_v_rozprave": 13
   },
   {
-    "poradie": 107,
     "meno": "PaedDr. Dávid Demečko, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -963,7 +856,6 @@
     "vystupenia_v_rozprave": 5
   },
   {
-    "poradie": 108,
     "meno": "MUDr. Peter Kotlár",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -972,7 +864,6 @@
     "vystupenia_v_rozprave": 3
   },
   {
-    "poradie": 108,
     "meno": "JUDr. Jaroslav Spišiak",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -981,7 +872,6 @@
     "vystupenia_v_rozprave": 147
   },
   {
-    "poradie": 110,
     "meno": "Viliam Zahorčák",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -990,7 +880,6 @@
     "vystupenia_v_rozprave": 22
   },
   {
-    "poradie": 111,
     "meno": "Ing. Radomír Šalitroš, MIM",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -999,7 +888,6 @@
     "vystupenia_v_rozprave": 14
   },
   {
-    "poradie": 112,
     "meno": "Ing. František Petro",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1008,7 +896,6 @@
     "vystupenia_v_rozprave": 17
   },
   {
-    "poradie": 113,
     "meno": "JUDr. Richard Eliáš",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1017,7 +904,6 @@
     "vystupenia_v_rozprave": 4
   },
   {
-    "poradie": 114,
     "meno": "Peter Slyško",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1026,7 +912,6 @@
     "vystupenia_v_rozprave": 25
   },
   {
-    "poradie": 115,
     "meno": "JUDr. Ján Richter",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1035,7 +920,6 @@
     "vystupenia_v_rozprave": 41
   },
   {
-    "poradie": 115,
     "meno": "Ing. Andrej Sitkár",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1044,7 +928,6 @@
     "vystupenia_v_rozprave": 3
   },
   {
-    "poradie": 117,
     "meno": "PhDr. Alena Nováková, MBA",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1053,7 +936,6 @@
     "vystupenia_v_rozprave": 5
   },
   {
-    "poradie": 118,
     "meno": "Ing. Richard Sulík",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1062,7 +944,6 @@
     "vystupenia_v_rozprave": 56
   },
   {
-    "poradie": 119,
     "meno": "Ing. Ivan Ševčík",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -1071,7 +952,6 @@
     "vystupenia_v_rozprave": 6
   },
   {
-    "poradie": 120,
     "meno": "PaedDr. Peter Šuca",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1080,7 +960,6 @@
     "vystupenia_v_rozprave": 18
   },
   {
-    "poradie": 121,
     "meno": "Mgr. Marián Kéry",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1089,7 +968,6 @@
     "vystupenia_v_rozprave": 45
   },
   {
-    "poradie": 122,
     "meno": "Mgr. Ján Mažgút",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1098,7 +976,6 @@
     "vystupenia_v_rozprave": 40
   },
   {
-    "poradie": 122,
     "meno": "Jaroslav Mego",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1107,7 +984,6 @@
     "vystupenia_v_rozprave": 17
   },
   {
-    "poradie": 122,
     "meno": "Ing. Peter Žiga, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1116,7 +992,6 @@
     "vystupenia_v_rozprave": 167
   },
   {
-    "poradie": 125,
     "meno": "Ján Kvorka",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1125,7 +1000,6 @@
     "vystupenia_v_rozprave": 15
   },
   {
-    "poradie": 126,
     "meno": "Ing. Jaroslav Baška",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1134,7 +1008,6 @@
     "vystupenia_v_rozprave": 9
   },
   {
-    "poradie": 127,
     "meno": "JUDr. Justín Sedlák",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1143,7 +1016,6 @@
     "vystupenia_v_rozprave": 14
   },
   {
-    "poradie": 128,
     "meno": "MSc. Tomáš Hellebrandt",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1152,7 +1024,6 @@
     "vystupenia_v_rozprave": 18
   },
   {
-    "poradie": 129,
     "meno": "Mgr. PhDr. Ľuboš Blaha, PhD.",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1161,7 +1032,6 @@
     "vystupenia_v_rozprave": 95
   },
   {
-    "poradie": 130,
     "meno": "Ing. Ivan Hazucha",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1170,7 +1040,6 @@
     "vystupenia_v_rozprave": 93
   },
   {
-    "poradie": 131,
     "meno": "Mgr. Marcela Čavojová",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1179,7 +1048,6 @@
     "vystupenia_v_rozprave": 9
   },
   {
-    "poradie": 132,
     "meno": "Mgr. Michal Stuška",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1188,7 +1056,6 @@
     "vystupenia_v_rozprave": 14
   },
   {
-    "poradie": 133,
     "meno": "Ing. Dušan Muňko",
     "strana": "SNS",
     "aktivny_mandat": true,
@@ -1197,7 +1064,6 @@
     "vystupenia_v_rozprave": 79
   },
   {
-    "poradie": 134,
     "meno": "Ing. Igor Válek",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1206,7 +1072,6 @@
     "vystupenia_v_rozprave": 11
   },
   {
-    "poradie": 135,
     "meno": "Miroslav Radačovský",
     "strana": "Nezaradení",
     "aktivny_mandat": true,
@@ -1215,7 +1080,6 @@
     "vystupenia_v_rozprave": 10
   },
   {
-    "poradie": 136,
     "meno": "PhDr. Jana Vaľová",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1224,7 +1088,6 @@
     "vystupenia_v_rozprave": 66
   },
   {
-    "poradie": 137,
     "meno": "MUDr. Jozef Valocký",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1233,7 +1096,6 @@
     "vystupenia_v_rozprave": 8
   },
   {
-    "poradie": 138,
     "meno": "MUDr. Jozef Ježík",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1242,7 +1104,6 @@
     "vystupenia_v_rozprave": 5
   },
   {
-    "poradie": 139,
     "meno": "PaedDr. Anton Stredák",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1251,7 +1112,6 @@
     "vystupenia_v_rozprave": 5
   },
   {
-    "poradie": 140,
     "meno": "Ing. Branislav Becík, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1260,7 +1120,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 140,
     "meno": "RSDr. Vladimír Faič",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1269,7 +1128,6 @@
     "vystupenia_v_rozprave": 3
   },
   {
-    "poradie": 140,
     "meno": "Erik Vlček",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1278,7 +1136,6 @@
     "vystupenia_v_rozprave": 3
   },
   {
-    "poradie": 143,
     "meno": "PhDr. Peter Náhlik, PhD.",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1287,7 +1144,6 @@
     "vystupenia_v_rozprave": 2
   },
   {
-    "poradie": 144,
     "meno": "Ing. Jozef Kačmár",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1296,7 +1152,6 @@
     "vystupenia_v_rozprave": 1
   },
   {
-    "poradie": 145,
     "meno": "MVDr. Boleslav Lešo, Ph.D.",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1305,7 +1160,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 145,
     "meno": "Ing. Dušan Tittel",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1314,7 +1168,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 147,
     "meno": "Ing. Peter Pellegrini",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1323,7 +1176,6 @@
     "vystupenia_v_rozprave": 25
   },
   {
-    "poradie": 148,
     "meno": "Mgr. Gréta Gregorová",
     "strana": "PS",
     "aktivny_mandat": true,
@@ -1332,7 +1184,6 @@
     "vystupenia_v_rozprave": 23
   },
   {
-    "poradie": 149,
     "meno": "Ing. Michal Kapuš, MBA",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1341,7 +1192,6 @@
     "vystupenia_v_rozprave": 10
   },
   {
-    "poradie": 150,
     "meno": "Ing. Vladimír Macášek",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1350,7 +1200,6 @@
     "vystupenia_v_rozprave": 9
   },
   {
-    "poradie": 151,
     "meno": "Ing. Martin Nemky, MBA",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1359,7 +1208,6 @@
     "vystupenia_v_rozprave": 4
   },
   {
-    "poradie": 152,
     "meno": "PaedDr. Pavol Goga",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1368,7 +1216,6 @@
     "vystupenia_v_rozprave": 3
   },
   {
-    "poradie": 153,
     "meno": "Ing. Augustín Hambálek",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1377,7 +1224,6 @@
     "vystupenia_v_rozprave": 2
   },
   {
-    "poradie": 153,
     "meno": "Ing. Ján Horváth",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1386,7 +1232,6 @@
     "vystupenia_v_rozprave": 2
   },
   {
-    "poradie": 153,
     "meno": "Stanislav Kubánek",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1395,7 +1240,6 @@
     "vystupenia_v_rozprave": 2
   },
   {
-    "poradie": 156,
     "meno": "Mgr. Dušan Galis",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1404,7 +1248,6 @@
     "vystupenia_v_rozprave": 1
   },
   {
-    "poradie": 156,
     "meno": "MBA Martin Pekár",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1413,7 +1256,6 @@
     "vystupenia_v_rozprave": 1
   },
   {
-    "poradie": 156,
     "meno": "Ing. Peter Sokol",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1422,7 +1264,6 @@
     "vystupenia_v_rozprave": 1
   },
   {
-    "poradie": 159,
     "meno": "Ing. Igor Choma",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1431,7 +1272,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Juraj Droba, MBA MA",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1440,7 +1280,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "JUDr. Juraj Gedra",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1449,7 +1288,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Ján Hrubý",
     "strana": "HLAS - SD",
     "aktivny_mandat": true,
@@ -1458,7 +1296,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Ing. Erika Jurinová",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1467,7 +1304,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "PhDr. Michal Kaliňák, PhD.",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1476,7 +1312,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "MUDr. Monika Kolejáková, MBA",
     "strana": "KDH",
     "aktivny_mandat": true,
@@ -1485,7 +1320,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Ing. et Ing. Filip Kuffa",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1494,7 +1328,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "PhDr. Štefan Kuffa",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1503,7 +1336,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Dr. h. c. prof. JUDr. Lucia Kurilovská, PhD.",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1512,7 +1344,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Michal Lukša, MBA",
     "strana": "SMER - SD",
     "aktivny_mandat": true,
@@ -1521,7 +1352,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Igor Melicher",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1530,7 +1360,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Michal Moško, MBA",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1539,7 +1368,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Ing. Jozef Smatana",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1548,7 +1376,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "Mgr. Jozef Viskupič",
     "strana": "Nezaradení",
     "aktivny_mandat": false,
@@ -1557,7 +1384,6 @@
     "vystupenia_v_rozprave": 0
   },
   {
-    "poradie": 159,
     "meno": "doc. Ing. Michal Wiezik, PhD.",
     "strana": "Nezaradení",
     "aktivny_mandat": false,

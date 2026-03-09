@@ -1,13 +1,53 @@
 ================================================================================
-REPORT: Zlúčenie volebných dát a nezamestnanosti po okresoch SR
-Vygenerované: 2026-03-05
+README — Voľby do NRSR 2023 a nezamestnanosť po okresoch SR
+================================================================================
+
+Tento balík obsahuje spracované dáta o výsledkoch parlamentných volieb 2023
+a miere nezamestnanosti v jednotlivých okresoch Slovenska. Dáta boli zlúčené
+za účelom porovnania volebných výsledkov vybraných strán s disponibilnou mierou
+nezamestnanosti (PDU) na úrovni okresu.
+
+Dáta sú voľne k dispozícii — môžeš ich použiť, upraviť a šíriť bez obmedzení.
+
+
+OBSAH BALÍKA
+────────────────────────────────────────────────────────────────────────────────
+
+  volby_nrsr2023_nezamestnanost_sep2023.json    hlavný výstupný súbor (JSON)
+  volby_nrsr2023_nezamestnanost_sep2023.xlsx    rovnaké dáta vo formáte Excel
+  ZDROJ_susr_volby_nrsr2023.xlsx                zdrojový súbor volieb (ŠÚ SR)
+  ZDROJ_upsvr_nezamestnanost_sep2023.xlsx       zdrojový súbor nezam. (ÚPSVaR)
+  README.txt                                    tento súbor
+
+
+POPIS STĹPCOV VÝSTUPNÉHO SÚBORU
+────────────────────────────────────────────────────────────────────────────────
+
+  okres          názov okresu (79 okresov SR, bez zahraničia)
+  nezam_pct      disponibilná miera nezamestnanosti v % (PDU), september 2023
+  SMER           % platných hlasov pre SMER – sociálna demokracia
+  PS             % platných hlasov pre Progresívne Slovensko
+  HLAS           % platných hlasov pre HLAS – sociálna demokracia
+  OLaNO          % platných hlasov pre OĽANO A PRIATELIA (celá koalícia)
+  KDH            % platných hlasov pre Kresťanskodemokratické hnutie
+  SaS            % platných hlasov pre Sloboda a Solidarita
+  SNS            % platných hlasov pre Slovenskú národnú stranu
+  REPUBLIKA      % platných hlasov pre REPUBLIKA
+  SZÖVETSÉG      % platných hlasov pre SZÖVETSÉG / ALIANCIA
+
+Všetky číselné hodnoty sú zaokrúhlené na 2 desatinné miesta.
+Záznamy sú zoradené abecedne podľa názvu okresu.
+
+
+================================================================================
+METODIKA SPRACOVANIA
 ================================================================================
 
 
 1. VSTUPNÉ SÚBORY
 ─────────────────
 
-A) volby_okresy.xlsx
+A) ZDROJ_susr_volby_nrsr2023.xlsx
    Sheet:           NRSR2023_SK_tab03d
    Pôvod:           Štatistický úrad SR – výsledky volieb do Národnej rady SR 2023
    Formát:          Dlhý formát (jeden riadok = jeden okres × jedna strana)
@@ -16,7 +56,7 @@ A) volby_okresy.xlsx
    Počet unikátnych strán: 25
    Počet unikátnych okresov: 80 (vrátane "cudzina")
 
-B) nezamestnanost_okresy.xlsx
+B) ZDROJ_upsvr_nezamestnanost_sep2023.xlsx
    Sheet:           Tab2
    Pôvod:           ÚPSVaR – Mesačná štatistika o počte a štruktúre uchádzačov o zamestnanie
    Obdobie:         September 2023 (dátum v bunke: 2023-09-01)
@@ -100,7 +140,7 @@ Volebné výsledky — podiel platných hlasov (%):
 6. VÝSTUPNÝ SÚBOR
 ──────────────────
 
-Súbor:   volby_nezamestnanost_okresy.json
+Súbor:   volby_nrsr2023_nezamestnanost_sep2023.json
 Štruktúra:
   {
     "meta": { popis zdrojov, stĺpcov, rok volieb, mesiac nezamestnanosti },

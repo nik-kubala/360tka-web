@@ -1,0 +1,479 @@
+{
+  "meta": {
+    "title": "Sila na socialnych sietach",
+    "platform": "Facebook",
+    "collected_from": "2026-03-01",
+    "collected_to": "2026-03-05",
+    "description": "Manualne zozbierane data zo 61 facebookovych prispevkov styroch politikov.",
+    "profiles_count": 4,
+    "posts_count": 61,
+    "columns": {
+      "likes": "pocet lajkov",
+      "comments": "pocet komentarov",
+      "shares": "pocet zdielani; pri udalosti 0",
+      "views": "pocet videni; pri poste a udalosti 0",
+      "type": "reels | post | event"
+    }
+  },
+  "profiles": [
+    {
+      "label": "Robert Fico",
+      "shortLabel": "Fico",
+      "color": "#d5464e",
+      "highlight": "#ff9fa4",
+      "posts": [
+        {
+          "likes": 7000,
+          "comments": 850,
+          "shares": 1100,
+          "views": 120000,
+          "type": "reels"
+        },
+        {
+          "likes": 2600,
+          "comments": 298,
+          "shares": 161,
+          "views": 52000,
+          "type": "reels"
+        },
+        {
+          "likes": 2800,
+          "comments": 582,
+          "shares": 109,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 4800,
+          "comments": 652,
+          "shares": 423,
+          "views": 128000,
+          "type": "reels"
+        },
+        {
+          "likes": 34000,
+          "comments": 2228,
+          "shares": 3200,
+          "views": 714000,
+          "type": "reels"
+        },
+        {
+          "likes": 4700,
+          "comments": 1000,
+          "shares": 157,
+          "views": 115000,
+          "type": "reels"
+        },
+        {
+          "likes": 29000,
+          "comments": 1900,
+          "shares": 3200,
+          "views": 702000,
+          "type": "reels"
+        },
+        {
+          "likes": 3300,
+          "comments": 361,
+          "shares": 140,
+          "views": 82000,
+          "type": "reels"
+        },
+        {
+          "likes": 2600,
+          "comments": 258,
+          "shares": 99,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 3300,
+          "comments": 312,
+          "shares": 125,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 7500,
+          "comments": 2332,
+          "shares": 149,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 5100,
+          "comments": 655,
+          "shares": 324,
+          "views": 190000,
+          "type": "reels"
+        },
+        {
+          "likes": 17000,
+          "comments": 1600,
+          "shares": 1700,
+          "views": 425000,
+          "type": "reels"
+        },
+        {
+          "likes": 6600,
+          "comments": 698,
+          "shares": 344,
+          "views": 163000,
+          "type": "reels"
+        }
+      ]
+    },
+    {
+      "label": "Michal Šimečka",
+      "shortLabel": "Šimečka",
+      "color": "#66c9ff",
+      "highlight": "#b7ebff",
+      "posts": [
+        {
+          "likes": 2300,
+          "comments": 86,
+          "shares": 70,
+          "views": 50000,
+          "type": "reels"
+        },
+        {
+          "likes": 2300,
+          "comments": 97,
+          "shares": 97,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2000,
+          "comments": 26,
+          "shares": 33,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 665,
+          "comments": 63,
+          "shares": 23,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 330,
+          "comments": 22,
+          "shares": 34,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 1300,
+          "comments": 59,
+          "shares": 34,
+          "views": 24000,
+          "type": "reels"
+        },
+        {
+          "likes": 2500,
+          "comments": 89,
+          "shares": 74,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 305,
+          "comments": 35,
+          "shares": 3,
+          "views": 6300,
+          "type": "reels"
+        },
+        {
+          "likes": 1500,
+          "comments": 45,
+          "shares": 44,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 957,
+          "comments": 58,
+          "shares": 69,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2400,
+          "comments": 85,
+          "shares": 105,
+          "views": 35000,
+          "type": "reels"
+        },
+        {
+          "likes": 118,
+          "comments": 23,
+          "shares": 0,
+          "views": 0,
+          "type": "event"
+        },
+        {
+          "likes": 3600,
+          "comments": 138,
+          "shares": 177,
+          "views": 47000,
+          "type": "reels"
+        },
+        {
+          "likes": 665,
+          "comments": 92,
+          "shares": 21,
+          "views": 16000,
+          "type": "reels"
+        },
+        {
+          "likes": 1300,
+          "comments": 124,
+          "shares": 41,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 800,
+          "comments": 49,
+          "shares": 13,
+          "views": 43,
+          "type": "reels"
+        },
+        {
+          "likes": 7600,
+          "comments": 454,
+          "shares": 146,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 174,
+          "comments": 43,
+          "shares": 0,
+          "views": 0,
+          "type": "event"
+        },
+        {
+          "likes": 2000,
+          "comments": 71,
+          "shares": 24,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 432,
+          "comments": 23,
+          "shares": 1,
+          "views": 9700,
+          "type": "reels"
+        },
+        {
+          "likes": 298,
+          "comments": 29,
+          "shares": 6,
+          "views": 7800,
+          "type": "reels"
+        },
+        {
+          "likes": 1900,
+          "comments": 96,
+          "shares": 80,
+          "views": 59000,
+          "type": "reels"
+        },
+        {
+          "likes": 2900,
+          "comments": 141,
+          "shares": 113,
+          "views": 48000,
+          "type": "reels"
+        },
+        {
+          "likes": 7700,
+          "comments": 1500,
+          "shares": 333,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 294,
+          "comments": 20,
+          "shares": 11,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 668,
+          "comments": 140,
+          "shares": 17,
+          "views": 17000,
+          "type": "reels"
+        }
+      ]
+    },
+    {
+      "label": "Milan Uhrík",
+      "shortLabel": "Uhrík",
+      "color": "#2c6f57",
+      "highlight": "#79b39b",
+      "posts": [
+        {
+          "likes": 1800,
+          "comments": 259,
+          "shares": 163,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2700,
+          "comments": 130,
+          "shares": 184,
+          "views": 43000,
+          "type": "reels"
+        },
+        {
+          "likes": 710,
+          "comments": 19,
+          "shares": 115,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 22000,
+          "comments": 681,
+          "shares": 5000,
+          "views": 502000,
+          "type": "reels"
+        }
+      ]
+    },
+    {
+      "label": "Igor Matovič",
+      "shortLabel": "Matovič",
+      "color": "#79b445",
+      "highlight": "#c4ec82",
+      "posts": [
+        {
+          "likes": 1000,
+          "comments": 276,
+          "shares": 45,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 1300,
+          "comments": 325,
+          "shares": 486,
+          "views": 39000,
+          "type": "reels"
+        },
+        {
+          "likes": 562,
+          "comments": 220,
+          "shares": 56,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 493,
+          "comments": 179,
+          "shares": 42,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 1100,
+          "comments": 278,
+          "shares": 308,
+          "views": 33000,
+          "type": "reels"
+        },
+        {
+          "likes": 2000,
+          "comments": 498,
+          "shares": 383,
+          "views": 70000,
+          "type": "reels"
+        },
+        {
+          "likes": 2100,
+          "comments": 455,
+          "shares": 378,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2300,
+          "comments": 454,
+          "shares": 183,
+          "views": 96000,
+          "type": "reels"
+        },
+        {
+          "likes": 461,
+          "comments": 252,
+          "shares": 26,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2200,
+          "comments": 497,
+          "shares": 436,
+          "views": 102000,
+          "type": "reels"
+        },
+        {
+          "likes": 459,
+          "comments": 135,
+          "shares": 36,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 2500,
+          "comments": 101,
+          "shares": 235,
+          "views": 150000,
+          "type": "reels"
+        },
+        {
+          "likes": 2300,
+          "comments": 1400,
+          "shares": 476,
+          "views": 80000,
+          "type": "reels"
+        },
+        {
+          "likes": 756,
+          "comments": 463,
+          "shares": 79,
+          "views": 0,
+          "type": "post"
+        },
+        {
+          "likes": 1100,
+          "comments": 262,
+          "shares": 201,
+          "views": 42000,
+          "type": "reels"
+        },
+        {
+          "likes": 3700,
+          "comments": 996,
+          "shares": 231,
+          "views": 224000,
+          "type": "reels"
+        },
+        {
+          "likes": 2200,
+          "comments": 655,
+          "shares": 274,
+          "views": 104000,
+          "type": "reels"
+        }
+      ]
+    }
+  ]
+}
