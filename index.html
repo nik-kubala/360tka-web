@@ -10,10 +10,29 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=20260309-02" />
+    <link rel="stylesheet" href="style.css?v=20260309-03" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    <div
+      class="mobile-gate"
+      data-mobile-gate
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobile-gate-title"
+      aria-describedby="mobile-gate-text"
+      hidden
+    >
+      <div class="mobile-gate__panel">
+        <span class="mobile-gate__eyebrow">Desktop Only</span>
+        <h2 id="mobile-gate-title">Táto stránka je určená pre počítač.</h2>
+        <p id="mobile-gate-text">
+          Pre správne zobrazenie grafov a celej ukážky si ju prosím otvorte na
+          notebooku alebo desktopovom počítači.
+        </p>
+      </div>
+    </div>
+
     <div class="page-orb page-orb--left" aria-hidden="true"></div>
     <div class="page-orb page-orb--right" aria-hidden="true"></div>
 
@@ -455,6 +474,6 @@
       </section>
     </main>
 
-    <script src="app.js?v=20260309-07"></script>
+    <script src="app.js?v=20260309-08"></script>
   </body>
 </html>

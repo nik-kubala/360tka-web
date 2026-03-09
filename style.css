@@ -80,6 +80,70 @@ body::before {
   pointer-events: none;
 }
 
+.mobile-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background:
+    linear-gradient(180deg, rgba(2, 4, 11, 0.94), rgba(4, 9, 23, 0.98)),
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(62, 140, 255, 0.24),
+      transparent 38%
+    );
+}
+
+.mobile-gate__panel {
+  width: min(100%, 28rem);
+  padding: 1.8rem 1.45rem;
+  border: 1px solid rgba(121, 157, 255, 0.24);
+  border-radius: var(--radius-lg);
+  background: rgba(7, 12, 28, 0.94);
+  box-shadow: var(--shadow-strong);
+  text-align: center;
+}
+
+.mobile-gate__eyebrow {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: var(--radius-pill);
+  background: rgba(62, 140, 255, 0.14);
+  border: 1px solid rgba(121, 157, 255, 0.22);
+  color: var(--muted-strong);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mobile-gate__panel h2 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(2rem, 7vw, 2.6rem);
+  line-height: 1.05;
+}
+
+.mobile-gate__panel p {
+  margin: 1rem 0 0;
+  color: var(--muted-strong);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+body.mobile-gate-active {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body.mobile-gate-active .mobile-gate {
+  display: flex;
+}
+
 .page-orb {
   position: fixed;
   width: 42vw;

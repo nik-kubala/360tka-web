@@ -1,7 +1,36 @@
 "use strict";
 
+const mobileGate = document.querySelector("[data-mobile-gate]");
 const topicTabs = document.querySelectorAll(".topic-tab");
 const topicPanels = document.querySelectorAll(".topic-panel");
+const MOBILE_GATE_QUERY = window.matchMedia(
+  "(max-width: 900px), (hover: none) and (pointer: coarse) and (max-width: 1180px)",
+);
+
+function isMobileView() {
+  const userAgent = navigator.userAgent ?? "";
+  const userAgentDataMobile = navigator.userAgentData?.mobile === true;
+  const touchDevicePattern =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+  return (
+    MOBILE_GATE_QUERY.matches ||
+    userAgentDataMobile ||
+    touchDevicePattern.test(userAgent)
+  );
+}
+
+function syncMobileGate() {
+  if (!mobileGate) {
+    return;
+  }
+
+  const shouldBlockMobile = isMobileView();
+
+  mobileGate.hidden = !shouldBlockMobile;
+  mobileGate.setAttribute("aria-hidden", String(!shouldBlockMobile));
+  document.body.classList.toggle("mobile-gate-active", shouldBlockMobile);
+}
 
 function resetScrollPosition() {
   window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -14,8 +43,12 @@ if ("scrollRestoration" in window.history) {
 window.addEventListener("pageshow", () => {
   requestAnimationFrame(() => {
     resetScrollPosition();
+    syncMobileGate();
   });
 });
+
+window.addEventListener("resize", syncMobileGate);
+window.addEventListener("orientationchange", syncMobileGate);
 
 function setActivePanel(targetId) {
   topicTabs.forEach((button) => {
@@ -2786,6 +2819,7 @@ async function initSocialChart() {
 }
 
 void hydrateSocialSection();
+syncMobileGate();
 resetScrollPosition();
 setActivePanel("panel-volby");
 void initElectionChart();
