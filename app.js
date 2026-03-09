@@ -3,6 +3,20 @@
 const topicTabs = document.querySelectorAll(".topic-tab");
 const topicPanels = document.querySelectorAll(".topic-panel");
 
+function resetScrollPosition() {
+  window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+}
+
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
+
+window.addEventListener("pageshow", () => {
+  requestAnimationFrame(() => {
+    resetScrollPosition();
+  });
+});
+
 function setActivePanel(targetId) {
   topicTabs.forEach((button) => {
     const isActive = button.dataset.target === targetId;
@@ -23,8 +37,20 @@ function setActivePanel(targetId) {
 }
 
 topicTabs.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click", (event) => {
+    if (button.classList.contains("active")) {
+      if (event.detail > 0) {
+        button.blur();
+      }
+
+      return;
+    }
+
     setActivePanel(button.dataset.target);
+
+    if (event.detail > 0) {
+      button.blur();
+    }
   });
 });
 
@@ -744,18 +770,6 @@ function regressionLine(points, regression) {
       y: regression.intercept + regression.slope * x,
     };
   });
-}
-
-function chartBounds(values, minimumPadding, floor = 0) {
-  const minValue = Math.min(...values);
-  const maxValue = Math.max(...values);
-  const range = maxValue - minValue;
-  const padding = Math.max(range * 0.2, minimumPadding);
-
-  return {
-    min: Math.max(floor, minValue - padding),
-    max: maxValue + padding,
-  };
 }
 
 function nicePercentAxis(
@@ -1895,7 +1909,7 @@ async function initActivityCharts() {
                 const item = dataPoints[index];
                 if (item && item.meno.includes("Monika Kolejáková")) {
                   ctx.save();
-                  ctx.font = "italic 12px Inter, system-ui, sans-serif";
+                  ctx.font = "italic 12px Manrope, system-ui, sans-serif";
                   ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
                   ctx.textAlign = "left";
                   ctx.textBaseline = "middle";
@@ -2772,5 +2786,6 @@ async function initSocialChart() {
 }
 
 void hydrateSocialSection();
+resetScrollPosition();
 setActivePanel("panel-volby");
 void initElectionChart();
